@@ -1,0 +1,77 @@
+:root {
+  --bg-main: #584176;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+
+  --font-main: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --accent-purple: #a855f7;
+  --glow-purple: rgba(168, 85, 247, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+
+  background: linear-gradient(
+      180deg,
+      #84739d 0%,
+      #584671 30%,
+      #38294d 70%,
+      #221632 100%
+    )
+    fixed;
+
+  color: var(--text-primary);
+  font-family: var(--font-main);
+}
+
+.badge {
+  font-family: var(--font-mono);
+  background-color: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0.4rem 0.8rem;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge.completed,
+.badge.unlocked {
+  background-color: rgba(168, 85, 247, 0.08);
+  color: #f3e8ff;
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+
+ 
+}
+
+.badge.completed:hover,
+.badge.unlocked:hover {
+  background-color: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+  border-color: #c084fc;
+}
+
+footer {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2rem 0;
+    font-size: 0.75rem;
+    opacity: 0.3;
+}
