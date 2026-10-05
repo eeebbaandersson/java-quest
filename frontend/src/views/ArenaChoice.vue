@@ -37,7 +37,7 @@ const arenas = ref([
   <div class="arena-choice-container">
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
-      <p>Select your challenge and earn XP for every correct answer.</p>
+      <p>Select your level and earn XP for every correct answer.</p>
     </section>
 
     <section class="choice-section">
@@ -54,6 +54,7 @@ const arenas = ref([
             :class="`icon-${arena.icon}`"
           ></span>
 
+           <span class="arena-subtitle">{{ arena.levelText }}</span>
           <h2>{{ arena.title }}</h2>
           <p>{{ arena.description }}</p>
 
@@ -150,6 +151,13 @@ const arenas = ref([
   padding: 4px 10px;
   text-transform: uppercase;
   pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arena-card:hover .xp-corner-badge {
+  background: rgba(168, 85, 247, 0.18);
+  border-color: rgba(168, 85, 247, 0.5);
+  color: #c084fc; 
 }
 
 .arena-icon {
@@ -164,6 +172,7 @@ const arenas = ref([
 
 .arena-card:hover .arena-icon {
   opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
 }
 
 .arena-card h2 {
@@ -197,6 +206,7 @@ const arenas = ref([
 
 .arena-card:hover h2 {
   color: #c084fc;
+   opacity: 1;
 }
 
 .arena-card:hover p {
@@ -224,10 +234,10 @@ const arenas = ref([
 }
 
 .arena-card:hover .arena-btn {
-  background: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(192, 132, 252, 0.8);
   color: #ffffff;
-  border-color: var(--accent-purple);
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
 .back-navigation {

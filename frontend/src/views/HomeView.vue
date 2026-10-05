@@ -14,6 +14,7 @@ const lessons = ref([
 ]);
 
 const totalXP = ref(150);
+const userLevel = 1;
 const totalBugs = 5;
 const foundBugs = ref(1);
 
@@ -39,36 +40,34 @@ const trophies = ref([
     isUnlocked: false,
     icon: "ninja",
   },
+   {
+    id: 4,
+    title: "Novice",
+    description: "Conquered the Easy Arena",
+    isUnlocked: false,
+    icon: "tent",
+  },
   {
     id: 5,
     title: "Java Master",
     description: "Completed all quests",
     isUnlocked: false,
     icon: "kungfu",
-  },
-  // Arena/Trophie badges:
+  }, 
   {
     id: 6,
-    title: "Novice",
-    description: "Conquered the Easy Arena",
-    isUnlocked: false,
-    icon: "tent", 
-  },
-  {
-    id: 7,
     title: "Challenger",
     description: "Conquered the Medium Arena",
     isUnlocked: false,
-    icon: "tower", 
+    icon: "tower",
   },
   {
-    id: 8,
+    id: 7,
     title: "Hero",
     description: "Conquered the Hard Arena",
     isUnlocked: false,
-    icon: "coliseum", 
+    icon: "coliseum",
   },
-
 ]);
 </script>
 
@@ -98,32 +97,37 @@ const trophies = ref([
           </div>
         </div>
 
-       <div class="stats-card">
-  <p class="card-title">STATS</p>
-  <div class="xp-simple-wrapper">
+        <div class="stats-card">
+          <p class="card-title">PLAYER STATS</p>
+          <div class="xp-simple-wrapper">
+            <div class="stats-row">
+              <div class="xp-display" :class="{ active: totalXP > 0 }">
+                <span class="xp-number">{{ totalXP }}</span>
+                <span class="xp-unit">TOTAL XP</span>
+              </div>
 
-    <div class="xp-main-display" :class="{ active: totalXP > 0 }">
-      <span class="xp-number">{{ totalXP }}</span>
-      <span class="xp-unit">TOTAL XP</span>
-    </div>
+              <div class="xp-display">
+                <span class="xp-number">{{ userLevel }}</span>
+                <span class="xp-unit">LEVEL</span>
+              </div>
+            </div>
+            <div class="bug-tracker-wrapper">
+              <p class="bug-tracker-title">CAPTURED BUGS</p>
+              <div class="bug-icons-row">
+                <span
+                  v-for="index in totalBugs"
+                  :key="index"
+                  class="bug-badge"
+                  :class="{ found: index <= foundBugs }"
+                  :title="index <= foundBugs ? 'Bug captured!' : 'Hidden bug'"
+                >
+                  <span class="badge-icon-mask icon-bug"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  
-    <div class="bug-tracker-wrapper">
-      <p class="bug-tracker-title"> CAPTURED BUGS</p>
-      <div class="bug-icons-row">
-        <span
-          v-for="index in totalBugs"
-          :key="index"
-          class="bug-badge"
-          :class="{ found: index <= foundBugs }"
-          :title="index <= foundBugs ? 'Bug captured!' : 'Hidden bug'"
-        >
-          <span class="badge-icon-mask icon-bug"></span>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
         <div class="stats-card">
           <p class="card-title">TROPHIES</p>
           <div class="badges-wrapper">
@@ -203,7 +207,7 @@ const trophies = ref([
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
   gap: 1.25rem;
-   margin-top: 1rem;
+  margin-top: 1rem;
 }
 
 .stats-card {
@@ -218,7 +222,9 @@ const trophies = ref([
   padding: 1.75rem 1.25rem;
   min-height: 280px;
   font-family: "JetBrains Mono", monospace;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .card-title {
@@ -249,24 +255,34 @@ const trophies = ref([
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 0.75rem;
+  padding: 0.5rem 0;
   width: 100%;
   flex: 1;
 }
 
-.xp-main-display {
+.stats-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.xp-display {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  padding: 0.8rem 1.8rem;
+  border-radius: 14px;
+  padding: 1.1rem 0.5rem;
   transition: all 0.4s ease-in-out;
 }
 
 .xp-number {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.35);
   line-height: 1;
@@ -274,25 +290,25 @@ const trophies = ref([
 }
 
 .xp-unit {
-  font-size: 0.7rem;
+  font-size: 0.58rem;
   color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 1.5px;
-  margin-top: 0.3rem;
+  letter-spacing: 1px;
+  margin-top: 0.35rem;
   transition: all 0.4s ease-in-out;
 }
 
-.xp-main-display.active {
+.xp-display.active {
   background: rgba(168, 85, 247, 0.08);
   border-color: var(--accent-purple);
   box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
 }
 
-.xp-main-display.active .xp-number {
+.xp-display.active .xp-number {
   color: #f3e8ff;
   text-shadow: 0 0 10px var(--accent-purple);
 }
 
-.xp-main-display.active .xp-unit {
+.xp-display.active .xp-unit {
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -306,7 +322,7 @@ const trophies = ref([
 }
 
 .bug-tracker-wrapper {
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,7 +342,7 @@ const trophies = ref([
   border-radius: 14px;
   background: transparent;
   border: 1px solid var(--border-subtle);
-  color: rgba(255, 255, 255, 0.25); 
+  color: rgba(255, 255, 255, 0.25);
   transition: all 0.3s ease;
 }
 
@@ -341,7 +357,7 @@ const trophies = ref([
 
 .bug-badge.found {
   background: transparent;
-  color:var(--accent-purple);
+  color: var(--accent-purple);
 }
 
 .bug-badge .badge-icon-mask {
@@ -364,7 +380,7 @@ const trophies = ref([
 
 .arena-section {
   width: 100%;
- max-width: 655px;
+  max-width: 655px;
   margin: 1.25rem auto 0 auto;
 }
 
@@ -398,7 +414,7 @@ const trophies = ref([
   opacity: 0.75;
   margin-bottom: 0.35rem;
   transition: all 0.3s ease;
-  
+
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -463,10 +479,10 @@ const trophies = ref([
 }
 
 .arena-container:hover .arena-btn {
-  background: var(--accent-purple);
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(192, 132, 252, 0.8);
   color: #ffffff;
-  border-color: var(--accent-purple);
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
 .icon-compass {

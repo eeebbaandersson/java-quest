@@ -6,7 +6,7 @@ import { RouterLink } from "vue-router";
   <header class="navbar">
    
     <nav class="nav-links">
-      <RouterLink to="/" class="nav-item">{}</RouterLink>
+      <RouterLink to="/" class="nav-item home-item">{}</RouterLink>
       <RouterLink to="/lessons/variables" class="nav-item">Variables</RouterLink>
       <RouterLink to="/lessons/operators" class="nav-item">Operators</RouterLink>
       <RouterLink to="/lessons/ifelse" class="nav-item">If / Else</RouterLink>
@@ -55,8 +55,11 @@ import { RouterLink } from "vue-router";
 
 .nav-item:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
- 
+  /* background: rgba(255, 255, 255, 0.06); */
+}
+
+.home-item:hover {
+  color: #c084fc;
 }
 
 </style>

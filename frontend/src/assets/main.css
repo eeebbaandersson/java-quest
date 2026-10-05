@@ -57,6 +57,7 @@ body {
   color: #f3e8ff;
   border: 1px solid var(--accent-purple);
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
  
 }
@@ -66,6 +67,7 @@ body {
   background-color: rgba(168, 85, 247, 0.15);
   box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
   border-color: #c084fc;
+  /* transform:scale(1.03); */
 }
 
 footer {
