@@ -215,4 +215,37 @@ const arenas = ref([
   transform: translateY(8px) scale(1.18); 
   transform-origin: bottom center;
 }
+
+/* TABLET (Skärmar upp till 1024px) */
+@media (max-width: 1024px) {
+  .arena-choice-container {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .choice-container {
+    gap: 0.85rem;
+  }
+
+  .arena-card {
+    padding: 2rem 1rem;
+  }
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .choice-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .arena-card {
+    padding: 2.25rem 1.25rem 1.5rem 1.25rem;
+  }
+
+  .xp-corner-badge {
+    top: 12px;
+    left: 12px;
+    font-size: 0.65rem;
+  }
+}
 </style>

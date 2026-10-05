@@ -34,9 +34,7 @@ body {
   font-family: var(--font-main);
 }
 
-/* ==========================================================================
-   BADGES (Dina befintliga)
-   ========================================================================== */
+
 .badge {
   font-family: var(--font-mono);
   background-color: rgba(255, 255, 255, 0.03);
@@ -70,9 +68,7 @@ body {
   border-color: #c084fc;
 }
 
-/* ==========================================================================
-   HERO & TYPOGRAFI (Gemensam)
-   ========================================================================== */
+
 .hero-section {
   text-align: center;
   margin-top: 3rem;
@@ -92,9 +88,12 @@ body {
   color: #c084fc;
 }
 
-/* ==========================================================================
-   GLAS-KORT & KORT-EFEKTER (Gemensam)
-   ========================================================================== */
+.hero-subtitle,
+.hero-section p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
 .glass-card {
   display: flex;
   flex-direction: column;
@@ -118,9 +117,6 @@ body {
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
 }
 
-/* ==========================================================================
-   KNAPPAR (Gemensam)
-   ========================================================================== */
 .arena-btn {
   display: inline-flex;
   align-items: center;
@@ -144,9 +140,6 @@ body {
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
-/* ==========================================================================
-   IKON-MASKER (Gemensamma ikoner)
-   ========================================================================== */
 .badge-icon-mask {
   display: inline-block;
   background-color: currentColor;
@@ -168,13 +161,47 @@ body {
 .icon-tower { mask-image: url("@/assets/icons/tower.svg"); -webkit-mask-image: url("@/assets/icons/tower.svg"); }
 .icon-coliseum { mask-image: url("@/assets/icons/coliseum.svg"); -webkit-mask-image: url("@/assets/icons/coliseum.svg"); }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+
 footer {
   text-align: center;
   font-family: var(--font-mono);
   padding: 2rem 0;
   font-size: 0.75rem;
   opacity: 0.3;
+}
+
+
+/* TABLET (Skärmar upp till 1024px) */
+@media (max-width: 1024px) {
+  .logo-title {
+    font-size: 3rem;
+  }
+
+  .hero-section {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .logo-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle,
+  .hero-section p {
+    font-size: 0.88rem;
+  }
+
+  .hero-section {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  footer {
+    padding: 1.5rem 0;
+    font-size: 0.7rem;
+  }
 }

@@ -75,7 +75,7 @@ const trophies = ref([
     <!-- HERO-SEKTION -->
     <section class="hero-section">
       <h1 class="logo-title"><span class="highlight">JAVA{}</span>QUEST</h1>
-      <p>Level up your Java skills, one quest at a time.</p>
+      <p class="hero-subtitle">Level up your Java skills, one quest at a time.</p>
     </section>
 
     <!-- STATS-SEKTION -->
@@ -193,7 +193,6 @@ const trophies = ref([
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
   text-align: center;
-  width: 100%;
 }
 
 .badges-wrapper {
@@ -205,6 +204,12 @@ const trophies = ref([
   padding-top: 0.75rem;
   width: 100%;
   flex: 1;
+}
+
+.badge .badge-icon-mask {
+  width: 14px;
+  height: 14px;
+  margin-left: 0.2rem;
 }
 
 .xp-simple-wrapper {
@@ -313,7 +318,6 @@ const trophies = ref([
   height: 16px;
 }
 
-/* ARENA PREVIEW CARD */
 .arena-section {
   width: 100%;
   max-width: 655px;
@@ -362,5 +366,48 @@ const trophies = ref([
 
 .arena-container:hover p {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* TABLET (Skärmar upp till 1024px) */
+@media (max-width: 1024px) {
+  .stats-section {
+    max-width: 90%;
+  }
+
+  .stats-container {
+    gap: 0.85rem;
+  }
+
+  .stats-card {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .stats-row {
+    width: 100%;
+    gap: 0.4rem;
+  }
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .stats-section {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .stats-card {
+    min-height: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .arena-section {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
 }
 </style>
