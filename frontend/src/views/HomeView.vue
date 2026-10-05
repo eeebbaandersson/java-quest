@@ -1,5 +1,4 @@
 <script setup>
-// Här placeras all JavaScript-logik (reaktiva variabler, funktioner, API-anrop, props, emits och imports)
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
@@ -40,7 +39,7 @@ const trophies = ref([
     isUnlocked: false,
     icon: "ninja",
   },
-   {
+  {
     id: 4,
     title: "Novice",
     description: "Conquered the Easy Arena",
@@ -53,7 +52,7 @@ const trophies = ref([
     description: "Completed all quests",
     isUnlocked: false,
     icon: "kungfu",
-  }, 
+  },
   {
     id: 6,
     title: "Challenger",
@@ -73,16 +72,16 @@ const trophies = ref([
 
 <template>
   <div class="home-container">
-    <!-- 1. HERO-SEKTION -->
+    <!-- HERO-SEKTION -->
     <section class="hero-section">
       <h1 class="logo-title"><span class="highlight">JAVA{}</span>QUEST</h1>
       <p>Level up your Java skills, one quest at a time.</p>
     </section>
 
-    <!-- 1. STATS-SEKTION -->
+    <!-- STATS-SEKTION -->
     <section class="stats-section">
       <div class="stats-container">
-        <div class="stats-card">
+        <div class="stats-card glass-card">
           <p class="card-title">QUEST MAP</p>
           <div class="badges-wrapper">
             <RouterLink
@@ -97,7 +96,7 @@ const trophies = ref([
           </div>
         </div>
 
-        <div class="stats-card">
+        <div class="stats-card glass-card">
           <p class="card-title">PLAYER STATS</p>
           <div class="xp-simple-wrapper">
             <div class="stats-row">
@@ -128,7 +127,7 @@ const trophies = ref([
           </div>
         </div>
 
-        <div class="stats-card">
+        <div class="stats-card glass-card">
           <p class="card-title">TROPHIES</p>
           <div class="badges-wrapper">
             <span
@@ -150,9 +149,10 @@ const trophies = ref([
       </div>
     </section>
 
+    <!-- ARENA-SEKTION -->
     <section class="arena-section">
-      <RouterLink to="/arenachoice" class="arena-container">
-        <span class="arena-top-icon icon-archery"></span>
+      <RouterLink to="/arenachoice" class="arena-container glass-card glass-card-interactive">
+        <span class="arena-top-icon badge-icon-mask icon-archery"></span>
         <h2>PRACTICE ARENAS</h2>
         <p>Feeling adventurous and ready to test your knowledge?</p>
         <div class="arena-btn">Choose Arena</div>
@@ -162,44 +162,11 @@ const trophies = ref([
 </template>
 
 <style scoped>
-.hero-section {
-  text-align: center;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-}
-
-.logo-title {
-  font-size: 3.6rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-  line-height: 1.1;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
-}
-
-.logo-title .highlight {
-  color: #c084fc;
-}
-
-.hero-section p,
-.arena-section p {
-  color: var(--text-muted);
-  font-size: 1rem;
-}
-
 .stats-section {
   width: 100%;
   max-width: 1000px;
   text-align: center;
   margin: 0 auto;
-}
-
-.stats-section h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 1.5px;
-  margin-bottom: 1.25rem;
 }
 
 .stats-container {
@@ -211,20 +178,9 @@ const trophies = ref([
 }
 
 .stats-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 18px;
   padding: 1.75rem 1.25rem;
   min-height: 280px;
-  font-family: "JetBrains Mono", monospace;
-  transition:
-    border-color 0.3s ease,
-    transform 0.3s ease;
+  font-family: var(--font-mono);
 }
 
 .card-title {
@@ -237,6 +193,7 @@ const trophies = ref([
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
   text-align: center;
+  width: 100%;
 }
 
 .badges-wrapper {
@@ -312,15 +269,6 @@ const trophies = ref([
   color: rgba(255, 255, 255, 0.7);
 }
 
-.sub-label {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.sub-value {
-  color: #c084fc;
-  font-weight: 600;
-}
-
 .bug-tracker-wrapper {
   margin-top: 1rem;
   display: flex;
@@ -365,19 +313,7 @@ const trophies = ref([
   height: 16px;
 }
 
-.badge-icon-mask {
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
+/* ARENA PREVIEW CARD */
 .arena-section {
   width: 100%;
   max-width: 655px;
@@ -385,42 +321,17 @@ const trophies = ref([
 }
 
 .arena-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 18px;
   padding: 1.5rem 1.25rem 1.6rem 1.25rem;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-
-.arena-container:hover {
-  background: rgba(168, 85, 247, 0.04);
-  border-color: var(--accent-purple);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  text-align: center;
 }
 
 .arena-top-icon {
   width: 32px;
   height: 32px;
-  display: inline-block;
-  background-color: var(--accent-purple);
+  color: var(--accent-purple);
   opacity: 0.75;
   margin-bottom: 0.35rem;
   transition: all 0.3s ease;
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
 }
 
 .arena-container:hover .arena-top-icon {
@@ -451,82 +362,5 @@ const trophies = ref([
 
 .arena-container:hover p {
   color: rgba(255, 255, 255, 0.9);
-}
-
-.arena-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1.1rem;
-  border-radius: 10px;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-
-.arena-container:hover .arena-tag {
-  opacity: 1;
-}
-
-.arena-container:hover h2 {
-  color: #c084fc;
-  opacity: 1;
-}
-
-.arena-container:hover .arena-btn {
-  background: rgba(168, 85, 247, 0.25);
-  border-color: rgba(192, 132, 252, 0.8);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
-}
-
-.icon-compass {
-  -webkit-mask-image: url("@/assets/icons/compass.svg");
-  mask-image: url("@/assets/icons/compass.svg");
-}
-
-.icon-bug {
-  -webkit-mask-image: url("@/assets/icons/bug.svg");
-  mask-image: url("@/assets/icons/bug.svg");
-}
-
-.icon-ninja {
-  -webkit-mask-image: url("@/assets/icons/ninja.svg");
-  mask-image: url("@/assets/icons/ninja.svg");
-}
-
-.icon-star {
-  -webkit-mask-image: url("@/assets/icons/star.svg");
-  mask-image: url("@/assets/icons/star.svg");
-}
-
-.icon-kungfu {
-  -webkit-mask-image: url("@/assets/icons/kungfu.svg");
-  mask-image: url("@/assets/icons/kungfu.svg");
-}
-
-.icon-archery {
-  -webkit-mask-image: url("@/assets/icons/archery.svg");
-  mask-image: url("@/assets/icons/archery.svg");
-}
-
-.icon-tent {
-  -webkit-mask-image: url("@/assets/icons/tent.svg");
-  mask-image: url("@/assets/icons/tent.svg");
-}
-
-.icon-tower {
-  -webkit-mask-image: url("@/assets/icons/tower.svg");
-  mask-image: url("@/assets/icons/tower.svg");
-}
-
-.icon-coliseum {
-  -webkit-mask-image: url("@/assets/icons/coliseum.svg");
-  mask-image: url("@/assets/icons/coliseum.svg");
 }
 </style>

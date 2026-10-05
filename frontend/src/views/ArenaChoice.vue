@@ -37,7 +37,7 @@ const arenas = ref([
   <div class="arena-choice-container">
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
-      <p>Select your level and earn XP for every correct answer.</p>
+      <p class="hero-subtitle">Select your level and earn XP for every correct answer.</p>
     </section>
 
     <section class="choice-section">
@@ -46,7 +46,7 @@ const arenas = ref([
           v-for="arena in arenas"
           :key="arena.id"
           :to="arena.link"
-          class="arena-card"
+          class="arena-card glass-card glass-card-interactive"
         >
           <span class="xp-corner-badge">+{{ arena.xpReward }}xp</span>
           <span
@@ -54,13 +54,14 @@ const arenas = ref([
             :class="`icon-${arena.icon}`"
           ></span>
 
-           <span class="arena-subtitle">{{ arena.levelText }}</span>
+          <span class="arena-subtitle">{{ arena.levelText }}</span>
           <h2>{{ arena.title }}</h2>
           <p>{{ arena.description }}</p>
 
           <div class="arena-btn">Enter Arena</div>
         </RouterLink>
       </div>
+
       <div class="back-navigation">
         <RouterLink to="/" class="back-btn">
           <span class="arrow">←</span> Back to Dashboard
@@ -82,30 +83,6 @@ const arenas = ref([
   padding: 2rem 1rem;
 }
 
-.hero-section {
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 2.5rem;
-}
-
-.logo-title {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: 1px;
-  line-height: 1.1;
-  color: #ffffff;
-  margin-bottom: 0.25rem;
-}
-
-.logo-title .highlight {
-  color: #c084fc;
-}
-
-.hero-section p {
-  color: var(--text-muted);
-  font-size: 1rem;
-}
-
 .choice-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -114,33 +91,15 @@ const arenas = ref([
 }
 
 .arena-card {
-  display: flex;
-  flex-direction: column;
   position: relative;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  background-color: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 18px;
   padding: 2.5rem 1.25rem;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-}
-
-.arena-card:hover {
-  background: rgba(168, 85, 247, 0.04);
-  border-color: var(--accent-purple);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  text-align: center;
 }
 
 .xp-corner-badge {
   position: absolute;
   top: 16px;
   left: 16px;
-
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.5px;
@@ -163,8 +122,7 @@ const arenas = ref([
 .arena-icon {
   width: 46px;
   height: 46px;
-  display: inline-block;
-  background-color: var(--accent-purple);
+  color: var(--accent-purple);
   margin-bottom: 0.75rem;
   opacity: 0.8;
   transition: all 0.3s ease;
@@ -173,6 +131,21 @@ const arenas = ref([
 .arena-card:hover .arena-icon {
   opacity: 1;
   filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+}
+
+.arena-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-purple);
+  letter-spacing: 1.5px;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.arena-card:hover .arena-subtitle {
+  opacity: 1;
 }
 
 .arena-card h2 {
@@ -184,15 +157,9 @@ const arenas = ref([
   transition: color 0.3s ease;
 }
 
-.arena-subtitle {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--accent-purple);
-  letter-spacing: 1.5px;
-  margin-bottom: 0.8rem;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+.arena-card:hover h2 {
+  color: #c084fc;
+  opacity: 1;
 }
 
 .arena-card p {
@@ -204,40 +171,8 @@ const arenas = ref([
   transition: color 0.3s ease;
 }
 
-.arena-card:hover h2 {
-  color: #c084fc;
-   opacity: 1;
-}
-
 .arena-card:hover p {
   color: rgba(255, 255, 255, 0.9);
-}
-
-.arena-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1.1rem;
-  border-radius: 10px;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-
-.arena-card:hover .arena-subtitle {
-  opacity: 1;
-}
-
-.arena-card:hover .arena-btn {
-  background: rgba(168, 85, 247, 0.25);
-  border-color: rgba(192, 132, 252, 0.8);
-  color: #ffffff;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
 .back-navigation {
@@ -250,7 +185,7 @@ const arenas = ref([
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-muted);
@@ -276,28 +211,7 @@ const arenas = ref([
   transform: translateX(-3px);
 }
 
-.badge-icon-mask {
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-position: bottom center;
-  mask-position: bottom center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-}
-
-.icon-tent {
-  -webkit-mask-image: url("@/assets/icons/tent.svg");
-  mask-image: url("@/assets/icons/tent.svg");
-}
-
-.icon-tower {
-  -webkit-mask-image: url("@/assets/icons/tower.svg");
-  mask-image: url("@/assets/icons/tower.svg");
-}
-
 .icon-coliseum {
-  -webkit-mask-image: url("@/assets/icons/coliseum.svg");
-  mask-image: url("@/assets/icons/coliseum.svg");
   transform: translateY(8px) scale(1.18); 
   transform-origin: bottom center;
 }

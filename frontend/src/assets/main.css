@@ -34,6 +34,9 @@ body {
   font-family: var(--font-main);
 }
 
+/* ==========================================================================
+   BADGES (Dina befintliga)
+   ========================================================================== */
 .badge {
   font-family: var(--font-mono);
   background-color: rgba(255, 255, 255, 0.03);
@@ -58,8 +61,6 @@ body {
   border: 1px solid var(--accent-purple);
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-
- 
 }
 
 .badge.completed:hover,
@@ -67,13 +68,113 @@ body {
   background-color: rgba(168, 85, 247, 0.15);
   box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
   border-color: #c084fc;
-  /* transform:scale(1.03); */
 }
 
+/* ==========================================================================
+   HERO & TYPOGRAFI (Gemensam)
+   ========================================================================== */
+.hero-section {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.logo-title {
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.logo-title .highlight {
+  color: #c084fc;
+}
+
+/* ==========================================================================
+   GLAS-KORT & KORT-EFEKTER (Gemensam)
+   ========================================================================== */
+.glass-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.glass-card-interactive:hover {
+  background: rgba(168, 85, 247, 0.04);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+/* ==========================================================================
+   KNAPPAR (Gemensam)
+   ========================================================================== */
+.arena-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.1rem;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.glass-card-interactive:hover .arena-btn {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(192, 132, 252, 0.8);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+/* ==========================================================================
+   IKON-MASKER (Gemensamma ikoner)
+   ========================================================================== */
+.badge-icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-compass { mask-image: url("@/assets/icons/compass.svg"); -webkit-mask-image: url("@/assets/icons/compass.svg"); }
+.icon-bug { mask-image: url("@/assets/icons/bug.svg"); -webkit-mask-image: url("@/assets/icons/bug.svg"); }
+.icon-ninja { mask-image: url("@/assets/icons/ninja.svg"); -webkit-mask-image: url("@/assets/icons/ninja.svg"); }
+.icon-star { mask-image: url("@/assets/icons/star.svg"); -webkit-mask-image: url("@/assets/icons/star.svg"); }
+.icon-kungfu { mask-image: url("@/assets/icons/kungfu.svg"); -webkit-mask-image: url("@/assets/icons/kungfu.svg"); }
+.icon-archery { mask-image: url("@/assets/icons/archery.svg"); -webkit-mask-image: url("@/assets/icons/archery.svg"); }
+.icon-tent { mask-image: url("@/assets/icons/tent.svg"); -webkit-mask-image: url("@/assets/icons/tent.svg"); }
+.icon-tower { mask-image: url("@/assets/icons/tower.svg"); -webkit-mask-image: url("@/assets/icons/tower.svg"); }
+.icon-coliseum { mask-image: url("@/assets/icons/coliseum.svg"); -webkit-mask-image: url("@/assets/icons/coliseum.svg"); }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
 footer {
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    padding: 2rem 0;
-    font-size: 0.75rem;
-    opacity: 0.3;
+  text-align: center;
+  font-family: var(--font-mono);
+  padding: 2rem 0;
+  font-size: 0.75rem;
+  opacity: 0.3;
 }
