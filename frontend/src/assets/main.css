@@ -1,0 +1,207 @@
+:root {
+  --bg-main: #584176;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --border-subtle: rgba(255, 255, 255, 0.12);
+
+  --font-main: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --accent-purple: #a855f7;
+  --glow-purple: rgba(168, 85, 247, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+
+  background: linear-gradient(
+      180deg,
+      #84739d 0%,
+      #584671 30%,
+      #38294d 70%,
+      #221632 100%
+    )
+    fixed;
+
+  color: var(--text-primary);
+  font-family: var(--font-main);
+}
+
+
+.badge {
+  font-family: var(--font-mono);
+  background-color: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.4);
+  padding: 0.4rem 0.8rem;
+  border-radius: 14px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.badge.completed,
+.badge.unlocked {
+  background-color: rgba(168, 85, 247, 0.08);
+  color: #f3e8ff;
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge.completed:hover,
+.badge.unlocked:hover {
+  background-color: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+  border-color: #c084fc;
+}
+
+
+.hero-section {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.logo-title {
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.logo-title .highlight {
+  color: #c084fc;
+}
+
+.hero-subtitle,
+.hero-section p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.glass-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-interactive {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.glass-card-interactive:hover {
+  background: rgba(168, 85, 247, 0.04);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+.arena-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.1rem;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.glass-card-interactive:hover .arena-btn {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: rgba(192, 132, 252, 0.8);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+}
+
+.badge-icon-mask {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon-compass { mask-image: url("@/assets/icons/compass.svg"); -webkit-mask-image: url("@/assets/icons/compass.svg"); }
+.icon-bug { mask-image: url("@/assets/icons/bug.svg"); -webkit-mask-image: url("@/assets/icons/bug.svg"); }
+.icon-ninja { mask-image: url("@/assets/icons/ninja.svg"); -webkit-mask-image: url("@/assets/icons/ninja.svg"); }
+.icon-star { mask-image: url("@/assets/icons/star.svg"); -webkit-mask-image: url("@/assets/icons/star.svg"); }
+.icon-kungfu { mask-image: url("@/assets/icons/kungfu.svg"); -webkit-mask-image: url("@/assets/icons/kungfu.svg"); }
+.icon-archery { mask-image: url("@/assets/icons/archery.svg"); -webkit-mask-image: url("@/assets/icons/archery.svg"); }
+.icon-tent { mask-image: url("@/assets/icons/tent.svg"); -webkit-mask-image: url("@/assets/icons/tent.svg"); }
+.icon-tower { mask-image: url("@/assets/icons/tower.svg"); -webkit-mask-image: url("@/assets/icons/tower.svg"); }
+.icon-coliseum { mask-image: url("@/assets/icons/coliseum.svg"); -webkit-mask-image: url("@/assets/icons/coliseum.svg"); }
+
+
+footer {
+  text-align: center;
+  font-family: var(--font-mono);
+  padding: 2rem 0;
+  font-size: 0.75rem;
+  opacity: 0.3;
+}
+
+
+/* TABLET (Skärmar upp till 1024px) */
+@media (max-width: 1024px) {
+  .logo-title {
+    font-size: 3rem;
+  }
+
+  .hero-section {
+    margin-top: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .logo-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle,
+  .hero-section p {
+    font-size: 0.88rem;
+  }
+
+  .hero-section {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  footer {
+    padding: 1.5rem 0;
+    font-size: 0.7rem;
+  }
+}
