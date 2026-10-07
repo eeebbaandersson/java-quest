@@ -44,7 +44,7 @@ const trophies = ref([
     title: "Novice",
     description: "Conquered the Easy Arena",
     isUnlocked: false,
-    icon: "tent",
+    icon: "helmet",
   },
   {
     id: 5,
@@ -58,14 +58,14 @@ const trophies = ref([
     title: "Challenger",
     description: "Conquered the Medium Arena",
     isUnlocked: false,
-    icon: "tower",
+    icon: "helmet2",
   },
   {
     id: 7,
     title: "Hero",
     description: "Conquered the Hard Arena",
     isUnlocked: false,
-    icon: "coliseum",
+    icon: "helmet3",
   },
 ]);
 </script>

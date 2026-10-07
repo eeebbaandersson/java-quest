@@ -154,12 +154,15 @@ body {
 .icon-compass { mask-image: url("@/assets/icons/compass.svg"); -webkit-mask-image: url("@/assets/icons/compass.svg"); }
 .icon-bug { mask-image: url("@/assets/icons/bug.svg"); -webkit-mask-image: url("@/assets/icons/bug.svg"); }
 .icon-ninja { mask-image: url("@/assets/icons/ninja.svg"); -webkit-mask-image: url("@/assets/icons/ninja.svg"); }
-.icon-star { mask-image: url("@/assets/icons/star.svg"); -webkit-mask-image: url("@/assets/icons/star.svg"); }
 .icon-kungfu { mask-image: url("@/assets/icons/kungfu.svg"); -webkit-mask-image: url("@/assets/icons/kungfu.svg"); }
 .icon-archery { mask-image: url("@/assets/icons/archery.svg"); -webkit-mask-image: url("@/assets/icons/archery.svg"); }
 .icon-tent { mask-image: url("@/assets/icons/tent.svg"); -webkit-mask-image: url("@/assets/icons/tent.svg"); }
 .icon-tower { mask-image: url("@/assets/icons/tower.svg"); -webkit-mask-image: url("@/assets/icons/tower.svg"); }
 .icon-coliseum { mask-image: url("@/assets/icons/coliseum.svg"); -webkit-mask-image: url("@/assets/icons/coliseum.svg"); }
+.icon-helmet { mask-image: url("@/assets/icons/helmet.svg"); -webkit-mask-image: url("@/assets/icons/helmet.svg"); }
+.icon-helmet2 { mask-image: url("@/assets/icons/helmet2.svg"); -webkit-mask-image: url("@/assets/icons/helmet2.svg"); }
+.icon-helmet3 { mask-image: url("@/assets/icons/helmet3.svg"); -webkit-mask-image: url("@/assets/icons/helmet3.svg"); }
+
 
 
 footer {
