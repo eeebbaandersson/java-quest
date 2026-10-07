@@ -2,6 +2,7 @@ require('dotenv').config(); // To handle .env files
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
+const lessonRoutes = require('./routes/lessonRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,7 +14,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static('public')); // To access public folder in Vue Vite frontend
 
 // Future routes will go here
-
+app.use('/api/lessons', lessonRoutes);
 
 
 // Call to verify database connection using minimal SQL-query
