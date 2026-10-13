@@ -10,6 +10,9 @@
 
   --accent-purple: #a855f7;
   --glow-purple: rgba(168, 85, 247, 0.25);
+
+  --accent-color: #c084fc; 
+  --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
 }
 
 * {
@@ -162,6 +165,7 @@ body {
 .icon-helmet { mask-image: url("@/assets/icons/helmet.svg"); -webkit-mask-image: url("@/assets/icons/helmet.svg"); }
 .icon-helmet2 { mask-image: url("@/assets/icons/helmet2.svg"); -webkit-mask-image: url("@/assets/icons/helmet2.svg"); }
 .icon-helmet3 { mask-image: url("@/assets/icons/helmet3.svg"); -webkit-mask-image: url("@/assets/icons/helmet3.svg"); }
+.icon-user { mask-image: url("@/assets/icons/user.svg"); -webkit-mask-image: url("@/assets/icons/user.svg"); }
 
 
 

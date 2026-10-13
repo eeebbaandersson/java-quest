@@ -1,6 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
+
+const totalXP = ref(350);
+
+const totalBugs = 5;
+const foundBugs = ref(1);
 
 const lessons = ref([
   { id: 1, title: "Variables", isCompleted: true },
@@ -12,10 +17,21 @@ const lessons = ref([
   { id: 7, title: "Classes", isCompleted: false },
 ]);
 
-const totalXP = ref(150);
-const userLevel = 1;
-const totalBugs = 5;
-const foundBugs = ref(1);
+const levels = [
+  { level: 1, name: "Novice", minXP: 0 },
+  { level: 2, name: "Challenger", minXP: 300 },
+  { level: 3, name: "Java Master", minXP: 600 },
+];
+
+const currentLevelObj = computed(() => {
+  let current = levels[0];
+  for (const l of levels) {
+    if (totalXP.value >= l.minXP) {
+      current = l;
+    }
+  }
+  return current;
+});
 
 const trophies = ref([
   {
@@ -106,7 +122,7 @@ const trophies = ref([
               </div>
 
               <div class="xp-display">
-                <span class="xp-number">{{ userLevel }}</span>
+                <span class="xp-number">{{ currentLevelObj.level}}</span>
                 <span class="xp-unit">LEVEL</span>
               </div>
             </div>
