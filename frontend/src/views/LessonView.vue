@@ -1,11 +1,14 @@
 <script setup>
-import { computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import api from "../services/api";
+import TheoryBlock from "../components/TheoryBlock.vue";
+import CodeBlock from "../components/CodeBlock.vue";
+import MicroChallengeBlock from "../components/MicroChallengeBlock.vue";
 
 const route = useRoute();
 const router = useRouter();
 
-// Hämtar :id från URL (t.ex. 'variables' eller '1')
 const lessonId = computed(() => route.params.id);
 
 const lessonsData = {
@@ -60,6 +63,40 @@ const currentLesson = computed(() => {
   return lessonsData[lessonId.value];
 });
 
+const lesson = ref(null);
+const currentQuestion = ref(null);
+const isLoading = ref(false);
+
+const fetchLesson = async (id) => {
+  if (!id) return;
+  isLoading.value = true;
+  try {
+    const data = await api.getLesson(id);
+    lesson.value = data.lesson;
+
+    if (data.questions && data.questions.length > 0) {
+      const randomIndex = Math.floor(Math.random() * data.questions.length);
+      currentQuestion.value = data.questions[randomIndex];
+    } else {
+      currentQuestion.value = null;
+    }
+  } catch (err) {
+    console.error("Could not load lesson:", err);
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchLesson(route.params.id);
+});
+
+watch(() => route.params.id, (newId) => {
+  if (newId) {
+    fetchLesson(newId);
+  }
+});
+
 const goBack = () => {
   router.push("/");
 };
@@ -73,8 +110,18 @@ const goBack = () => {
       <p class="lesson-subtitle">{{currentLesson.subtitle}}</p>
     </section>
 
-    <main class="lesson-section">
+    <main class="lesson-section" v-if="lesson">
       <!-- Space to later add lesson components -->
+       <TheoryBlock :content="lesson.theory_text" />
+       <CodeBlock v-if="lesson.code_example" :code="lesson.code_example" />
+      
+
+       <div class="challenges-section" v-if="currentQuestion"> 
+         <MicroChallengeBlock 
+           :question="currentQuestion"
+           :index="0"
+         />
+       </div>
     </main>
   </div>
 </template>
