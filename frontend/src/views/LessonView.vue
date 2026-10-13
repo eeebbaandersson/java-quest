@@ -72,6 +72,10 @@ const fetchLesson = async (id) => {
   isLoading.value = true;
   try {
     const data = await api.getLesson(id);
+    if (!data) {
+      console.error("Lesson data is null or undefined");
+      return;
+    }
     lesson.value = data.lesson;
 
     if (data.questions && data.questions.length > 0) {
@@ -82,6 +86,8 @@ const fetchLesson = async (id) => {
     }
   } catch (err) {
     console.error("Could not load lesson:", err);
+    lesson.value = null;
+    currentQuestion.value = null;
   } finally {
     isLoading.value = false;
   }
@@ -116,7 +122,8 @@ const goBack = () => {
        <CodeBlock v-if="lesson.code_example" :code="lesson.code_example" />
       
 
-       <div class="challenges-section" v-if="currentQuestion"> 
+       <div class="challenges-section" v-if="currentQuestion">
+ 
          <MicroChallengeBlock 
            :question="currentQuestion"
            :index="0"
