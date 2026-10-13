@@ -1,24 +1,25 @@
 DROP TABLE IF EXISTS Questions;
 DROP TABLE IF EXISTS Lessons;
 
-CREATE TABLE Lessons (
-    lesson_id INT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    theory_text TEXT,
-    code_example TEXT,
-    order_index INT
+CREATE TABLE IF NOT EXISTS Lessons (
+    lesson_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    theory_text TEXT NOT NULL,
+    code_example TEXT NOT NULL,
+    order_index INT NOT NULL UNIQUE
 );
 
-CREATE TABLE Questions (
+CREATE TABLE IF NOT EXISTS Questions (
     question_id INT AUTO_INCREMENT PRIMARY KEY,
-    lesson_id INT,
-    question_type VARCHAR(50),
+    lesson_id INT NOT NULL,
+    question_type VARCHAR(150) NOT NULL DEFAULT 'multiple_choice',
     question_text TEXT NOT NULL,
-    code_snippet TEXT,
-    options TEXT,
-    correct_answer INT,
-    explanation TEXT,
-    xp_reward INT,
+    code_snippet TEXT NULL,
+    options JSON NOT NULL,
+    correct_answer INT NOT NULL,
+    explanation TEXT NOT NULL,
+    xp_reward INT DEFAULT 25,
+
     FOREIGN KEY (lesson_id) REFERENCES Lessons(lesson_id) ON DELETE CASCADE
 );
 INSERT INTO Lessons (lesson_id, title, theory_text, code_example, order_index) 

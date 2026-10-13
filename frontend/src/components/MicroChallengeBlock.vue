@@ -11,9 +11,13 @@ const selectedAnswer = ref(null);
 const feedback = ref(null);
 const isSubmitting = ref(false);
 
+
 const parsedOptions = computed(() => {
-  if (!props.question.options) return [];
-    return JSON.parse(props.question.options);
+  const questionOptions = props.question.options;
+  if (!questionOptions) return [];
+  if (Array.isArray(questionOptions)) return questionOptions;
+  if (typeof questionOptions === "object") return Object.values(questionOptions);
+    return JSON.parse(questionOptions);
   
 });
 
@@ -34,7 +38,7 @@ const submitAnswer = async () => {
 <template>
   <div class="challenge-card">
     <div class="challenge-header">
-      <h3>Micro Challenge</h3>
+      <h3>Micro Challenge</h3>  
     </div>
     <p class="question-text">{{ question.question_text }}</p>
 
