@@ -20,7 +20,6 @@ const closeMenu = () => {
       <button 
         id="menu-toggle-btn" 
         class="menu-toggle-btn glass-card" 
-        aria-label="Öppna meny"
         @click="toggleMenu"
       >
         <span></span>

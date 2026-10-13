@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar.vue";
 const route = useRoute();
 
 const showNavbar = computed(() => {
-  return ["home", "lesson"].includes(route.name);
+  return ["home", "lesson", "arenachoice"].includes(route.name);
 });
 
 const showProfileLink = computed(() => {
