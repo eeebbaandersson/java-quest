@@ -67,29 +67,41 @@ const lesson = ref(null);
 const currentQuestion = ref(null);
 const isLoading = ref(false);
 
+let latestRequestId = 0;
+
 const fetchLesson = async (id) => {
   if (!id) return;
+
+  const requestId = ++latestRequestId;
+  const isCurrentRequest = () =>
+    requestId === latestRequestId && route.params.id === id;
+
   isLoading.value = true;
+
   try {
     const data = await api.getLesson(id);
+
+    if (!isCurrentRequest()) return;
+
     if (!data) {
       console.error("Lesson data is null or undefined");
       return;
     }
+
     lesson.value = data.lesson;
 
-    if (data.questions && data.questions.length > 0) {
-      const randomIndex = Math.floor(Math.random() * data.questions.length);
-      currentQuestion.value = data.questions[randomIndex];
-    } else {
-      currentQuestion.value = null;
-    }
+    const questions = data.questions ?? [];
+    currentQuestion.value = questions.length
+      ? questions[Math.floor(Math.random() * questions.length)]
+      : null;
   } catch (err) {
-    console.error("Could not load lesson:", err);
-    lesson.value = null;
-    currentQuestion.value = null;
+    if (isCurrentRequest()) {
+      console.error("Could not load lesson:", err);
+    }
   } finally {
-    isLoading.value = false;
+    if (isCurrentRequest()) {
+      isLoading.value = false;
+    }
   }
 };
 
