@@ -279,13 +279,13 @@ const progressPercentage = computed(() => {
 }
 
 .milestone-node.current .badge-icon-mask {
-  transform: scale(1.25);
+  transform: scale(1.35);
   transform-origin: bottom center;
   filter: drop-shadow(0 0 6px var(--accent-color)) drop-shadow(0 0 12px var(--accent-color));
 }
 
 .milestone-node.current .milestone-mushroom {
-  color: #ffffff;
+  color: var( --accent-color);
 }
 
 .milestone-node.current .milestone-label {

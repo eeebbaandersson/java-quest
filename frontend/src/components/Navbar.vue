@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import BugvisionToggle from "./BugvisionToggle.vue";
 
 const isMenuOpen = ref(false);
 
@@ -14,9 +15,14 @@ const closeMenu = () => {
 </script>
 
 <template>
+  <div 
+    class="menu-backdrop" 
+    :class="{ active: isMenuOpen }" 
+    @click="closeMenu"
+  ></div>
+
   <header class="navbar-wrapper">
     <nav class="nav-container">
-     
       <button 
         id="menu-toggle-btn" 
         class="menu-toggle-btn glass-card" 
@@ -27,7 +33,6 @@ const closeMenu = () => {
         <span></span>
       </button>
 
-     
       <div class="nav-links" :class="{ active: isMenuOpen }">
         <RouterLink to="/" class="nav-item home-item" @click="closeMenu">{}</RouterLink>
         <RouterLink to="/lessons/variables" class="nav-item" @click="closeMenu">Variables</RouterLink>
@@ -41,13 +46,16 @@ const closeMenu = () => {
         <RouterLink to="/profile" class="nav-item profile-mobile-item" @click="closeMenu">
           <span class="badge-icon-mask icon-user"></span> Profile
         </RouterLink>
+
+        <div class="mobile-toggle-wrapper" @click.stop>
+          <BugvisionToggle />
+        </div>
       </div>
     </nav>
   </header>
 </template>
 
 <style scoped> 
-/* --- DESKTOP-FIRST STANDARD (Stora skärmar från 1200px och uppåt) --- */
 .navbar-wrapper {
   display: flex;
   justify-content: center;
@@ -74,7 +82,6 @@ const closeMenu = () => {
   width: 100%;
   position: relative;
 }
-
 
 .menu-toggle-btn {
   display: none;
@@ -110,16 +117,46 @@ const closeMenu = () => {
 }
 
 .home-item:hover {
-  color: #c084fc;
+  color: var(--accent-color);
 }
 
 .profile-mobile-item {
   display: none; 
 }
 
+.mobile-toggle-wrapper {
+  display: none;
+}
+
+.menu-backdrop {
+  display: none;
+}
+
 
 /* --- MOBILE & TABLET OVERRIDES (Skärmar upp till 1199px) --- */
 @media (max-width: 1199px) {
+  .menu-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    z-index: 99; 
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .menu-backdrop.active {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: auto; 
+  }
+
   .navbar-wrapper {
     display: flex;
     justify-content: flex-end;
@@ -186,6 +223,7 @@ const closeMenu = () => {
     border: 1px solid var(--border-subtle);
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    z-index: 102; 
   }
 
   .nav-links.active {
@@ -198,19 +236,24 @@ const closeMenu = () => {
     text-align: center;
   }
 
-  .nav-item:hover {
-    background: rgba(255, 255, 255, 0.04);
-  }
-
   .profile-mobile-item {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: #c084fc;
+    color: var(--accent-color);
     border-top: 1px solid var(--border-subtle);
+    border-radius: 0;
     margin-top: 0.25rem;
     padding-top: 0.75rem;
     justify-content: center;
+  }
+
+  .mobile-toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0;
+    padding-top: 0.75rem;
   }
 }
 </style>

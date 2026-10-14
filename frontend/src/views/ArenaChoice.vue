@@ -109,9 +109,9 @@ const arenas = ref([
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #c084fc; 
-  background: rgba(168, 85, 247, 0.12); 
-  border: 1px solid rgba(168, 85, 247, 0.4); 
+  color: var(--accent-color); 
+  background: var(--glow-purple); 
+  border: 1px solid var(--accent-purple); 
   border-radius: 12px; 
   padding: 4px 10px;
   text-transform: uppercase;
@@ -120,9 +120,9 @@ const arenas = ref([
 }
 
 .arena-card:hover .xp-corner-badge {
-  background: rgba(168, 85, 247, 0.18);
-  border-color: rgba(168, 85, 247, 0.5);
-  color: #c084fc; 
+  background: var(--glow-purple);
+  border-color: var(--accent-color);
+  color: var(--accent-color); 
 }
 
 .arena-icon {
@@ -136,7 +136,7 @@ const arenas = ref([
 
 .arena-card:hover .arena-icon {
   opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+  filter: drop-shadow(0 0 8px var(--glow-purple));
 }
 
 .arena-subtitle {
@@ -164,7 +164,7 @@ const arenas = ref([
 }
 
 .arena-card:hover h2 {
-  color: #c084fc;
+  color: var(--accent-color);
   opacity: 1;
 }
 

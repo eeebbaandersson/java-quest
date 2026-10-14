@@ -4,7 +4,7 @@ import { RouterLink } from "vue-router";
 
 const totalXP = ref(350);
 
-const totalBugs = 5;
+const totalBugs = ref(5);
 const foundBugs = ref(1);
 
 const lessons = ref([
@@ -276,9 +276,9 @@ const trophies = ref([
 }
 
 .xp-display.active {
-  background: rgba(168, 85, 247, 0.08);
+background: var(--glow-purple);
   border-color: var(--accent-purple);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+  box-shadow: 0 0 10px var(--glow-purple);
 }
 
 .xp-display.active .xp-number {
@@ -356,7 +356,7 @@ const trophies = ref([
 
 .arena-container:hover .arena-top-icon {
   opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+  filter: drop-shadow(0 0 8px var(--glow-purple));
 }
 
 .arena-container h2 {
@@ -369,7 +369,7 @@ const trophies = ref([
 }
 
 .arena-container:hover h2 {
-  color: #c084fc;
+  color: var(--accent-color);
 }
 
 .arena-container p {
