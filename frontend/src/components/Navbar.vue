@@ -63,7 +63,7 @@ const closeMenu = () => {
   padding: 0.5rem 1rem;
   margin: 0.5rem auto;
   width: 100%;
-  max-width: 1000px;
+  max-width: 800px;
   border-radius: 14px;
 }
 

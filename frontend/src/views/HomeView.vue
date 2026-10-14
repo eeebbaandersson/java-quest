@@ -8,13 +8,13 @@ const totalBugs = 5;
 const foundBugs = ref(1);
 
 const lessons = ref([
-  { id: 1, title: "Variables", isCompleted: true },
-  { id: 2, title: "Operators", isCompleted: true },
-  { id: 3, title: "If / Else", isCompleted: false },
-  { id: 4, title: "Loops", isCompleted: false },
-  { id: 5, title: "Arrays", isCompleted: false },
-  { id: 6, title: "Methods", isCompleted: false },
-  { id: 7, title: "Classes", isCompleted: false },
+  { id: 1, title: "01 Variables", isCompleted: true },
+  { id: 2, title: "02 Operators", isCompleted: true },
+  { id: 3, title: "03 If / Else", isCompleted: false },
+  { id: 4, title: "04 Loops", isCompleted: false },
+  { id: 5, title: "05 Arrays", isCompleted: false },
+  { id: 6, title: "06 Methods", isCompleted: false },
+  { id: 7, title: "07 Classes", isCompleted: false },
 ]);
 
 const levels = [
@@ -127,7 +127,7 @@ const trophies = ref([
               </div>
             </div>
             <div class="bug-tracker-wrapper">
-              <p class="bug-tracker-title">CAPTURED BUGS</p>
+              <p class="bug-tracker-title">CAPTURED BUGS ({{foundBugs}}/{{totalBugs}})</p>
               <div class="bug-icons-row">
                 <span
                   v-for="index in totalBugs"
@@ -189,7 +189,7 @@ const trophies = ref([
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
-  gap: 1.25rem;
+  gap: 1.35rem;
   margin-top: 1rem;
 }
 
@@ -337,7 +337,7 @@ const trophies = ref([
 .arena-section {
   width: 100%;
   max-width: 655px;
-  margin: 1.25rem auto 0 auto;
+  margin: 1.35rem auto 0 auto;
 }
 
 .arena-container {

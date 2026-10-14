@@ -74,25 +74,31 @@ const arenas = ref([
 <style scoped>
 .arena-choice-container {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1000px; 
   margin: 0 auto;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem 1rem;
+}
+
+.choice-section {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .choice-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
   align-items: stretch;
+  gap: 1.35rem; 
+  margin-top: 1rem;
 }
 
 .arena-card {
   position: relative;
-  padding: 2.5rem 1.25rem;
+  padding: 2.5rem 1.25rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -216,10 +222,10 @@ const arenas = ref([
   transform-origin: bottom center;
 }
 
-/* TABLET (Skärmar upp till 1024px) */
+/* TABLET (Skärmar upp till 1024px)*/
 @media (max-width: 1024px) {
-  .arena-choice-container {
-    padding: 1.5rem 1.25rem;
+  .choice-section {
+    max-width: 90%;
   }
 
   .choice-container {
@@ -233,6 +239,11 @@ const arenas = ref([
 
 /* MOBILE (Skärmar upp till 640px) */
 @media (max-width: 640px) {
+  .choice-section {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
   .choice-container {
     grid-template-columns: 1fr;
     gap: 1.25rem;
