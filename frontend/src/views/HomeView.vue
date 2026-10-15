@@ -8,13 +8,13 @@ const totalBugs = ref(5);
 const foundBugs = ref(1);
 
 const lessons = ref([
-  { id: 1, title: "01 Variables", isCompleted: true },
-  { id: 2, title: "02 Operators", isCompleted: true },
-  { id: 3, title: "03 If / Else", isCompleted: false },
-  { id: 4, title: "04 Loops", isCompleted: false },
-  { id: 5, title: "05 Arrays", isCompleted: false },
-  { id: 6, title: "06 Methods", isCompleted: false },
-  { id: 7, title: "07 Classes", isCompleted: false },
+  { id: 1, number: "01", title: "Variables", isCompleted: true },
+  { id: 2, number: "02", title: "Operators", isCompleted: true },
+  { id: 3, number: "03", title: "If / Else", isCompleted: false },
+  { id: 4, number: "04", title: "Loops", isCompleted: false },
+  { id: 5, number: "05", title: "Arrays", isCompleted: false },
+  { id: 6, number: "06", title: "Methods", isCompleted: false },
+  { id: 7, number: "07", title: "Classes", isCompleted: false },
 ]);
 
 const levels = [
@@ -107,7 +107,7 @@ const trophies = ref([
               class="badge"
               :class="{ completed: lesson.isCompleted }"
             >
-              {{ lesson.title }}
+              {{ lesson.number}} {{ lesson.title }}
             </RouterLink>
           </div>
         </div>
@@ -276,7 +276,7 @@ const trophies = ref([
 }
 
 .xp-display.active {
-background: var(--glow-purple);
+  background: var(--glow-purple);
   border-color: var(--accent-purple);
   box-shadow: 0 0 10px var(--glow-purple);
 }

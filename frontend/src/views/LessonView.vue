@@ -13,49 +13,35 @@ const lessonId = computed(() => route.params.id);
 
 const lessonsData = {
   variables: {
-    number: "01",
     title: "Variables & Data Types",
     subtitle:
       "Learn how to store and manage data in Java.",
-    progress: "0 / 3",
   },
   operators: {
-    number: "02",
     title: "Operators & Expressions",
     subtitle: "Perform arithmetic and logical operations.",
-    progress: "0 / 3",
   },
   ifelse: {
-    number: "03",
     title: "Control Flow - If / Else",
     subtitle:
       "Control the program flow based on states.",
-    progress: "0 / 3",
   },
   loops: {
-    number: "04",
     title: "Loops - For & While",
     subtitle: "Repeat code execution efficiently.",
-    progress: "0 / 3",
   },
   arrays: {
-    number: "05",
     title: "Arrays",
     subtitle: "Manage ordered lists of elements.",
-    progress: "0 / 3",
   },
   methods: {
-    number: "06",
     title: "Methods",
     subtitle:
       "Structure your application with functions and scope.",
-    progress: "0 / 3",
   },
   classes: {
-    number: "07",
     title: "Classes & Objects",
     subtitle: "Build object-oriented structures in Java.",
-    progress: "0 / 3",
   },
 };
 

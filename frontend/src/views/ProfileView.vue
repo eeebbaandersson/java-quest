@@ -285,7 +285,7 @@ const progressPercentage = computed(() => {
 }
 
 .milestone-node.current .milestone-mushroom {
-  color: var( --accent-color);
+   color: #ffffff;
 }
 
 .milestone-node.current .milestone-label {

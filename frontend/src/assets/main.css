@@ -10,11 +10,9 @@
 
   --accent-purple: #a855f7;
   --glow-purple: rgba(168, 85, 247, 0.10);
-
   --accent-color: #c084fc; 
   --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
   
-  /* Standardbakgrund (gradient) som variabel */
   --bg-current: linear-gradient(
       180deg,
       #84739d 0%,
@@ -28,8 +26,6 @@
 /* BUG VISION THEME */
 html[data-theme="bug-vision"] {
   --bg-main: #0a0a0c;
-  
- 
   --bg-current: #0a0a0c;
   
   --accent-purple: #4ade80;
@@ -83,17 +79,15 @@ body {
 
 html[data-theme="bug-vision"] .badge.completed,
 html[data-theme="bug-vision"] .badge.unlocked {
-  background-color: rgba(74, 222, 128, 0.06); /* Subtil neongrön tint som speglar lila läget */
+  background-color: rgba(74, 222, 128, 0.06); 
   border-color: var(--accent-purple);
   box-shadow: 0 0 12px var(--glow-purple);
   color: #ffffff;
 }
 
-
-
 .badge.completed:hover,
 .badge.unlocked:hover {
- background-color: rgba(168, 85, 247, 0.06); /* Subtil lila tint */
+ background-color: rgba(168, 85, 247, 0.06); 
   color: var(--text-primary);
   border: 1px solid var(--accent-purple);
   box-shadow: 0 0 12px var(--glow-purple);
@@ -145,10 +139,11 @@ html[data-theme="bug-vision"] .badge.unlocked {
 }
 
 .glass-card-interactive:hover {
-  background: rgba(255, 255, 255, 0.04);
+  /* background: rgba(255, 255, 255, 0.04); */
   border-color: var(--accent-purple);
   box-shadow: 0 0 20px var(--glow-purple);
 }
+
 
 .arena-btn {
   display: inline-flex;
