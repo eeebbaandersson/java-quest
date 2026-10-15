@@ -1,11 +1,11 @@
 <script setup>
 import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useBugHunting } from "@/composables/useBugHunting";
 
-const totalXP = ref(350);
+// const totalXP = ref(350);
 
-const totalBugs = ref(5);
-const foundBugs = ref(1);
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
 const lessons = ref([
   { id: 1, number: "01", title: "Variables", isCompleted: true },
@@ -84,6 +84,10 @@ const trophies = ref([
     icon: "helmet3",
   },
 ]);
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
 </script>
 
 <template>
@@ -174,10 +178,31 @@ const trophies = ref([
         <div class="arena-btn">Choose Arena</div>
       </RouterLink>
     </section>
+
+    <div 
+      v-if="isBugVisionActive && !isBugCaptured(1)" 
+      class="interactive-bug hidden-bug" 
+      @click="handleBugClick(1)"
+      title="Bug Spotted!"
+    >
+      <span class="badge-icon-mask icon-bug"></span>
+    </div>
+
   </div>
 </template>
 
 <style scoped>
+.home-container {
+ position: relative;       
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  width: 100%;
+  max-width: 1000px;        
+  margin: 0 auto;           
+  padding-bottom: 4rem;
+}
+
 .stats-section {
   width: 100%;
   max-width: 1000px;
@@ -382,6 +407,30 @@ const trophies = ref([
 
 .arena-container:hover p {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* -- Hidden bug -- */
+.hidden-bug {
+  position: absolute;
+  bottom: 6rem;
+  left: -1rem;             
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 40px;
+  height: 40px;
 }
 
 /* TABLET (Skärmar upp till 1024px) */

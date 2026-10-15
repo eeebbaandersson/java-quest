@@ -1,28 +1,7 @@
 <script setup>
-import { ref, watch, onMounted } from "vue";
+import { useBugHunting } from "@/composables/useBugHunting";
 
-const isBugVisionActive = ref(false);
-
-// Se ifall användaren tidigare aktiverat temat i localStorage
-onMounted(() => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "bug-vision") {
-    isBugVisionActive.value = true;
-    document.documentElement.setAttribute("data-theme", "bug-vision");
-  }
-});
-
-// Lyssna när temat ändras genom toggle-knappen
-watch(isBugVisionActive, (newValue) => {
-  if (newValue) {
-    document.documentElement.setAttribute("data-theme", "bug-vision");
-    localStorage.setItem("theme", "bug-vision");
-  } else {
-    document.documentElement.removeAttribute("data-theme");
-    localStorage.setItem("theme", "default");
-  }
-});
-
+const { isBugVisionActive, setBugVision } = useBugHunting();
 </script>
 
 
@@ -30,7 +9,11 @@ watch(isBugVisionActive, (newValue) => {
   <div class="toggle-container">
     <span class="toggle-label">BUG VISION</span>
     <label class="switch">
-      <input type="checkbox" v-model="isBugVisionActive" />
+      <input 
+        type="checkbox" 
+        :checked="isBugVisionActive" 
+        @change="setBugVision($event.target.checked)" 
+      />
       <span class="slider">
         <span class="badge-icon-mask icon-bug toggle-icon"></span>
       </span>
