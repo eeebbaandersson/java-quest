@@ -6,6 +6,13 @@ import TheoryBlock from "../components/TheoryBlock.vue";
 import CodeBlock from "../components/CodeBlock.vue";
 import MicroChallengeBlock from "../components/MicroChallengeBlock.vue";
 
+import { useBugHunting } from "@/composables/useBugHunting";
+const { isBugVisionActive, isBugCaptured, captureBug } = useBugHunting();
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
+
 const route = useRoute();
 const router = useRouter();
 
@@ -13,49 +20,35 @@ const lessonId = computed(() => route.params.id);
 
 const lessonsData = {
   variables: {
-    number: "01",
     title: "Variables & Data Types",
     subtitle:
       "Learn how to store and manage data in Java.",
-    progress: "0 / 3",
   },
   operators: {
-    number: "02",
     title: "Operators & Expressions",
     subtitle: "Perform arithmetic and logical operations.",
-    progress: "0 / 3",
   },
   ifelse: {
-    number: "03",
     title: "Control Flow - If / Else",
     subtitle:
       "Control the program flow based on states.",
-    progress: "0 / 3",
   },
   loops: {
-    number: "04",
     title: "Loops - For & While",
     subtitle: "Repeat code execution efficiently.",
-    progress: "0 / 3",
   },
   arrays: {
-    number: "05",
     title: "Arrays",
     subtitle: "Manage ordered lists of elements.",
-    progress: "0 / 3",
   },
   methods: {
-    number: "06",
     title: "Methods",
     subtitle:
       "Structure your application with functions and scope.",
-    progress: "0 / 3",
   },
   classes: {
-    number: "07",
     title: "Classes & Objects",
     subtitle: "Build object-oriented structures in Java.",
-    progress: "0 / 3",
   },
 };
 
@@ -141,11 +134,40 @@ const goBack = () => {
            :index="0"
          />
        </div>
+
+       <div 
+         v-if="lessonId === 'operators' && isBugVisionActive && !isBugCaptured(3)" 
+         class="hidden-bug lesson-bug-3" 
+         @click="handleBugClick(3)"
+         title="Bug Spotted!"
+       >
+         <span class="badge-icon-mask icon-bug"></span>
+       </div>
+        <div 
+         v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)" 
+         class="hidden-bug lesson-bug-4" 
+         @click="handleBugClick(4)"
+         title="Bug Spotted!"
+       >
+         <span class="badge-icon-mask icon-bug"></span>
+       </div>
     </main>
   </div>
 </template>
 
 <style scoped>
+.lesson-container {
+  position: relative;       
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  width: 100%;
+  max-width: 1000px;        
+  margin: 0 auto;           
+  padding-bottom: 4rem;
+
+}
+
 .lesson-hero {
   text-align: center;
   margin-top: 2rem;
@@ -165,4 +187,41 @@ const goBack = () => {
   color: var(--text-muted);
   font-size: 1rem;
 }
+
+/* --  HIDDEN BUGS -- */ 
+.hidden-bug {
+  position: absolute;             
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.lesson-bug-3 {
+  top: 1.5rem;
+  right: 2rem;
+}
+.lesson-bug-3 .badge-icon-mask {
+  width: 24px;
+  height: 24px;
+}
+
+.lesson-bug-4 {
+  bottom: 2rem;
+  left: 1rem;
+}
+
+.lesson-bug-4 .badge-icon-mask {
+  width: 28px;
+  height: 28px;
+}
+
+
 </style>
