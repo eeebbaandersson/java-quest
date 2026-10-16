@@ -409,7 +409,7 @@ const handleBugClick = (bugId) => {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* -- Hidden bug -- */
+/* -- HIDDEN BUG -- */
 .hidden-bug {
   position: absolute;
   bottom: 6rem;

@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useBugHunting } from "@/composables/useBugHunting";
+
+const { captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
 const arenas = ref([
   {
@@ -31,13 +34,28 @@ const arenas = ref([
     link: "/practice/hard",
   },
 ]);
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
 </script>
 
 <template>
   <div class="arena-choice-container">
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
-      <p class="hero-subtitle">Select your level and earn XP for every correct answer.</p>
+      <p class="hero-subtitle">
+        Select your level and earn XP for every correct answer.
+      </p>
+
+      <div
+        v-if="isBugVisionActive && !isBugCaptured(2)"
+        class="interactive-bug hidden-bug"
+        @click="handleBugClick(2)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
     </section>
 
     <section class="choice-section">
@@ -74,7 +92,7 @@ const arenas = ref([
 <style scoped>
 .arena-choice-container {
   width: 100%;
-  max-width: 1000px; 
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -89,13 +107,13 @@ const arenas = ref([
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
-  gap: 1.35rem; 
+  gap: 1.35rem;
   margin-top: 1rem;
 }
 
 .arena-card {
   position: relative;
-  padding: 2.5rem 1.25rem; 
+  padding: 2.5rem 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,10 +127,10 @@ const arenas = ref([
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: var(--accent-color); 
-  background: var(--glow-purple); 
-  border: 1px solid var(--accent-purple); 
-  border-radius: 12px; 
+  color: var(--accent-color);
+  background: var(--glow-purple);
+  border: 1px solid var(--accent-purple);
+  border-radius: 12px;
   padding: 4px 10px;
   text-transform: uppercase;
   pointer-events: none;
@@ -122,7 +140,7 @@ const arenas = ref([
 .arena-card:hover .xp-corner-badge {
   background: var(--glow-purple);
   border-color: var(--accent-color);
-  color: var(--accent-color); 
+  color: var(--accent-color);
 }
 
 .arena-icon {
@@ -218,8 +236,32 @@ const arenas = ref([
 }
 
 .icon-coliseum {
-  transform: translateY(8px) scale(1.18); 
+  transform: translateY(8px) scale(1.18);
   transform-origin: bottom center;
+}
+
+/* -- HIDDEN BUG -- */
+.hidden-bug {
+  position: absolute;
+  top: 11rem;
+  right: 27rem;
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 30px;
+  height: 30px;
 }
 
 /* TABLET (Skärmar upp till 1024px)*/
