@@ -96,6 +96,10 @@ const handleBugClick = (bugId) => {
   margin: 0 auto;
 }
 
+.hero-section {
+  position: relative;
+}
+
 .choice-section {
   width: 100%;
   max-width: 1000px;
@@ -243,8 +247,10 @@ const handleBugClick = (bugId) => {
 /* -- HIDDEN BUG -- */
 .hidden-bug {
   position: absolute;
-  top: 11rem;
-  right: 27rem;
+  top: 70%;
+  right: 5%;
+  transform: translateY(-50);
+  
   cursor: pointer;
   color: var(--accent-purple);
   opacity: 0.35;

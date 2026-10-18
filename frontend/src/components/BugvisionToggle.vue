@@ -11,6 +11,7 @@ const { isBugVisionActive, setBugVision } = useBugHunting();
     <label class="switch">
       <input 
         type="checkbox" 
+        aria-label="BUG VISION"
         :checked="isBugVisionActive" 
         @change="setBugVision($event.target.checked)" 
       />

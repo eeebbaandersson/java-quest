@@ -2,11 +2,12 @@
 import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 
-const totalXP = ref(100);
+// const totalXP = ref(100);
+// Add logic here later to fetch total userXP from backend?
 
 import { useBugHunting } from "@/composables/useBugHunting";
 
-const { captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
 const handleBugClick = (bugId) => {
   captureBug(bugId);
@@ -375,8 +376,9 @@ const progressPercentage = computed(() => {
 /* -- HIDDEN BUG -- */
 .hidden-bug {
   position: absolute;
-  top: 13rem;
-  right: 27rem;             
+  top: 24rem;
+  left: 10%;
+
   cursor: pointer;
   color: var(--accent-purple);
   opacity: 0.35;

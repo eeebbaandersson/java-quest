@@ -128,7 +128,6 @@ const goBack = () => {
       
 
        <div class="challenges-section" v-if="currentQuestion">
- 
          <MicroChallengeBlock 
            :question="currentQuestion"
            :index="0"

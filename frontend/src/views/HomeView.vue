@@ -4,6 +4,7 @@ import { RouterLink } from "vue-router";
 import { useBugHunting } from "@/composables/useBugHunting";
 
 // const totalXP = ref(350);
+// Add logic here later to fetch total userXP from backend?
 
 const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
