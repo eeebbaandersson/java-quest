@@ -5,21 +5,9 @@ import xpService from "@/services/xpService";
 
 const totalXP = ref(xpService.getTotalXp());
 
-const levels = [
-  { level: 1, name: "Novice", minXP: 0 },
-  { level: 2, name: "Challenger", minXP: 300 },
-  { level: 3, name: "Java Master", minXP: 600 },
-];
+const levels = xpService.LEVELS;
 
-const currentLevelObj = computed(() => {
-  let current = levels[0];
-  for (const l of levels) {
-    if (totalXP.value >= l.minXP) {
-      current = l;
-    }
-  }
-  return current;
-});
+const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
 const progressPercentage = computed(() => {
   const maxXP = levels[levels.length - 1].minXP; // 600
