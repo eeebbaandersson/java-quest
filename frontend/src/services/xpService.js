@@ -8,16 +8,24 @@ const LEVELS = [
 ];
 
 function getAnsweredQuestions() {
-  const saved = localStorage.getItem(ANSWERED_KEY);
-  return saved ? JSON.parse(saved) : [];
+  try {
+    const parsed = JSON.parse(localStorage.getItem(ANSWERED_KEY));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
 }
 
 function getTotalXp() {
-  const saved = localStorage.getItem(XP_KEY);
-  return saved ? Number(saved) : 0;
+  const value = Number(localStorage.getItem(XP_KEY));
+  return Number.isFinite(value) ? value : 0;
 }
 
 function addXp(questionId, amount) {
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return getTotalXp();
+  }
+
   const answered = getAnsweredQuestions();
   if (answered.includes(questionId)) {
     return getTotalXp();
