@@ -17,8 +17,12 @@ function getAnsweredQuestions() {
 }
 
 function getTotalXp() {
-  const value = Number(localStorage.getItem(XP_KEY));
-  return Number.isFinite(value) ? value : 0;
+  try {
+    const value = Number(localStorage.getItem(XP_KEY));
+    return Number.isFinite(value) ? value : 0;
+  } catch {
+    return 0;
+  }
 }
 
 function addXp(questionId, amount) {
@@ -32,9 +36,13 @@ function addXp(questionId, amount) {
   }
 
   const newTotal = getTotalXp() + amount;
-  localStorage.setItem(XP_KEY, newTotal);
-  answered.push(questionId);
-  localStorage.setItem(ANSWERED_KEY, JSON.stringify(answered));
+  try {
+    answered.push(questionId);
+    localStorage.setItem(ANSWERED_KEY, JSON.stringify(answered));
+    localStorage.setItem(XP_KEY, newTotal);
+  } catch {
+    return getTotalXp();
+  }
   return newTotal;
 }
 
