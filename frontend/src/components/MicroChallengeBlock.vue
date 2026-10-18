@@ -8,10 +8,11 @@ const props = defineProps({
   index: Number
 });
 
+const nextQuestionEvent = defineEmits(["next-question"]);
 const selectedAnswer = ref(null);
 const feedback = ref(null);
 const isSubmitting = ref(false);
-
+const correctAnswer = ref(false);
 
 const parsedOptions = computed(() => {
   const questionOptions = props.question.options;
@@ -36,6 +37,10 @@ const submitAnswer = async () => {
   } finally {
     isSubmitting.value = false;
   }
+
+const goToNextQuestion = () => {
+  emit("next-question");
+
 };
 </script>
 
@@ -66,6 +71,7 @@ const submitAnswer = async () => {
     </div>
 
     <button 
+    v-if="!feedback?.correct"
       @click="submitAnswer" 
       :disabled="selectedAnswer === null || isSubmitting" 
       class="submit-btn"
@@ -73,9 +79,17 @@ const submitAnswer = async () => {
       {{ isSubmitting ? "Checking..." : "Submit Answer" }}
     </button>
 
-    <div v-if="feedback" class="feedback-box" :class="{ correct: feedback.correct, incorrect: !feedback.correct }">
-      <p class="feedback-title"><strong>{{ feedback.correct ? "Correct!" : "Incorrect! " }}</strong></p>
+<div v-if="feedback" class="feedback-box" :class="{ correct: feedback.correct, incorrect: !feedback.correct }">
+      <p class="feedback-title"><strong>{{ feedback.correct ? "Correct!" : "Incorrect!" }}</strong></p>
       <p>{{ feedback.explanation }}</p>
+
+      <button 
+        v-if="feedback.correct" 
+        @click="goToNextQuestion" 
+        class="next-btn"
+      >
+        Next Question →
+      </button>
     </div>
   </div>
 </template>
@@ -161,7 +175,7 @@ const submitAnswer = async () => {
   transition: background 0.2s;
 }
 
-.submit-btn:hover:not(:disabled) {
+.submit-btn:hover:not(:disabled) .next-btn:hover {
   background: #9c31ce;
 }
 
@@ -191,5 +205,9 @@ const submitAnswer = async () => {
 
 .feedback-title {
   margin-bottom: 4px;
+}
+.next-btn {
+  margin-top: 15px;
+  background: #9c31ce;
 }
 </style>
