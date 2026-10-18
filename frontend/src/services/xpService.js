@@ -5,4 +5,10 @@ function getTotalXp() {
   return saved ? Number(saved) : 0;
 }
 
-export default { getTotalXp };
+function addXp(amount) {
+  const newTotal = getTotalXp() + amount;
+  localStorage.setItem(XP_KEY, newTotal);
+  return newTotal;
+}
+
+export default { getTotalXp, addXp };

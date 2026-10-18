@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import api from "../services/api";
+import xpService from "../services/xpService";
 
 const props = defineProps({
   question: Object,
@@ -27,6 +28,9 @@ const submitAnswer = async () => {
   try {
     const res = await api.checkAnswer(props.question.question_id, selectedAnswer.value);
     feedback.value = res;
+      if (res.correct) {
+      xpService.addXp(props.question.xp_reward);
+    }
   } catch (err) {
     console.error("Failed to check answer:", err);
   } finally {
