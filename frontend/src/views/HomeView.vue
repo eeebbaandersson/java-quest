@@ -1,8 +1,9 @@
 <script setup>
 import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
+import xpService from "@/services/xpService";
 
-const totalXP = ref(350);
+const totalXP = ref(xpService.getTotalXp());
 
 const totalBugs = 5;
 const foundBugs = ref(1);
