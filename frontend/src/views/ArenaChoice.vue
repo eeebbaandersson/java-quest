@@ -249,8 +249,8 @@ const handleBugClick = (bugId) => {
   position: absolute;
   top: 70%;
   right: 5%;
-  transform: translateY(-50);
-  
+  transform: translateY(-50%);
+
   cursor: pointer;
   color: var(--accent-purple);
   opacity: 0.35;

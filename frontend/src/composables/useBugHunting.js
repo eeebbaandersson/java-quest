@@ -80,6 +80,13 @@ const trophies = ref(
   )
 );
 
+const bugHunterTrophy = trophies.value.find(trophy => trophy.id === 1);
+
+if (bugHunterTrophy) {
+  bugHunterTrophy.isUnlocked =
+    capturedBugIds.value.length >= totalBugs.value;
+}
+
 export function useBugHunting() {
 const setBugVision = (active) => {
     isBugVisionActive.value = active;
