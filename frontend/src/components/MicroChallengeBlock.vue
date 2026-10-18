@@ -28,8 +28,8 @@ const submitAnswer = async () => {
   try {
     const res = await api.checkAnswer(props.question.question_id, selectedAnswer.value);
     feedback.value = res;
-      if (res.correct) {
-      xpService.addXp(props.question.xp_reward);
+    if (res.correct) {
+      xpService.addXp(props.question.question_id, props.question.xp_reward);
     }
   } catch (err) {
     console.error("Failed to check answer:", err);
