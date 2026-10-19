@@ -1,3 +1,5 @@
+import { ref } from "vue";
+
 const XP_KEY = 'javaquest_xp';
 const ANSWERED_KEY = 'javaquest_answered_questions';
 
@@ -16,13 +18,19 @@ function getAnsweredQuestions() {
   }
 }
 
-function getTotalXp() {
+function readStoredXp() {
   try {
     const value = Number(localStorage.getItem(XP_KEY));
     return Number.isFinite(value) ? value : 0;
   } catch {
     return 0;
   }
+}
+
+const totalXP = ref(readStoredXp());
+
+function getTotalXp() {
+  return totalXP.value;
 }
 
 function addXp(questionId, amount) {
@@ -43,7 +51,23 @@ function addXp(questionId, amount) {
   } catch {
     return getTotalXp();
   }
+  totalXP.value = newTotal;
   return newTotal;
+}
+
+function addPoints(amount) {
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return false;
+  }
+
+  const newTotal = getTotalXp() + amount;
+  try {
+    localStorage.setItem(XP_KEY, newTotal);
+  } catch {
+    return false;
+  }
+  totalXP.value = newTotal;
+  return true;
 }
 
 function getLevel(xp) {
@@ -56,4 +80,4 @@ function getLevel(xp) {
   return current;
 }
 
-export default { getTotalXp, addXp, getLevel, LEVELS };
+export default { getTotalXp, addXp, addPoints, getLevel, LEVELS, totalXP };
