@@ -1,10 +1,7 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { RouterLink } from "vue-router";
-
-// const totalXP = ref(100);
-// Add logic here later to fetch total userXP from backend?
-
+import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
@@ -13,21 +10,9 @@ const handleBugClick = (bugId) => {
   captureBug(bugId);
 };
 
-const levels = [
-  { level: 1, name: "Novice", minXP: 0 },
-  { level: 2, name: "Challenger", minXP: 300 },
-  { level: 3, name: "Java Master", minXP: 600 },
-];
+const levels = xpService.LEVELS;
 
-const currentLevelObj = computed(() => {
-  let current = levels[0];
-  for (const l of levels) {
-    if (totalXP.value >= l.minXP) {
-      current = l;
-    }
-  }
-  return current;
-});
+const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
 const progressPercentage = computed(() => {
   const maxXP = levels[levels.length - 1].minXP; // 600
