@@ -16,8 +16,10 @@ function readStored(key, fallback, validate, parse = JSON.parse) {
 function writeStored(key, value, serialize = JSON.stringify) {
   try {
     localStorage.setItem(key, serialize(value));
+    return true;
   } catch {
     // Keep the current in-memory state if persistence fails.
+    return false;
   }
 }
 
@@ -106,6 +108,13 @@ const setBugVision = (active) => {
       foundBugs.value = capturedBugIds.value.length;
       totalXP.value += 25;
 
+      if (!writeStored('capturedBugIds', capturedBugIds.value)) {
+        capturedBugIds.value.pop();
+        foundBugs.value = capturedBugIds.value.length;
+        totalXP.value -= 25;
+        return false;
+      }
+
       if (foundBugs.value >= totalBugs.value) {
         const bugHunterTrophy = trophies.value.find((t) => t.id === 1);
         if (bugHunterTrophy) {
@@ -113,7 +122,6 @@ const setBugVision = (active) => {
         }
       }
 
-      writeStored('capturedBugIds', capturedBugIds.value);
       writeStored('totalXP', totalXP.value);
       writeStored('trophies', trophies.value);
 
