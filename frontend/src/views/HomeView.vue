@@ -6,7 +6,7 @@ import { useBugHunting } from "@/composables/useBugHunting";
 // const totalXP = ref(350);
 // Add logic here later to fetch total userXP from backend?
 
-const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
 
 const lessons = ref([
   { id: 1, number: "01", title: "Variables", isCompleted: true },
@@ -46,7 +46,7 @@ const trophies = ref([
     id: 2,
     title: "Bug Hunter",
     description: "Captured all bugs hidden in the interface",
-    isUnlocked: false,
+    isUnlocked: bugHuntingTrophies.value.find((trophy) => trophy.id === 1)?.isUnlocked ?? false,
     icon: "bug",
   },
   {
