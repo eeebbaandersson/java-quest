@@ -8,18 +8,18 @@ const props = defineProps({
   index: Number
 });
 
+const nextQuestionEvent = defineEmits(["next-question"]);
+
 const selectedAnswer = ref(null);
 const feedback = ref(null);
 const isSubmitting = ref(false);
-
 
 const parsedOptions = computed(() => {
   const questionOptions = props.question.options;
   if (!questionOptions) return [];
   if (Array.isArray(questionOptions)) return questionOptions;
   if (typeof questionOptions === "object") return Object.values(questionOptions);
-    return JSON.parse(questionOptions);
-  
+  return JSON.parse(questionOptions);
 });
 
 const submitAnswer = async () => {
@@ -36,6 +36,10 @@ const submitAnswer = async () => {
   } finally {
     isSubmitting.value = false;
   }
+};
+
+const goToNextQuestion = () => {
+  nextQuestionEvent("next-question");
 };
 </script>
 
@@ -60,12 +64,14 @@ const submitAnswer = async () => {
           :name="`question-${question.question_id}`" 
           :value="optIndex" 
           v-model="selectedAnswer" 
+          :disabled="feedback?.correct"
         />
         <span>{{ option }}</span>
       </label>
     </div>
 
     <button 
+      v-if="!feedback?.correct"
       @click="submitAnswer" 
       :disabled="selectedAnswer === null || isSubmitting" 
       class="submit-btn"
@@ -73,9 +79,18 @@ const submitAnswer = async () => {
       {{ isSubmitting ? "Checking..." : "Submit Answer" }}
     </button>
 
+    <!-- Feedback Box with Next Button -->
     <div v-if="feedback" class="feedback-box" :class="{ correct: feedback.correct, incorrect: !feedback.correct }">
-      <p class="feedback-title"><strong>{{ feedback.correct ? "Correct!" : "Incorrect! " }}</strong></p>
+      <p class="feedback-title"><strong>{{ feedback.correct ? "Correct!" : "Incorrect!" }}</strong></p>
       <p>{{ feedback.explanation }}</p>
+
+      <button 
+        v-if="feedback.correct" 
+        @click="goToNextQuestion" 
+        class="next-btn"
+      >
+        Next Question →
+      </button>
     </div>
   </div>
 </template>
@@ -90,20 +105,10 @@ const submitAnswer = async () => {
   margin: 2rem auto;
 }
 
-
 .challenge-header h3 {
   color: #fff;
   font-size: 1.2rem;
   margin: 0;
-}
-
-.xp-badge {
-  background: #9c31ce;
-  color: #e2e8f0;
-  font-size: 0.85rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-weight: bold;
 }
 
 .question-text {
@@ -150,7 +155,7 @@ const submitAnswer = async () => {
   background: #5c327b;
 }
 
-.submit-btn {
+.submit-btn, .next-btn {
   background: #5c327b;
   color: white;
   border: none;
@@ -159,9 +164,10 @@ const submitAnswer = async () => {
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s;
+  width: 100%;
 }
 
-.submit-btn:hover:not(:disabled) {
+.submit-btn:hover:not(:disabled), .next-btn:hover {
   background: #9c31ce;
 }
 
@@ -191,5 +197,10 @@ const submitAnswer = async () => {
 
 .feedback-title {
   margin-bottom: 4px;
+}
+
+.next-btn {
+  margin-top: 15px;
+  background: #9c31ce;
 }
 </style>
