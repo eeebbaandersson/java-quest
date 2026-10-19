@@ -1,20 +1,21 @@
 <script setup>
 import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useBugHunting } from "@/composables/useBugHunting";
 
-const totalXP = ref(350);
+// const totalXP = ref(350);
+// Add logic here later to fetch total userXP from backend?
 
-const totalBugs = 5;
-const foundBugs = ref(1);
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
 
 const lessons = ref([
-  { id: 1, title: "Variables", isCompleted: true },
-  { id: 2, title: "Operators", isCompleted: true },
-  { id: 3, title: "If / Else", isCompleted: false },
-  { id: 4, title: "Loops", isCompleted: false },
-  { id: 5, title: "Arrays", isCompleted: false },
-  { id: 6, title: "Methods", isCompleted: false },
-  { id: 7, title: "Classes", isCompleted: false },
+  { id: 1, number: "01", title: "Variables", isCompleted: true },
+  { id: 2, number: "02", title: "Operators", isCompleted: true },
+  { id: 3, number: "03", title: "If / Else", isCompleted: false },
+  { id: 4, number: "04", title: "Loops", isCompleted: false },
+  { id: 5, number: "05", title: "Arrays", isCompleted: false },
+  { id: 6, number: "06", title: "Methods", isCompleted: false },
+  { id: 7, number: "07", title: "Classes", isCompleted: false },
 ]);
 
 const levels = [
@@ -45,7 +46,7 @@ const trophies = ref([
     id: 2,
     title: "Bug Hunter",
     description: "Captured all bugs hidden in the interface",
-    isUnlocked: false,
+    isUnlocked: bugHuntingTrophies.value.find((trophy) => trophy.id === 1)?.isUnlocked ?? false,
     icon: "bug",
   },
   {
@@ -84,6 +85,10 @@ const trophies = ref([
     icon: "helmet3",
   },
 ]);
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
 </script>
 
 <template>
@@ -107,7 +112,7 @@ const trophies = ref([
               class="badge"
               :class="{ completed: lesson.isCompleted }"
             >
-              {{ lesson.title }}
+              {{ lesson.number}} {{ lesson.title }}
             </RouterLink>
           </div>
         </div>
@@ -127,7 +132,7 @@ const trophies = ref([
               </div>
             </div>
             <div class="bug-tracker-wrapper">
-              <p class="bug-tracker-title">CAPTURED BUGS</p>
+              <p class="bug-tracker-title">CAPTURED BUGS ({{foundBugs}}/{{totalBugs}})</p>
               <div class="bug-icons-row">
                 <span
                   v-for="index in totalBugs"
@@ -174,10 +179,31 @@ const trophies = ref([
         <div class="arena-btn">Choose Arena</div>
       </RouterLink>
     </section>
+
+    <div 
+      v-if="isBugVisionActive && !isBugCaptured(1)" 
+      class="interactive-bug hidden-bug" 
+      @click="handleBugClick(1)"
+      title="Bug Spotted!"
+    >
+      <span class="badge-icon-mask icon-bug"></span>
+    </div>
+
   </div>
 </template>
 
 <style scoped>
+.home-container {
+ position: relative;       
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  width: 100%;
+  max-width: 1000px;        
+  margin: 0 auto;           
+  padding-bottom: 4rem;
+}
+
 .stats-section {
   width: 100%;
   max-width: 1000px;
@@ -189,7 +215,7 @@ const trophies = ref([
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: stretch;
-  gap: 1.25rem;
+  gap: 1.35rem;
   margin-top: 1rem;
 }
 
@@ -276,9 +302,9 @@ const trophies = ref([
 }
 
 .xp-display.active {
-  background: rgba(168, 85, 247, 0.08);
+  background: var(--glow-purple);
   border-color: var(--accent-purple);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+  box-shadow: 0 0 10px var(--glow-purple);
 }
 
 .xp-display.active .xp-number {
@@ -337,7 +363,7 @@ const trophies = ref([
 .arena-section {
   width: 100%;
   max-width: 655px;
-  margin: 1.25rem auto 0 auto;
+  margin: 1.35rem auto 0 auto;
 }
 
 .arena-container {
@@ -356,7 +382,7 @@ const trophies = ref([
 
 .arena-container:hover .arena-top-icon {
   opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+  filter: drop-shadow(0 0 8px var(--glow-purple));
 }
 
 .arena-container h2 {
@@ -369,7 +395,7 @@ const trophies = ref([
 }
 
 .arena-container:hover h2 {
-  color: #c084fc;
+  color: var(--accent-color);
 }
 
 .arena-container p {
@@ -382,6 +408,30 @@ const trophies = ref([
 
 .arena-container:hover p {
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* -- HIDDEN BUG -- */
+.hidden-bug {
+  position: absolute;
+  bottom: 6rem;
+  left: -1rem;             
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 40px;
+  height: 40px;
 }
 
 /* TABLET (Skärmar upp till 1024px) */
