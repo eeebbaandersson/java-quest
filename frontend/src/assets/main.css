@@ -9,10 +9,31 @@
   --font-mono: "JetBrains Mono", monospace;
 
   --accent-purple: #a855f7;
-  --glow-purple: rgba(168, 85, 247, 0.25);
-
+  --glow-purple: rgba(168, 85, 247, 0.10);
   --accent-color: #c084fc; 
   --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  
+  --bg-current: linear-gradient(
+      180deg,
+      #84739d 0%,
+      #584671 30%,
+      #38294d 70%,
+      #221632 100%
+    )
+    fixed;
+}
+
+/* BUG VISION THEME */
+html[data-theme="bug-vision"] {
+  --bg-main: #0a0a0c;
+  --bg-current: #0a0a0c;
+  
+  --accent-purple: #4ade80;
+  --accent-color: #4ade80;
+  --glow-purple: rgba(74, 222, 128, 0.10);
+  --glow-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -23,18 +44,10 @@
 
 body {
   width: 100%;
-
-  background: linear-gradient(
-      180deg,
-      #84739d 0%,
-      #584671 30%,
-      #38294d 70%,
-      #221632 100%
-    )
-    fixed;
-
+  background: var(--bg-current);
   color: var(--text-primary);
   font-family: var(--font-main);
+  transition: background-color 0.4s ease;
 }
 
 
@@ -58,17 +71,27 @@ body {
 .badge.completed,
 .badge.unlocked {
   background-color: rgba(168, 85, 247, 0.08);
-  color: #f3e8ff;
+  color: var(--text-primary);
   border: 1px solid var(--accent-purple);
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.25);
+  box-shadow: 0 0 12px var(--glow-purple);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html[data-theme="bug-vision"] .badge.completed,
+html[data-theme="bug-vision"] .badge.unlocked {
+  background-color: rgba(74, 222, 128, 0.06); 
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 12px var(--glow-purple);
+  color: #ffffff;
 }
 
 .badge.completed:hover,
 .badge.unlocked:hover {
-  background-color: rgba(168, 85, 247, 0.15);
-  box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
-  border-color: #c084fc;
+ background-color: rgba(168, 85, 247, 0.06); 
+  color: var(--text-primary);
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 0 12px var(--glow-purple);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
@@ -88,7 +111,8 @@ body {
 }
 
 .logo-title .highlight {
-  color: #c084fc;
+  color: var(--accent-color);
+  transition: color 0.4s ease;
 }
 
 .hero-subtitle,
@@ -115,10 +139,11 @@ body {
 }
 
 .glass-card-interactive:hover {
-  background: rgba(168, 85, 247, 0.04);
+  /* background: rgba(255, 255, 255, 0.04); */
   border-color: var(--accent-purple);
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  box-shadow: 0 0 20px var(--glow-purple);
 }
+
 
 .arena-btn {
   display: inline-flex;
@@ -137,10 +162,10 @@ body {
 }
 
 .glass-card-interactive:hover .arena-btn {
-  background: rgba(168, 85, 247, 0.25);
-  border-color: rgba(192, 132, 252, 0.8);
+  background: var(--glow-purple);
+  border-color: var(--accent-color);
   color: #ffffff;
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+  box-shadow: var(--glow-shadow);
 }
 
 .badge-icon-mask {
@@ -167,8 +192,6 @@ body {
 .icon-helmet3 { mask-image: url("@/assets/icons/helmet3.svg"); -webkit-mask-image: url("@/assets/icons/helmet3.svg"); }
 .icon-user { mask-image: url("@/assets/icons/user.svg"); -webkit-mask-image: url("@/assets/icons/user.svg"); }
 
-
-
 footer {
   text-align: center;
   font-family: var(--font-mono);
@@ -176,7 +199,6 @@ footer {
   font-size: 0.75rem;
   opacity: 0.3;
 }
-
 
 /* TABLET (Skärmar upp till 1024px) */
 @media (max-width: 1024px) {

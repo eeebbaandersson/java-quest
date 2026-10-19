@@ -1,9 +1,14 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import xpService from "@/services/xpService";
+import { useBugHunting } from "@/composables/useBugHunting";
 
-const totalXP = ref(xpService.getTotalXp());
+const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
 
 const levels = xpService.LEVELS;
 
@@ -81,11 +86,21 @@ const progressPercentage = computed(() => {
         <span class="arrow">←</span> Back to Dashboard
       </RouterLink>
     </div>
+
+     <div
+        v-if="isBugVisionActive && !isBugCaptured(5)"
+        class="interactive-bug hidden-bug"
+        @click="handleBugClick(5)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
   </section>
 </template>
 
 <style scoped>
 .info-section {
+  position: relative;  
   width: 100%;
   max-width: 1000px;
   text-align: center;
@@ -268,13 +283,13 @@ const progressPercentage = computed(() => {
 }
 
 .milestone-node.current .badge-icon-mask {
-  transform: scale(1.25);
+  transform: scale(1.35);
   transform-origin: bottom center;
   filter: drop-shadow(0 0 6px var(--accent-color)) drop-shadow(0 0 12px var(--accent-color));
 }
 
 .milestone-node.current .milestone-mushroom {
-  color: #ffffff;
+   color: #ffffff;
 }
 
 .milestone-node.current .milestone-label {
@@ -341,6 +356,31 @@ const progressPercentage = computed(() => {
 
 .back-btn:hover .arrow {
   transform: translateX(-3px);
+}
+
+/* -- HIDDEN BUG -- */
+.hidden-bug {
+  position: absolute;
+  top: 24rem;
+  left: 10%;
+
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 30px;
+  height: 30px;
 }
 
 /* TABLET (Skärmar upp till 1024px) */

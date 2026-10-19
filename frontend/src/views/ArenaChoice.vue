@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import { useBugHunting } from "@/composables/useBugHunting";
+
+const { captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
 const arenas = ref([
   {
@@ -31,13 +34,28 @@ const arenas = ref([
     link: "/practice/hard",
   },
 ]);
+
+const handleBugClick = (bugId) => {
+  captureBug(bugId);
+};
 </script>
 
 <template>
   <div class="arena-choice-container">
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
-      <p class="hero-subtitle">Select your level and earn XP for every correct answer.</p>
+      <p class="hero-subtitle">
+        Select your level and earn XP for every correct answer.
+      </p>
+
+      <div
+        v-if="isBugVisionActive && !isBugCaptured(2)"
+        class="interactive-bug hidden-bug"
+        @click="handleBugClick(2)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
     </section>
 
     <section class="choice-section">
@@ -74,25 +92,35 @@ const arenas = ref([
 <style scoped>
 .arena-choice-container {
   width: 100%;
-  max-width: 1050px;
+  max-width: 1000px;
   margin: 0 auto;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem 1rem;
+}
+
+.hero-section {
+  position: relative;
+}
+
+.choice-section {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .choice-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
   align-items: stretch;
+  gap: 1.35rem;
+  margin-top: 1rem;
 }
 
 .arena-card {
   position: relative;
   padding: 2.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
@@ -103,10 +131,10 @@ const arenas = ref([
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #c084fc; 
-  background: rgba(168, 85, 247, 0.12); 
-  border: 1px solid rgba(168, 85, 247, 0.4); 
-  border-radius: 12px; 
+  color: var(--accent-color);
+  background: var(--glow-purple);
+  border: 1px solid var(--accent-purple);
+  border-radius: 12px;
   padding: 4px 10px;
   text-transform: uppercase;
   pointer-events: none;
@@ -114,9 +142,9 @@ const arenas = ref([
 }
 
 .arena-card:hover .xp-corner-badge {
-  background: rgba(168, 85, 247, 0.18);
-  border-color: rgba(168, 85, 247, 0.5);
-  color: #c084fc; 
+  background: var(--glow-purple);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .arena-icon {
@@ -130,7 +158,7 @@ const arenas = ref([
 
 .arena-card:hover .arena-icon {
   opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+  filter: drop-shadow(0 0 8px var(--glow-purple));
 }
 
 .arena-subtitle {
@@ -158,7 +186,7 @@ const arenas = ref([
 }
 
 .arena-card:hover h2 {
-  color: #c084fc;
+  color: var(--accent-color);
   opacity: 1;
 }
 
@@ -212,14 +240,40 @@ const arenas = ref([
 }
 
 .icon-coliseum {
-  transform: translateY(8px) scale(1.18); 
+  transform: translateY(8px) scale(1.18);
   transform-origin: bottom center;
 }
 
-/* TABLET (Skärmar upp till 1024px) */
+/* -- HIDDEN BUG -- */
+.hidden-bug {
+  position: absolute;
+  top: 70%;
+  right: 5%;
+  transform: translateY(-50%);
+
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.35;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+}
+
+.hidden-bug:hover {
+  opacity: 1;
+  /* transform: scale(1.1); */
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 30px;
+  height: 30px;
+}
+
+/* TABLET (Skärmar upp till 1024px)*/
 @media (max-width: 1024px) {
-  .arena-choice-container {
-    padding: 1.5rem 1.25rem;
+  .choice-section {
+    max-width: 90%;
   }
 
   .choice-container {
@@ -233,6 +287,11 @@ const arenas = ref([
 
 /* MOBILE (Skärmar upp till 640px) */
 @media (max-width: 640px) {
+  .choice-section {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
   .choice-container {
     grid-template-columns: 1fr;
     gap: 1.25rem;
