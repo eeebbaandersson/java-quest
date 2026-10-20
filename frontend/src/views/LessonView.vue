@@ -210,7 +210,7 @@ const goBack = () => {
 
         <div class="completion-actions">
           <button @click="restartSession" class="redo-btn">
-            Practice More Random Questions
+            Keep Practicing
           </button>
           <button @click="goBack" class="submit-btn">
             Return to Dashboard
