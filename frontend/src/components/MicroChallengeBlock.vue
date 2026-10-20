@@ -155,7 +155,7 @@ const goToNextQuestion = () => {
 .submit-btn {
   background: var(--accent-purple);
   color: white;
-  border: none;
+  border: 1px solid var(--accent-purple);
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 600;
@@ -163,41 +163,56 @@ const goToNextQuestion = () => {
   font-size: 0.85rem;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   
   width: auto;
   min-width: 180px;
   display: block;
   margin: 1.5rem auto 0 auto;
+  box-shadow: 0 0 12px var(--glow-purple);
 }
 
 .submit-btn:hover:not(:disabled) {
-  filter: brightness(1.15);
+  background: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
   box-shadow: var(--glow-shadow);
+  color: #ffffff;
+
 }
 
 .submit-btn:disabled {
-  background: rgba(255, 255, 255, 0.08);
+ background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
   box-shadow: none;
+  transform: none;
 }
 
 .next-btn {
-  background: #38a169;
+  background: #2f855a;
   color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
+  border: 1px solid #48bb78;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background 0.2s;
-  width: 100%;
-  margin-top: 15px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  width: auto;
+  min-width: 180px;
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  box-shadow: 0 0 12px rgba(56, 161, 105, 0.25);
 }
 
 .next-btn:hover {
-  background: #2f855a;
+ background: #38a169;
+  border-color: #68d391;
+  box-shadow: 0 0 16px rgba(72, 187, 120, 0.4);
 }
 
 .feedback-box {
@@ -220,13 +235,5 @@ const goToNextQuestion = () => {
 
 .feedback-title {
   margin-bottom: 4px;
-}
-
-.next-btn {
-  margin-top: 15px;
-  background: #38a169;
-}
-.next-btn:hover {
-  background: #2f855a;
 }
 </style>

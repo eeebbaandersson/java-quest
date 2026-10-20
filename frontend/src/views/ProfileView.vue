@@ -395,7 +395,7 @@ const progressPercentage = computed(() => {
 @media (max-width: 640px) {
   .info-section {
     min-height: auto;
-    padding: 1rem 1remrem;
+    padding: 1rem 1rem;
     justify-content: flex-start;
   }
 

@@ -186,9 +186,12 @@ const goBack = () => {
         <span
           v-if="isCompleted"
           class="completed-icon-badge"
+          role="img"
+          aria-label="Lesson Completed"
           title="Lesson Completed"
         >
-          <span class="badge-icon-mask icon-check"></span>
+          <span class="badge-icon-mask icon-check"
+          aria-hidden="true"></span>
         </span>
       </h1>
       <p class="hero-subtitle">{{ currentLesson.subtitle }}</p>
