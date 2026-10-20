@@ -44,10 +44,8 @@ const goToNextQuestion = () => {
 </script>
 
 <template>
-  <div class="challenge-card">
-    <div class="challenge-header">
-      <h3>Micro Challenge</h3>  
-    </div>
+  <div class="challenge-card glass-card">
+    
     <p class="question-text">{{ question.question_text }}</p>
 
     <pre v-if="question.code_snippet" class="challenge-code"><code>{{ question.code_snippet }}</code></pre>
@@ -79,7 +77,6 @@ const goToNextQuestion = () => {
       {{ isSubmitting ? "Checking..." : "Submit Answer" }}
     </button>
 
-    <!-- Feedback Box with Next Button -->
     <div v-if="feedback" class="feedback-box" :class="{ correct: feedback.correct, incorrect: !feedback.correct }">
       <p class="feedback-title"><strong>{{ feedback.correct ? "Correct!" : "Incorrect!" }}</strong></p>
       <p>{{ feedback.explanation }}</p>
@@ -97,18 +94,13 @@ const goToNextQuestion = () => {
 
 <style scoped>
 .challenge-card {
-  background: #1a202c;
-  border: 1px solid #9c31ce;
-  border-radius: 16px;
-  padding: 28px;
   max-width: 650px;
-  margin: 2rem auto;
-}
-
-.challenge-header h3 {
-  color: #fff;
-  font-size: 1.2rem;
-  margin: 0;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  padding: 28px;
 }
 
 .question-text {
@@ -118,13 +110,14 @@ const goToNextQuestion = () => {
 }
 
 .challenge-code {
-  background: #0d1117;
+  background: rgba(0, 0, 0, 0.3);
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 8px;
   color: #e6edf3;
   font-family: monospace;
   margin-bottom: 1rem;
   overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .options-list {
@@ -138,69 +131,109 @@ const goToNextQuestion = () => {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #2d3748;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 12px 16px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
   color: #e2e8f0;
-}
-
-.option-item:hover {
-  background: #4a5568;
-}
-
-.option-item.active {
-  border: 1px solid #9c31ce;
-  background: #5c327b;
-}
-
-.submit-btn, .next-btn {
-  background: #5c327b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
   width: 100%;
 }
 
-.submit-btn:hover:not(:disabled), .next-btn:hover {
-  background: #9c31ce;
+.option-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.option-item.active {
+  border: 1px solid var(--accent-purple);
+  background: var(--glow-purple);
+  box-shadow: var(--glow-shadow);
+}
+
+.submit-btn {
+  background: var(--accent-purple);
+  color: white;
+  border: 1px solid var(--accent-purple);
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  width: auto;
+  min-width: 180px;
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  box-shadow: 0 0 12px var(--glow-purple);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
+  box-shadow: var(--glow-shadow);
+  color: #ffffff;
+
 }
 
 .submit-btn:disabled {
-  background: #4a5568;
+ background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
-  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+
+.next-btn {
+  background: #2f855a;
+  color: white;
+  border: 1px solid #48bb78;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  width: auto;
+  min-width: 180px;
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  box-shadow: 0 0 12px rgba(56, 161, 105, 0.25);
+}
+
+.next-btn:hover {
+ background: #38a169;
+  border-color: #68d391;
+  box-shadow: 0 0 16px rgba(72, 187, 120, 0.4);
 }
 
 .feedback-box {
   margin-top: 1.5rem;
   padding: 15px;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .feedback-box.correct {
   background: rgba(56, 161, 105, 0.15);
-  border: 1px solid #d73ee5;
+  border: 1px solid #38a169;
   color: white;
 }
 
 .feedback-box.incorrect {
-  background: #1a202c;
-  border: 1px solid #d73ee5;
+  background: rgba(229, 62, 62, 0.15);
+  border: 1px solid #e53e3e;
   color: white;
 }
 
 .feedback-title {
   margin-bottom: 4px;
-}
-
-.next-btn {
-  margin-top: 15px;
-  background: #9c31ce;
 }
 </style>

@@ -41,8 +41,7 @@ const lessonsData = {
   },
   methods: {
     title: "Methods",
-    subtitle:
-      "Structure your application with functions and scope.",
+    subtitle: "Structure your application with functions and scope.",
   },
   classes: {
     title: "Classes & Objects",
@@ -64,12 +63,16 @@ const isLoading = ref(false);
 let latestRequestId = 0;
 
 const checkLocalStorageCompletion = (id) => {
-  const completed = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+  const completed = JSON.parse(
+    localStorage.getItem("completed_lessons") || "{}",
+  );
   isCompleted.value = !!completed[id];
 };
 
 const saveLessonCompletion = (id) => {
-  const completed = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+  const completed = JSON.parse(
+    localStorage.getItem("completed_lessons") || "{}",
+  );
   completed[id] = new Date().toISOString();
   localStorage.setItem("completed_lessons", JSON.stringify(completed));
   isCompleted.value = true;
@@ -77,7 +80,7 @@ const saveLessonCompletion = (id) => {
 
 const loadRandomQuestion = () => {
   if (!lesson.value || !lesson.value.questions) return;
-  
+
   const questions = lesson.value.questions ?? [];
   if (questions.length === 0) {
     currentQuestion.value = null;
@@ -87,7 +90,10 @@ const loadRandomQuestion = () => {
   let nextQuestion;
   do {
     nextQuestion = questions[Math.floor(Math.random() * questions.length)];
-  } while (nextQuestion.question_id === currentQuestion.value?.question_id && questions.length > 1);
+  } while (
+    nextQuestion.question_id === currentQuestion.value?.question_id &&
+    questions.length > 1
+  );
 
   currentQuestion.value = nextQuestion;
 };
@@ -119,7 +125,7 @@ const fetchLesson = async (id) => {
 
     lesson.value = {
       ...data.lesson,
-      questions: data.questions ?? []
+      questions: data.questions ?? [],
     };
 
     loadRandomQuestion();
@@ -140,12 +146,14 @@ onMounted(() => {
   fetchLesson(route.params.id);
 });
 
-watch(() => route.params.id, (newId) => {
-  if (newId) {
-    fetchLesson(newId);
-  }
-});
-
+watch(
+  () => route.params.id,
+  (newId) => {
+    if (newId) {
+      fetchLesson(newId);
+    }
+  },
+);
 
 const handleNextQuestion = () => {
   correctCount.value++;
@@ -153,7 +161,7 @@ const handleNextQuestion = () => {
   if (correctCount.value === 3 && !isCompleted.value) {
     isFinishedSession.value = true;
     saveLessonCompletion(lessonId.value);
-  } else if(!isFinishedSession.value) {
+  } else if (!isFinishedSession.value) {
     loadRandomQuestion();
   }
 };
@@ -171,191 +179,279 @@ const goBack = () => {
 
 <template>
   <div class="lesson-container">
-
     <!-- HERO SECTION -->
-    <section class="lesson-hero">
-      <h1 class="lesson-title">{{ currentLesson.title }}</h1>
-      <p class="lesson-subtitle">{{ currentLesson.subtitle }}</p>
-
-      <div v-if="isCompleted" class="status-badge">
-        ✓ Lesson Completed
-      </div>
+    <section class="hero-section">
+      <h1 class="logo-title">
+        {{ currentLesson.title }}
+        <span
+          v-if="isCompleted"
+          class="completed-icon-badge"
+          role="img"
+          aria-label="Lesson Completed"
+          title="Lesson Completed"
+        >
+          <span class="badge-icon-mask icon-check"
+          aria-hidden="true"></span>
+        </span>
+      </h1>
+      <p class="hero-subtitle">{{ currentLesson.subtitle }}</p>
     </section>
 
     <p v-if="isLoading" class="loading">Loading lesson content...</p>
-    
+
     <main class="lesson-section" v-if="lesson">
-       <TheoryBlock :content="lesson.theory_text" />
-       <CodeBlock v-if="lesson.code_example" :code="lesson.code_example" />
-       
-       <div v-if="isFinishedSession" class="completion-card">
-         <h2>Congratulations Adventurer!</h2>
-         <p>You have successfully completed this lesson.</p>
-         <div class="completion-actions">
-           <button @click="restartSession" class="redo-btn">Practice More Random Questions</button>
-           <button @click="goBack" class="submit-btn">Return to Dashboard</button>
-         </div>
-       </div>
+      <TheoryBlock :content="lesson.theory_text" />
 
-       
-       <div class="challenges-section" v-else-if="currentQuestion">
-         <div class="progress-bar-text" v-if="!isCompleted">
-           <span>Completed Microchallenges: {{ correctCount }} / 3</span>
-         </div>
+      <CodeBlock v-if="lesson.code_example" :code="lesson.code_example" />
 
-         <MicroChallengeBlock 
-           :key="currentQuestion.question_id"
-           :question="currentQuestion"
-           :index="correctCount"
-           @next-question="handleNextQuestion"
-         />
-       </div>
+      <div v-if="isFinishedSession" class="completion-card">
+        <h2>Congratulations Adventurer!</h2>
+        <p>You have successfully completed this lesson.</p>
 
-       <div 
-         v-if="lessonId === 'operators' && isBugVisionActive && !isBugCaptured(3)" 
-         class="hidden-bug lesson-bug-3" 
-         @click="handleBugClick(3)"
-         title="Bug Spotted!"
-       >
-         <span class="badge-icon-mask icon-bug"></span>
-       </div>
-        <div 
-         v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)" 
-         class="hidden-bug lesson-bug-4" 
-         @click="handleBugClick(4)"
-         title="Bug Spotted!"
-       >
-         <span class="badge-icon-mask icon-bug"></span>
-       </div>
+        <div class="completion-actions">
+          <button @click="restartSession" class="redo-btn">
+            Keep Practicing
+          </button>
+          <button @click="goBack" class="submit-btn">
+            Return to Dashboard
+          </button>
+        </div>
+      </div>
+
+      <div class="challenges-section" v-else-if="currentQuestion">
+        <div class="section-header">
+          <h3>Micro Challenge</h3>
+          <span class="progress-indicator" v-if="!isCompleted"
+            >Completed: {{ correctCount }} / 3</span
+          >
+        </div>
+
+        <MicroChallengeBlock
+          :key="currentQuestion.question_id"
+          :question="currentQuestion"
+          :index="correctCount"
+          @next-question="handleNextQuestion"
+        />
+      </div>
+
+      <!-- Hidden Bugs -->
+      <div
+        v-if="
+          lessonId === 'operators' && isBugVisionActive && !isBugCaptured(3)
+        "
+        class="hidden-bug lesson-bug-3"
+        @click="handleBugClick(3)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
+      <div
+        v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)"
+        class="hidden-bug lesson-bug-4"
+        @click="handleBugClick(4)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
     </main>
   </div>
 </template>
 
 <style scoped>
 .lesson-container {
-  max-width: 800px;
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 40px 20px;
-  color: #ffffff;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.back-btn {
-  background: transparent;
-  border: 1px solid #4a5568;
-  color: #cbd5e0;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
+.hero-section {
+  text-align: center;
+  position: relative;
+  margin-top: 3rem;
   margin-bottom: 2rem;
 }
 
-.back-btn:hover {
-  background: #2d3748;
-}
-
-.lesson-hero {
-  text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 3.5rem;
-}
-
-.lesson-title {
-  font-size: 2.5rem;
+.logo-title {
+  font-size: 2.8rem;
   font-weight: 900;
   letter-spacing: 1px;
   line-height: 1.1;
   color: #ffffff;
   margin-bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
-.lesson-subtitle {
-  color: #a0aec0;
-  font-size: 1rem;
+.hero-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.completed-icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+  vertical-align: middle;
+}
+
+.completed-icon-badge .badge-icon-mask {
+  width: 32px;
+  height: 32px;
 }
 
 .status-badge {
   display: inline-block;
-  background: rgba(56, 161, 105, 0.2);
-  border: 1px solid #38a169;
-  color: #9ae6b4;
-  padding: 6px 14px;
+  background-color: rgba(74, 222, 128, 0.1);
+  border: 1px solid var(--accent-purple);
+  color: var(--accent-color);
+  padding: 4px 12px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: bold;
-  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  box-shadow: 0 0 10px var(--glow-purple);
+}
+
+.lesson-section {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .loading {
   text-align: center;
-  color: #a0aec0;
-  font-size: 1.2rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
   margin-top: 3rem;
+  font-family: var(--font-mono);
 }
 
 .progress-bar-text {
-  font-size: 0.9rem;
-  color: #a0aec0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
   margin-bottom: 0.75rem;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 1px;
+  font-family: var(--font-mono);
+  text-align: center;
 }
 
 .completion-card {
-  background: rgba(56, 161, 105, 0.15);
-  border: 1px solid #38a169;
-  border-radius: 12px;
-  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--accent-purple);
+  box-shadow: 0 0 20px var(--glow-purple);
+  border-radius: 18px;
+  padding: 2rem;
   text-align: center;
-  margin-top: 2rem;
+  max-width: 655px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .completion-card h2 {
-  color: #9ae6b4;
-  font-size: 2rem;
-  margin-bottom: 10px;
+  color: var(--accent-color);
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .completion-card p {
-  color: #e2e8f0;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
 .completion-actions {
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   justify-content: center;
 }
 
-.submit-btn, .redo-btn {
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: bold;
+.submit-btn,
+.redo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  border: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-subtle);
 }
 
 .submit-btn {
-  background: #38a169;
-  color: white;
+  background: var(--glow-purple);
+  color: #ffffff;
+  border-color: var(--accent-purple);
+  box-shadow: var(--glow-shadow);
 }
+
 .submit-btn:hover {
-  background: #2f855a;
+  background: var(--accent-purple);
+  box-shadow: 0 0 20px var(--glow-purple);
 }
 
 .redo-btn {
-  background: #2d3748;
-  color: #e2e8f0;
-  border: 1px solid #4a5568;
-}
-.redo-btn:hover {
-  background: #4a5568;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
 }
 
-/* --  HIDDEN BUGS -- */ 
+.redo-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border-color: var(--text-secondary);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.section-header h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.3rem;
+}
+
+.progress-indicator {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* -- HIDDEN BUGS -- */
 .hidden-bug {
-  position: absolute;             
+  position: absolute;
   cursor: pointer;
   color: var(--accent-purple);
   opacity: 0.35;
@@ -370,7 +466,7 @@ const goBack = () => {
 }
 
 .lesson-bug-3 {
-  top: 1.5rem;
+  top: 1rem;
   right: 2rem;
 }
 .lesson-bug-3 .badge-icon-mask {
@@ -382,11 +478,25 @@ const goBack = () => {
   bottom: 2rem;
   left: 1rem;
 }
-
 .lesson-bug-4 .badge-icon-mask {
   width: 28px;
   height: 28px;
 }
 
+@media (max-width: 768px) {
+  .lesson-container {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .logo-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-section {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
 
 </style>
