@@ -10,8 +10,12 @@ defineProps({
 
 <style scoped>
 .theory-box {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin: 0 auto 1.5rem auto;
+  max-width: 820px;
+  width: 100%;
+  padding: 0 1rem;
+  color: var(--text-secondary);
 }
 </style>

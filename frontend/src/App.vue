@@ -36,7 +36,7 @@ const showProfileLink = computed(() => {
 
     <!-- Footer -->
     <footer>
-      <p></p>
+      <p>&copy; 2026 Java{}Quest. <br> All rights reserved.</p>
     </footer>
   </div>
 </template>
