@@ -6,15 +6,18 @@ import { useBugHunting } from "@/composables/useBugHunting";
 
 const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
 
-const lessons = ref([
-  { id: 1, number: "01", title: "Variables", isCompleted: true },
-  { id: 2, number: "02", title: "Operators", isCompleted: true },
-  { id: 3, number: "03", title: "If / Else", isCompleted: false },
-  { id: 4, number: "04", title: "Loops", isCompleted: false },
-  { id: 5, number: "05", title: "Arrays", isCompleted: false },
-  { id: 6, number: "06", title: "Methods", isCompleted: false },
-  { id: 7, number: "07", title: "Classes", isCompleted: false },
-]);
+const lessons = computed(() => {
+  const lessonCompleted = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+  return [
+    { id: 1, number: "01", title: "Variables", isCompleted: !!lessonCompleted["variables"] },
+    { id: 2, number: "02", title: "Operators", isCompleted: !!lessonCompleted["operators"] },
+    { id: 3, number: "03", title: "If / Else", isCompleted: !!lessonCompleted["ifelse"] },
+    { id: 4, number: "04", title: "Loops", isCompleted: !!lessonCompleted["loops"] },
+    { id: 5, number: "05", title: "Arrays", isCompleted: !!lessonCompleted["arrays"] },
+    { id: 6, number: "06", title: "Methods", isCompleted: !!lessonCompleted["methods"] },
+    { id: 7, number: "07", title: "Classes", isCompleted: !!lessonCompleted["classes"] },
+  ];
+});
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
