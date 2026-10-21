@@ -7,7 +7,15 @@ import { useBugHunting } from "@/composables/useBugHunting";
 const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
 
 const lessons = computed(() => {
-  const lessonCompleted = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+    let lessonCompleted = {};
+  try {
+    const parsed = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+    if (parsed && typeof parsed === "object") {
+      lessonCompleted = parsed;
+    }
+  } catch (error) {
+   console.warn("Could not read completed_lessons from localStorage", error);
+ };
   return [
     { id: 1, number: "01", title: "Variables", isCompleted: !!lessonCompleted["variables"] },
     { id: 2, number: "02", title: "Operators", isCompleted: !!lessonCompleted["operators"] },
@@ -26,7 +34,7 @@ const trophies = ref([
     id: 1,
     title: "Explorer",
     description: "Completed your first quest!",
-    isUnlocked: true,
+    isUnlocked: false,
     icon: "compass",
   },
   {
