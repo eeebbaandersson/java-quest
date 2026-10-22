@@ -1,12 +1,15 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
 
 import xpService from "@/services/xpService";
-import { useBugHunting } from "@/composables/useBugHunting";
 
-const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
+import { useBugHunting } from "@/composables/useBugHunting";
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+
+import { useTrophies } from "@/composables/useTrophies";
+const { trophies } = useTrophies();
 
 const lessons = computed(() => {
     let lessonCompleted = {};
@@ -30,58 +33,6 @@ const lessons = computed(() => {
 });
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
-
-const trophies = ref([
-  {
-    id: 1,
-    title: "Explorer",
-    description: "Completed your first quest!",
-    isUnlocked: false,
-    icon: "compass",
-  },
-  {
-    id: 2,
-    title: "Bug Hunter",
-    description: "Captured all bugs hidden in the interface",
-    isUnlocked: bugHuntingTrophies.value.find((trophy) => trophy.id === 1)?.isUnlocked ?? false,
-    icon: "bug",
-  },
-  {
-    id: 3,
-    title: "Syntax Ninja",
-    description: "Completed 3 quests",
-    isUnlocked: false,
-    icon: "ninja",
-  },
-  {
-    id: 4,
-    title: "Novice",
-    description: "Conquered the Easy Arena",
-    isUnlocked: false,
-    icon: "helmet",
-  },
-  {
-    id: 5,
-    title: "Java Master",
-    description: "Completed all quests",
-    isUnlocked: false,
-    icon: "kungfu",
-  },
-  {
-    id: 6,
-    title: "Challenger",
-    description: "Conquered the Medium Arena",
-    isUnlocked: false,
-    icon: "helmet2",
-  },
-  {
-    id: 7,
-    title: "Hero",
-    description: "Conquered the Hard Arena",
-    isUnlocked: false,
-    icon: "helmet3",
-  },
-]);
 
 const handleBugClick = (bugId) => {
   captureBug(bugId);
