@@ -7,7 +7,7 @@ import BugvisionToggle from "./components/BugvisionToggle.vue";
 const route = useRoute();
 
 const showNavbar = computed(() => {
-  return ["home", "lesson", "arenachoice", "profile"].includes(route.name);
+  return ["lesson", "arenachoice", "profile" ].includes(route.name);
 });
 
 const showProfileLink = computed(() => {
@@ -104,6 +104,12 @@ display: inline-flex;
 @media (max-width: 1199px) {
   .header-actions {
     display: none; 
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-hide-nav {
+    display: none;
   }
 }
 </style>

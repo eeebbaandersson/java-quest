@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
+import Navbar from "@/components/Navbar.vue";
+
 import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
 
@@ -94,6 +96,10 @@ const handleBugClick = (bugId) => {
       <p class="hero-subtitle">Level up your Java skills, one quest at a time.</p>
     </section>
 
+     <header class="app-header">
+      <Navbar />
+    </header>
+
     <!-- STATS-SEKTION -->
     <section class="stats-section">
       <div class="stats-container">
@@ -107,7 +113,7 @@ const handleBugClick = (bugId) => {
               class="badge"
               :class="{ completed: lesson.isCompleted }"
             >
-              {{ lesson.number}} {{ lesson.title }}
+              {{ lesson.number}} 
             </RouterLink>
           </div>
         </div>
@@ -189,7 +195,7 @@ const handleBugClick = (bugId) => {
 
 <style scoped>
 .home-container {
- position: relative;       
+  position: relative;       
   display: flex;
   flex-direction: column;
   align-items: center;    
@@ -215,7 +221,7 @@ const handleBugClick = (bugId) => {
 }
 
 .stats-card {
-  padding: 1.75rem 1.25rem;
+  padding: 2rem 1.25rem;
   min-height: 280px;
   font-family: var(--font-mono);
 }
@@ -427,6 +433,14 @@ const handleBugClick = (bugId) => {
 .hidden-bug .badge-icon-mask {
   width: 40px;
   height: 40px;
+}
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
 }
 
 /* TABLET (Skärmar upp till 1024px) */
