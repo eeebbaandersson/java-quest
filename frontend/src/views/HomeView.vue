@@ -42,7 +42,7 @@ const handleBugClick = (bugId) => {
 <template>
   <div class="home-container">
     <!-- HERO-SEKTION -->
-    <section class="hero-section">
+    <section class="hero-section java-quest">
       <h1 class="logo-title"><span class="highlight">JAVA{}</span>QUEST</h1>
       <p class="hero-subtitle">Level up your Java skills, one quest at a time.</p>
     </section>
@@ -63,6 +63,7 @@ const handleBugClick = (bugId) => {
               :to="`/lessons/${lesson.title.toLowerCase().replace(/[^a-z0-9]/g, '')}`"
               class="badge"
               :class="{ completed: lesson.isCompleted }"
+              :aria-label="lesson.title"
             >
               {{ lesson.number}} 
             </RouterLink>
@@ -153,7 +154,11 @@ const handleBugClick = (bugId) => {
   width: 100%;
   max-width: 1000px;        
   margin: 0 auto;           
-  padding-bottom: 4rem;
+}
+
+/* To reduce spacing below logo-/subtitle text */ 
+.java-quest {
+  margin-bottom: 2rem;
 }
 
 .stats-section {

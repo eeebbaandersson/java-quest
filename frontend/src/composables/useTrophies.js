@@ -58,8 +58,18 @@ const trophies = ref(
     } catch (error) {
       console.warn("Could not read completed_lessons from localStorage", error);
     }
-    // Returns the amount of true/completed lessons
-    return Object.values(lessonCompleted).filter(Boolean).length;
+   
+    const lessonKeys = [
+      "variables",
+      "operators",
+      "ifelse",
+      "loops",
+      "arrays",
+      "methods",
+      "classes",
+    ];
+
+    return lessonKeys.filter(key => Boolean(lessonCompleted[key])).length;
   };
 
 export function useTrophies() {
