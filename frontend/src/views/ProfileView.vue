@@ -342,6 +342,7 @@ const progressPercentage = computed(() => {
 .back-navigation {
   display: flex;
   justify-content: center;
+  gap: 1rem;
   margin-top: 2.5rem;
 }
 
@@ -373,6 +374,39 @@ const progressPercentage = computed(() => {
 
 .back-btn:hover .arrow {
   transform: translateX(-3px);
+}
+
+.reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0.6rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.reset-btn:focus-visible {
+  outline: 2px solid rgba(239, 68, 68, 0.6);
+  outline-offset: 2px;
+}
+
+.back-btn,
+.reset-btn {
+  min-width: 200px;
+  justify-content: center;
 }
 
 /* -- HIDDEN BUG -- */
