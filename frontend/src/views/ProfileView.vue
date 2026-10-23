@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
+import progressService from "@/services/progressService";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
@@ -11,6 +12,19 @@ const handleBugClick = (bugId) => {
 };
 
 const levels = xpService.LEVELS;
+
+const handleReset = () => {
+  const confirmed = window.confirm(
+    "Are you sure? All XP, captured bugs, trophies and completed lessons will be reset."
+  );
+  if (!confirmed) return;
+
+  if (progressService.resetProgress()) {
+    window.location.reload();
+  } else {
+    window.alert("Could not reset progress. Please try again.");
+  }
+};
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
@@ -85,6 +99,9 @@ const progressPercentage = computed(() => {
       <RouterLink to="/" class="back-btn">
         <span class="arrow">←</span> Back to Dashboard
       </RouterLink>
+      <button type="button" class="reset-btn" @click="handleReset">
+        Reset progress
+      </button>
     </div>
 
      <div
