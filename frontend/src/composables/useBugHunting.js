@@ -1,5 +1,8 @@
 import { ref } from "vue";
 import xpService from "@/services/xpService";
+import { useTrophies } from "@/composables/useTrophies";
+
+const { checkBugHunter } = useTrophies();
 
 function readStored(key, fallback, validate, parse = JSON.parse) {
   try {
@@ -53,37 +56,8 @@ if (isBugVisionActive.value) {
   document.documentElement.setAttribute("data-theme", "bug-vision");
 }
 
-const defaultTrophies = [
-  {
-    id: 1,
-    title: "Bug Hunter",
-    description: "Captured all bugs hidden in the interface",
-    isUnlocked: false,
-    icon: "bug",
-  }
-];
-
-const trophies = ref(
-  readStored("trophies", defaultTrophies, value =>
-    Array.isArray(value) &&
-    value.some(trophy => trophy?.id === 1) &&
-    value.every(trophy =>
-      trophy !== null &&
-      typeof trophy === "object" &&
-      Number.isInteger(trophy.id) &&
-      typeof trophy.title === "string" &&
-      typeof trophy.description === "string" &&
-      typeof trophy.isUnlocked === "boolean" &&
-      typeof trophy.icon === "string",
-    )
-  )
-);
-
-const bugHunterTrophy = trophies.value.find(trophy => trophy.id === 1);
-
-if (bugHunterTrophy) {
-  bugHunterTrophy.isUnlocked =
-    capturedBugIds.value.length >= totalBugs.value;
+if (foundBugs.value >= totalBugs.value) {
+  checkBugHunter(foundBugs.value, totalBugs.value);
 }
 
 export function useBugHunting() {
@@ -113,13 +87,8 @@ export function useBugHunting() {
       xpService.addPoints(25);
 
       if (foundBugs.value >= totalBugs.value) {
-        const bugHunterTrophy = trophies.value.find((t) => t.id === 1);
-        if (bugHunterTrophy) {
-          bugHunterTrophy.isUnlocked = true;
-        }
+       checkBugHunter(foundBugs.value, totalBugs.value);
       }
-
-      writeStored('trophies', trophies.value);
 
       return true;
     }
@@ -136,7 +105,6 @@ export function useBugHunting() {
     totalXP,
     isBugVisionActive,
     setBugVision,
-    trophies,
     captureBug,
     isBugCaptured,
   };

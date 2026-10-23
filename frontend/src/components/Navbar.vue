@@ -1,7 +1,12 @@
 <script setup>
-import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { ref, computed } from "vue";
+import { useRoute,RouterLink } from "vue-router";
 import BugvisionToggle from "./BugvisionToggle.vue";
+
+const route = useRoute();
+const hideHomeLink = computed(() => {
+  return ["home"].includes(route.name);
+});
 
 const isMenuOpen = ref(false);
 
@@ -21,7 +26,8 @@ const closeMenu = () => {
     @click="closeMenu"
   ></div>
 
-  <header class="navbar-wrapper">
+ 
+  <header class="navbar-wrapper" :class="{ compact: hideHomeLink }">
     <nav class="nav-container">
       <button 
         id="menu-toggle-btn" 
@@ -34,7 +40,7 @@ const closeMenu = () => {
       </button>
 
       <div class="nav-links" :class="{ active: isMenuOpen }">
-        <RouterLink to="/" class="nav-item home-item" @click="closeMenu">{}</RouterLink>
+        <RouterLink v-if="!hideHomeLink" to="/" class="nav-item home-item" @click="closeMenu">{}</RouterLink>
         <RouterLink to="/lessons/variables" class="nav-item" @click="closeMenu">Variables</RouterLink>
         <RouterLink to="/lessons/operators" class="nav-item" @click="closeMenu">Operators</RouterLink>
         <RouterLink to="/lessons/ifelse" class="nav-item" @click="closeMenu">If / Else</RouterLink>
@@ -73,6 +79,12 @@ const closeMenu = () => {
   width: 100%;
   max-width: 800px;
   border-radius: 14px;
+  transition: max-width 0.3s ease; 
+}
+
+
+.navbar-wrapper.compact {
+  max-width: 700px;
 }
 
 .nav-container {
@@ -132,6 +144,10 @@ const closeMenu = () => {
   display: none;
 }
 
+.nav-item.router-link-active:not(.home-item) {
+  color: var(--accent-color);
+}
+
 
 /* --- MOBILE & TABLET OVERRIDES (Skärmar upp till 1199px) --- */
 @media (max-width: 1199px) {
@@ -168,6 +184,10 @@ const closeMenu = () => {
     padding: 0;
     margin: 0.5rem auto;
     width: 100%;
+    max-width: 1000px;
+  }
+
+  .navbar-wrapper.compact {
     max-width: 1000px;
   }
 

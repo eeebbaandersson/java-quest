@@ -1,10 +1,15 @@
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { RouterLink } from "vue-router";
-import xpService from "@/services/xpService";
-import { useBugHunting } from "@/composables/useBugHunting";
+import Navbar from "@/components/Navbar.vue";
 
-const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, trophies: bugHuntingTrophies } = useBugHunting();
+import xpService from "@/services/xpService";
+
+import { useBugHunting } from "@/composables/useBugHunting";
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+
+import { useTrophies } from "@/composables/useTrophies";
+const { trophies } = useTrophies();
 
 const lessons = computed(() => {
     let lessonCompleted = {};
@@ -29,58 +34,6 @@ const lessons = computed(() => {
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
-const trophies = ref([
-  {
-    id: 1,
-    title: "Explorer",
-    description: "Completed your first quest!",
-    isUnlocked: false,
-    icon: "compass",
-  },
-  {
-    id: 2,
-    title: "Bug Hunter",
-    description: "Captured all bugs hidden in the interface",
-    isUnlocked: bugHuntingTrophies.value.find((trophy) => trophy.id === 1)?.isUnlocked ?? false,
-    icon: "bug",
-  },
-  {
-    id: 3,
-    title: "Syntax Ninja",
-    description: "Completed 3 quests",
-    isUnlocked: false,
-    icon: "ninja",
-  },
-  {
-    id: 4,
-    title: "Novice",
-    description: "Conquered the Easy Arena",
-    isUnlocked: false,
-    icon: "helmet",
-  },
-  {
-    id: 5,
-    title: "Java Master",
-    description: "Completed all quests",
-    isUnlocked: false,
-    icon: "kungfu",
-  },
-  {
-    id: 6,
-    title: "Challenger",
-    description: "Conquered the Medium Arena",
-    isUnlocked: false,
-    icon: "helmet2",
-  },
-  {
-    id: 7,
-    title: "Hero",
-    description: "Conquered the Hard Arena",
-    isUnlocked: false,
-    icon: "helmet3",
-  },
-]);
-
 const handleBugClick = (bugId) => {
   captureBug(bugId);
 };
@@ -89,10 +42,14 @@ const handleBugClick = (bugId) => {
 <template>
   <div class="home-container">
     <!-- HERO-SEKTION -->
-    <section class="hero-section">
+    <section class="hero-section java-quest">
       <h1 class="logo-title"><span class="highlight">JAVA{}</span>QUEST</h1>
       <p class="hero-subtitle">Level up your Java skills, one quest at a time.</p>
     </section>
+
+     <header class="app-header">
+      <Navbar />
+    </header>
 
     <!-- STATS-SEKTION -->
     <section class="stats-section">
@@ -106,8 +63,9 @@ const handleBugClick = (bugId) => {
               :to="`/lessons/${lesson.title.toLowerCase().replace(/[^a-z0-9]/g, '')}`"
               class="badge"
               :class="{ completed: lesson.isCompleted }"
+              :aria-label="lesson.title"
             >
-              {{ lesson.number}} {{ lesson.title }}
+              {{ lesson.number}} 
             </RouterLink>
           </div>
         </div>
@@ -189,14 +147,18 @@ const handleBugClick = (bugId) => {
 
 <style scoped>
 .home-container {
- position: relative;       
+  position: relative;       
   display: flex;
   flex-direction: column;
   align-items: center;    
   width: 100%;
   max-width: 1000px;        
   margin: 0 auto;           
-  padding-bottom: 4rem;
+}
+
+/* To reduce spacing below logo-/subtitle text */ 
+.java-quest {
+  margin-bottom: 2rem;
 }
 
 .stats-section {
@@ -215,7 +177,7 @@ const handleBugClick = (bugId) => {
 }
 
 .stats-card {
-  padding: 1.75rem 1.25rem;
+  padding: 2rem 1.25rem;
   min-height: 280px;
   font-family: var(--font-mono);
 }
@@ -427,6 +389,14 @@ const handleBugClick = (bugId) => {
 .hidden-bug .badge-icon-mask {
   width: 40px;
   height: 40px;
+}
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
 }
 
 /* TABLET (Skärmar upp till 1024px) */

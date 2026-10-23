@@ -117,7 +117,8 @@ const handleBugClick = (bugId) => {
 
 .arena-card {
   position: relative;
-  padding: 2.5rem 1.25rem;
+  padding: 2rem 1.25rem;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
