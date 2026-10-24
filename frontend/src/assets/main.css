@@ -12,6 +12,9 @@
   --glow-purple: rgba(168, 85, 247, 0.10);
   --accent-color: #c084fc; 
   --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+
+  --bg-modal: rgba(42, 32, 60, 0.96); 
+  --border-modal: rgba(168, 85, 247, 0.3);
   
   --bg-current: linear-gradient(
       180deg,
@@ -32,6 +35,9 @@ html[data-theme="bug-vision"] {
   --accent-color: #4ade80;
   --glow-purple: rgba(74, 222, 128, 0.10);
   --glow-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+
+  --bg-modal: rgba(15, 15, 18, 0.95); 
+  --border-modal: rgba(74, 222, 128, 0.25);
 
   --border-subtle: rgba(255, 255, 255, 0.1);
 }
@@ -203,6 +209,7 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-helmet3 { mask-image: url("@/assets/icons/helmet3.svg"); -webkit-mask-image: url("@/assets/icons/helmet3.svg"); }
 .icon-user { mask-image: url("@/assets/icons/user.svg"); -webkit-mask-image: url("@/assets/icons/user.svg"); }
 .icon-check { mask-image: url("@/assets/icons/check.svg"); -webkit-mask-image: url("@/assets/icons/check.svg"); }
+.icon-lock { mask-image: url("@/assets/icons/lock.svg"); -webkit-mask-image: url("@/assets/icons/lock.svg"); }
 
 
 footer {
@@ -240,6 +247,10 @@ footer {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
     padding: 0 1rem;
+  }
+
+  .glass-card {
+    margin: 0 0.5rem;
   }
 
   footer {
