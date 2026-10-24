@@ -89,7 +89,8 @@ const progressPercentage = computed(() => {
 
      <div
         v-if="isBugVisionActive && !isBugCaptured(5)"
-        class="interactive-bug hidden-bug"
+        class="hidden-bug"
+        style="--bug-size: 30px;"
         @click="handleBugClick(5)"
         title="Bug Spotted!"
       >
@@ -363,19 +364,6 @@ const progressPercentage = computed(() => {
   position: absolute;
   top: 24rem;
   left: 10%;
-
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
-  z-index: 10;
-}
-
-.hidden-bug:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
-  filter: drop-shadow(0 0 8px var(--glow-purple));
 }
 
 .hidden-bug .badge-icon-mask {

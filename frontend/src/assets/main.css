@@ -220,6 +220,59 @@ footer {
   opacity: 0.3;
 }
 
+/* -- HIDDEN BUG & SCANNER SPINNER -- */
+.hidden-bug {
+  position: absolute;
+  cursor: pointer;
+  color: var(--accent-purple);
+  opacity: 0.15; 
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotating scanner effect */
+.hidden-bug::after {
+content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--bug-size, 30px) + 38px);
+  height: calc(var(--bug-size, 30px) + 38px);
+  margin-top: calc((var(--bug-size, 30px) + 38px) / -2);
+  margin-left: calc((var(--bug-size, 30px) + 38px) / -2);
+  border-radius: 50%;
+
+  border: 2px dashed var(--accent-purple);
+  animation: spin 4s linear infinite; 
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.hidden-bug:hover {
+  opacity: 0.85;
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+}
+
+.hidden-bug:hover::after {
+  opacity: 1;
+}
+
+.hidden-bug .badge-icon-mask {
+  width: 30px;
+  height: 30px;
+}
+
+@keyframes spin {
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
 /* TABLET (Skärmar upp till 1024px) */
 @media (max-width: 1024px) {
   .logo-title {

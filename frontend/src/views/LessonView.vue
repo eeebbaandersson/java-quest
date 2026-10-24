@@ -240,6 +240,7 @@ const goBack = () => {
           lessonId === 'operators' && isBugVisionActive && !isBugCaptured(3)
         "
         class="hidden-bug lesson-bug-3"
+        style="--bug-size: 24px;"
         @click="handleBugClick(3)"
         title="Bug Spotted!"
       >
@@ -248,6 +249,7 @@ const goBack = () => {
       <div
         v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)"
         class="hidden-bug lesson-bug-4"
+        style="--bug-size: 28px;"
         @click="handleBugClick(4)"
         title="Bug Spotted!"
       >
@@ -450,21 +452,6 @@ const goBack = () => {
 }
 
 /* -- HIDDEN BUGS -- */
-.hidden-bug {
-  position: absolute;
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
-  z-index: 10;
-}
-
-.hidden-bug:hover {
-  opacity: 1;
-  filter: drop-shadow(0 0 8px var(--glow-purple));
-}
-
 .lesson-bug-3 {
   top: 1rem;
   right: 2rem;

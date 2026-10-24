@@ -196,7 +196,8 @@ const handleBugClick = (bugId) => {
 
     <div
       v-if="isBugVisionActive && !isBugCaptured(1)"
-      class="interactive-bug hidden-bug"
+      class="hidden-bug home-bug"
+       style="--bug-size: 40px;"
       @click="handleBugClick(1)"
       title="Bug Spotted!"
     >
@@ -226,6 +227,7 @@ const handleBugClick = (bugId) => {
 </template>
 
 <style scoped>
+
 .home-container {
   position: relative;
   display: flex;
@@ -448,28 +450,16 @@ const handleBugClick = (bugId) => {
 }
 
 /* -- HIDDEN BUG -- */
-.hidden-bug {
-  position: absolute;
-  bottom: 6rem;
-  left: -1rem;
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
-  z-index: 10;
-}
-
-.hidden-bug:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
-  filter: drop-shadow(0 0 8px var(--glow-purple));
+.home-bug {
+  bottom: 4rem;
+  left: 1rem;
 }
 
 .hidden-bug .badge-icon-mask {
   width: 40px;
   height: 40px;
 }
+
 
 .app-header {
   width: 100%;
