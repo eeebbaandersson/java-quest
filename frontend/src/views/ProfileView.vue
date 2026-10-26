@@ -341,6 +341,7 @@ const progressPercentage = computed(() => {
 
 .back-navigation {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
   margin-top: 2.5rem;
