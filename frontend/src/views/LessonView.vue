@@ -94,13 +94,13 @@ const saveLessonCompletion = (id) => {
 const loadRandomQuestion = () => {
   if (!lesson.value || !lesson.value.questions) return;
 
-  const availableQuestions = lesson.value.questions.filter(
+  let availableQuestions = lesson.value.questions.filter(
     (q) => !seenQuestionIds.value.has(q.question_id)
   );
 
   if (availableQuestions.length === 0) {
     seenQuestionIds.value.clear();
-    return;
+    availableQuestions = lesson.value.questions;
   }
 
   const nextQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
