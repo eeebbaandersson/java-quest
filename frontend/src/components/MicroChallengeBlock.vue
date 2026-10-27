@@ -27,9 +27,12 @@ const submitAnswer = async () => {
   isSubmitting.value = true;
   try {
     const res = await api.checkAnswer(props.question.question_id, selectedAnswer.value);
-    feedback.value = res;
     if (res.correct) {
       xpService.addXp(props.question.question_id, props.question.xp_reward);
+      feedback.value = null
+      goToNextQuestion();
+    } else {
+      feedback.value = res;
     }
   } catch (err) {
     console.error("Failed to check answer:", err);
