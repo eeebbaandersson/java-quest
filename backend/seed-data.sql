@@ -40,7 +40,7 @@ VALUES
     NULL, 
     '["String", "int", "boolean", "double"]', 
     1,
-    'The "int" data type stores integers (whole numbers) without decimals.', 
+    'Hint: Think about which type handles whole numbers versus decimals or text.', 
     25
 ),
 (
@@ -50,7 +50,7 @@ VALUES
     'int score = 100;', 
     '["Creates a text variable named score", "Stores the whole number 100 in a variable named score", "Deletes the score variable", "Creates a decimal number"]', 
     1,
-    'int score = 100; declares an integer variable named score and assigns the value 100 to it.', 
+    'Hint: Consider what keyword declares the type and what value is assigned to the variable.', 
     25
 ),
 (
@@ -60,7 +60,17 @@ VALUES
     NULL, 
     JSON_ARRAY('String name = "John";', 'int name = "John";', 'String name = John;', "String name = 'John';"), 
     0,
-    'The correct syntax for declaring a String variable is: String name = "John";', 
+    'Hint: Remember that text values require double quotes and the proper type name.', 
+    25
+),
+(
+    1, 
+    'fill_in_the_blanks', 
+    'Complete the code snippet by filling in the correct data type for text:', 
+    '___ name = "Alice";', 
+    '["int", "String", "boolean", "char"]', 
+    1,
+    'Hint: This type begins with a capital letter and represents a sequence of characters.', 
     25
 );
 INSERT INTO Lessons (lesson_id, title, theory_text, code_example, order_index) 
@@ -81,7 +91,7 @@ VALUES
     'int result = 10 % 3;', 
     '["3", "1", "0", "3.33"]', 
     1, 
-    'The modulus operator (%) returns the remainder of a division. 10 divided by 3 is 3 with a remainder of 1.', 
+    'Hint: Remember that this symbol stands for division remainder, not regular division.',
     25
 ),
 (
@@ -91,7 +101,7 @@ VALUES
     NULL, 
     '["||", "&&", "!", "&"]', 
     1, 
-    'The logical AND operator is represented by two ampersands (&&). It returns true only if both sides are true.', 
+    'Hint: Think of the symbol that requires both conditions to be evaluated together using doubled characters.', 
     25
 ),
 (
@@ -101,7 +111,17 @@ VALUES
     NULL, 
     '["true", "false", "null", "error"]', 
     0, 
-    'The expression evaluates to true because both conditions (5 > 3 and 2 < 4) are true.', 
+    'Hint: Evaluate both sides of the logical AND operator separately.', 
+    25
+),
+(
+    2, 
+    'fill_in_the_blanks', 
+    'Complete the conditional expression with the correct logical operator for "AND":', 
+    'if (x > 0 ___ y < 10) { /* code */ }', 
+    '["||", "&&", "!", "+"]', 
+    1, 
+    'Hint: This operator uses a doubled symbol to evaluate if both sides are true.', 
     25
 );
 
@@ -123,7 +143,7 @@ VALUES
     'int number = -5;\nif (number > 0) {\n    System.out.println("Positive number");\n} else {\n    System.out.println("Non-positive number");\n}', 
     '["Positive number", "Non-positive number", "Error", "Nothing"]', 
     1, 
-    'Since -5 is not greater than 0, the else block executes, printing "Non-positive number".', 
+    'Hint: Since -5 is not greater than 0, check which branch of the if-else statement runs.', 
     25
 ),
 (
@@ -133,7 +153,7 @@ VALUES
     NULL, 
     '["if-else", "switch", "loop", "try-catch"]', 
     2, 
-    'Loops (for, while) are used to execute a block of code multiple times based on a condition.', 
+    'Hint: Think about constructs that repeat actions based on conditions.', 
     25
 ),
 (
@@ -143,7 +163,17 @@ VALUES
     NULL, 
     '["To declare variables", "To handle exceptions", "To make decisions based on conditions", "To define methods"]', 
     2, 
-    'An if-else statement allows you to execute different blocks of code based on whether a condition is true or false.', 
+    'Hint: It helps the program make choices based on true or false conditions.', 
+    25
+),
+(
+    3, 
+    'fill_in_the_blanks', 
+    'Fill in the alternative keyword used when an "if" condition evaluates to false:', 
+    'if (score >= 50) { /* pass */ } ___ { /* fail */ }', 
+    '["else", "then", "switch", "loop"]', 
+    0, 
+    'Hint: It catches everything that falls outside the initial if condition.', 
     25
 );
 
@@ -170,7 +200,7 @@ VALUES
         'No output'
     ), 
     0, 
-    'The loop starts with i = 0 and runs while i < 5, printing the value of i in each iteration. It will print Iteration: 0 to Iteration: 4.', 
+    'Hint: Trace the variable i starting from its initial value and check the stop condition.', 
     25
 ),
 (
@@ -180,7 +210,7 @@ VALUES
     NULL, 
     JSON_ARRAY('for loop', 'while loop', 'do-while loop', 'if statement'), 
     2, 
-    'A do-while loop executes the block of code first and then checks the condition, ensuring it runs at least once.', 
+    'Hint: Look for the loop variant that checks its condition at the end of the block.', 
     25
 ),
 (
@@ -190,7 +220,17 @@ VALUES
     NULL, 
     '["A while loop checks the condition before executing the block of code, while a do-while loop checks after.", "A while loop can only run once, while a do-while can run multiple times.", "A while loop is faster than a do-while loop.", "There is no difference."]', 
     0, 
-    'A while loop checks the condition before executing the block of code, whereas a do-while loop executes the block first and then checks the condition.', 
+    'Hint: Pay attention to whether the condition is checked before or after execution.', 
+    25
+),
+(
+    4, 
+    'fill_in_the_blanks', 
+    'Fill in the loop condition to run the code as long as i is less than 5:', 
+    'for (int i = 0; ___ ; i++) { }', 
+    '["i > 5", "i = 5", "i < 5", "i != 5"]', 
+    2, 
+    'Hint: Think about the comparison operator used to check an upper boundary.', 
     25
 );
 
@@ -212,7 +252,7 @@ VALUES
     NULL, 
     '["0", "1", "-1", "Depends on the array size"]', 
     0, 
-    'In Java, arrays are zero-indexed, meaning the first element is at index 0.', 
+    'Hint: Java uses zero-based indexing for arrays and collections.', 
     25
 ),
 (
@@ -222,7 +262,7 @@ VALUES
     NULL, 
     '["int[] arr = new int[10];", "int arr = new int[10];", "int arr[] = new int(10);", "int arr = new int[];"]', 
     0, 
-    'The correct syntax to declare an array of integers with a size of 10 is: int[] arr = new int[10];', 
+    'Hint: Look for the brackets [] paired with the new keyword and size specification.',
     25
 ),
 (
@@ -232,7 +272,17 @@ VALUES
     NULL, 
     '["10", "20", "30", "Error"]', 
     2, 
-    'The code accesses the third element of the array (index 2), which is 30.', 
+    'Hint: Remember that indexing starts at 0, so index 2 is the third element.', 
+    25
+),
+(
+    5, 
+    'fill_in_the_blanks', 
+    'Fill in the keyword used to allocate memory when instantiating an array:', 
+    'int[] numbers = ___ int[5];', 
+    '["alloc", "new", "create", "init"]', 
+    1, 
+    'Hint: This keyword is used across Java to create objects and arrays in heap memory.', 
     25
 );
 
@@ -254,7 +304,7 @@ VALUES
     NULL, 
     '["To store data", "To perform a specific task and can be reused", "To create variables", "To handle exceptions"]', 
     1, 
-    'A method is a block of code that performs a specific task and can be called upon when needed, promoting code reusability.', 
+    'Hint: Methods help structure modular code so you do not have to rewrite the same logic.', 
     25
 ),
 (
@@ -264,7 +314,7 @@ VALUES
     NULL, 
     '["add(5, 10);", "add(10, 5);", "add();", "add(5);"]', 
     0, 
-    'The correct way to call the add method with parameters 5 and 10 is: add(5, 10);', 
+    'Hint: Pass the argument values inside parentheses directly after the method name.', 
     25
 ),
 (
@@ -274,7 +324,17 @@ VALUES
     NULL, 
     '["3", "7", "10", "Error"]', 
     2, 
-    'The add method takes two integers (3 and 7), adds them together, and returns the result (10), which is then printed.', 
+    'Hint: Substitute the arguments into the addition logic of the method.', 
+    25
+),
+(
+    6, 
+    'fill_in_the_blanks', 
+    'Complete the method definition by providing the keyword used to send a value back to the caller:', 
+    'public int add(int a, int b) {\n    ___ a + b;\n}', 
+    '["give", "output", "return", "send"]', 
+    2, 
+    'Hint: This keyword exits the method and passes the computed result back.', 
     25
 );
 
@@ -296,7 +356,7 @@ VALUES
     NULL, 
     '["A class is an instance of an object", "An object is a blueprint for a class", "A class is a blueprint for creating objects", "There is no relationship"]', 
     2, 
-    'A class serves as a blueprint for creating objects, which are instances of that class.', 
+    'Hint: Think of the class as the architectural blueprint and the object as the built house.', 
     25
 ),
 (
@@ -306,7 +366,7 @@ VALUES
     NULL, 
     '["Car myCar = new Car();", "Car myCar = Car();", "myCar = new Car();", "Car myCar;"]', 
     0, 
-    'The correct syntax to create an instance of the Car class is: Car myCar = new Car();', 
+    'Hint: Use the class name followed by the variable name, new keyword, and constructor.',
     25
 ),
 (
@@ -316,6 +376,26 @@ VALUES
     NULL, 
     '["20", "30", "10", "Error"]', 
     1, 
-    'The accelerate method increases the speed by 10. Starting from 20, after calling accelerate(), the speed becomes 30.', 
+    'Hint: Track how the accelerate method modifies the speed field starting from 20.', 
+    25
+),
+(
+    7, 
+    'multiple_choice', 
+    'What is the relationship between a class and an object in Java?', 
+    NULL, 
+    '["A class is an instance of an object", "An object is a blueprint for a class", "A class is a blueprint for creating objects", "There is no relationship"]', 
+    2, 
+    'Hint: Think of the class as the architectural blueprint and the object as the built house.', 
+    25
+),
+(
+    7, 
+    'fill_in_the_blanks', 
+    'Fill in the missing keyword to instantiate an object of the Car class:', 
+    'Car myCar = ___ Car();', 
+    '["null", "this", "new", "class"]', 
+    2, 
+    'Hint: Used alongside constructor calls to allocate a brand new object instance.', 
     25
 );
