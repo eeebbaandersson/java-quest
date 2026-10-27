@@ -71,6 +71,7 @@ const correctCount = ref(0);
 const isCompleted = ref(false);
 const isFinishedSession = ref(false);
 const isLoading = ref(false);
+const seenQuestionIds = ref(new Set());
 
 let latestRequestId = 0;
 
@@ -93,19 +94,18 @@ const saveLessonCompletion = (id) => {
 const loadRandomQuestion = () => {
   if (!lesson.value || !lesson.value.questions) return;
 
-  const questions = lesson.value.questions ?? [];
-  if (questions.length === 0) {
-    currentQuestion.value = null;
-    return;
+  let availableQuestions = lesson.value.questions.filter(
+    (q) => !seenQuestionIds.value.has(q.question_id)
+  );
+
+  if (availableQuestions.length === 0) {
+    seenQuestionIds.value.clear();
+    availableQuestions = lesson.value.questions;
   }
 
-  let nextQuestion;
-  do {
-    nextQuestion = questions[Math.floor(Math.random() * questions.length)];
-  } while (
-    nextQuestion.question_id === currentQuestion.value?.question_id &&
-    questions.length > 1
-  );
+  const nextQuestion = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+
+  seenQuestionIds.value.add(nextQuestion.question_id);
 
   currentQuestion.value = nextQuestion;
 };
@@ -122,8 +122,10 @@ const fetchLesson = async (id) => {
   currentQuestion.value = null;
   correctCount.value = 0;
   isFinishedSession.value = false;
+  seenQuestionIds.value.clear();
 
   checkLocalStorageCompletion(id);
+  
 
   try {
     const data = await api.getLesson(id);
@@ -181,6 +183,7 @@ const handleNextQuestion = () => {
 const restartSession = () => {
   correctCount.value = 0;
   isFinishedSession.value = false;
+  seenQuestionIds.value.clear();
   loadRandomQuestion();
 };
 
