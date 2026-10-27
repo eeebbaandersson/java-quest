@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { RouterLink } from "vue-router";
 import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
+import progressService from "@/services/progressService";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 
@@ -11,6 +12,19 @@ const handleBugClick = (bugId) => {
 };
 
 const levels = xpService.LEVELS;
+
+const handleReset = () => {
+  const confirmed = window.confirm(
+    "Are you sure? All XP, captured bugs, trophies and completed lessons will be reset."
+  );
+  if (!confirmed) return;
+
+  if (progressService.resetProgress()) {
+    window.location.reload();
+  } else {
+    window.alert("Could not reset progress. Please try again.");
+  }
+};
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
@@ -85,6 +99,9 @@ const progressPercentage = computed(() => {
       <RouterLink to="/" class="back-btn">
         <span class="arrow">←</span> Back to Dashboard
       </RouterLink>
+      <button type="button" class="reset-btn" @click="handleReset">
+        Reset progress
+      </button>
     </div>
 
      <div
@@ -325,7 +342,9 @@ const progressPercentage = computed(() => {
 
 .back-navigation {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 1rem;
   margin-top: 2.5rem;
 }
 
@@ -357,6 +376,39 @@ const progressPercentage = computed(() => {
 
 .back-btn:hover .arrow {
   transform: translateX(-3px);
+}
+
+.reset-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0.6rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.reset-btn:focus-visible {
+  outline: 2px solid rgba(239, 68, 68, 0.6);
+  outline-offset: 2px;
+}
+
+.back-btn,
+.reset-btn {
+  min-width: 200px;
+  justify-content: center;
 }
 
 /* -- HIDDEN BUG -- */
