@@ -210,6 +210,7 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-user { mask-image: url("@/assets/icons/user.svg"); -webkit-mask-image: url("@/assets/icons/user.svg"); }
 .icon-check { mask-image: url("@/assets/icons/check.svg"); -webkit-mask-image: url("@/assets/icons/check.svg"); }
 .icon-lock { mask-image: url("@/assets/icons/lock.svg"); -webkit-mask-image: url("@/assets/icons/lock.svg"); }
+.icon-check2 { mask-image: url("@/assets/icons/check2.svg"); -webkit-mask-image: url("@/assets/icons/check2.svg"); }
 
 footer {
   text-align: center;

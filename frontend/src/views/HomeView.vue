@@ -167,19 +167,9 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
         <div class="stats-card glass-card">
           <p class="card-title">TROPHIES</p>
           <div class="badges-wrapper">
-            <span
-              v-for="trophie in trophies"
-              :key="trophie.id"
-              class="badge"
-              :class="{ unlocked: trophie.isUnlocked }"
-              @click="openTrophyModal(trophie)"
-            >
+            <span v-for="trophie in trophies" :key="trophie.id" class="badge" :class="{ unlocked: trophie.isUnlocked }" @click="openTrophyModal(trophie)" >
               {{ trophie.title }}
-              <span
-                v-if="trophie.icon"
-                class="badge-icon-mask"
-                :class="`icon-${trophie.icon}`"
-              ></span>
+              <span v-if="trophie.icon" class="badge-icon-mask" :class="`icon-${trophie.icon}`"></span>
             </span>
           </div>
         </div>
@@ -223,8 +213,14 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
           <p class="modal-desc">{{ selectedTrophy.description }}</p>
 
           <span class="modal-status-badge" :class="selectedTrophy.isUnlocked ? 'unlocked-status' : 'locked-status'">
-            <span v-if="!selectedTrophy.isUnlocked" class="badge-icon-mask icon-lock"></span>
-            <span v-else>Unlocked √</span>
+            <template v-if="!selectedTrophy.isUnlocked">
+              <span class="badge-icon-mask icon-lock"></span> 
+            </template>
+            <template v-else>
+               <span>Unlocked</span>
+              <span class="badge-icon-mask icon-check2"></span>
+             
+            </template>
           </span>
         </div>
       </div>
