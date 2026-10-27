@@ -116,7 +116,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
     <section class="stats-section">
       <div class="stats-container">
         <div class="stats-card glass-card">
-          <p class="card-title">QUESTS</p>
+          <p class="card-title">COMPLETED QUESTS</p>
           <div class="badges-wrapper">
             <RouterLink
               v-for="lesson in lessons"
@@ -132,7 +132,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
         </div>
 
         <div class="stats-card glass-card">
-          <p class="card-title">STATS</p>
+          <p class="card-title">PLAYER STATS</p>
           <div class="xp-simple-wrapper">
             <div class="stats-row">
               <div class="xp-display" :class="{ active: totalXP > 0 }">
