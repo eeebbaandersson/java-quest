@@ -45,7 +45,7 @@ const handleBugClick = (bugId) => {
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
       <p class="hero-subtitle">
-        Select your level and earn XP for every correct answer.
+        Choose difficulty, prove your skills and collect the reward.
       </p>
 
       <div

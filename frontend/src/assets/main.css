@@ -246,8 +246,13 @@ content: '';
   margin-left: calc((var(--bug-size, 30px) + 38px) / -2);
   border-radius: 50%;
 
-  border: 2px dashed var(--accent-purple);
-  animation: spin 4s linear infinite; 
+  /* border: 2px dashed var(--accent-purple);
+  animation: spin 3.5s linear infinite;  */
+
+  border: 2px solid transparent;
+  border-top-color: var(--accent-purple);
+  animation: spin 1.2s linear infinite; 
+
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;

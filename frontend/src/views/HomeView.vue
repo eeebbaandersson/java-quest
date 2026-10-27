@@ -111,7 +111,7 @@ const handleBugClick = (bugId) => {
     <section class="stats-section">
       <div class="stats-container">
         <div class="stats-card glass-card">
-          <p class="card-title">QUEST MAP</p>
+          <p class="card-title">QUESTS</p>
           <div class="badges-wrapper">
             <RouterLink
               v-for="lesson in lessons"
@@ -127,7 +127,7 @@ const handleBugClick = (bugId) => {
         </div>
 
         <div class="stats-card glass-card">
-          <p class="card-title">PLAYER STATS</p>
+          <p class="card-title">STATS</p>
           <div class="xp-simple-wrapper">
             <div class="stats-row">
               <div class="xp-display" :class="{ active: totalXP > 0 }">
@@ -197,7 +197,7 @@ const handleBugClick = (bugId) => {
     <div
       v-if="isBugVisionActive && !isBugCaptured(1)"
       class="hidden-bug home-bug"
-       style="--bug-size: 40px;"
+       style="--bug-size: 30px;"
       @click="handleBugClick(1)"
       title="Bug Spotted!"
     >
@@ -218,7 +218,7 @@ const handleBugClick = (bugId) => {
 
           <span class="modal-status-badge" :class="selectedTrophy.isUnlocked ? 'unlocked-status' : 'locked-status'">
             <span v-if="!selectedTrophy.isUnlocked" class="badge-icon-mask icon-lock"></span>
-            <span v-else>Unlocked</span>
+            <span v-else>Unlocked √</span>
           </span>
         </div>
       </div>
@@ -356,7 +356,7 @@ const handleBugClick = (bugId) => {
 }
 
 .bug-tracker-wrapper {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -456,8 +456,8 @@ const handleBugClick = (bugId) => {
 }
 
 .hidden-bug .badge-icon-mask {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 
