@@ -1,14 +1,26 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
 import progressService from "@/services/progressService";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const animatingBugs = ref(new Set());
+const captureError = ref("");
 
 const handleBugClick = (bugId) => {
-  captureBug(bugId);
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
+
+  // Start animation
+  animatingBugs.value.add(bugId);
 };
 
 const levels = xpService.LEVELS;
@@ -100,18 +112,36 @@ const progressPercentage = computed(() => {
         <span class="arrow">←</span> Back to Dashboard
       </RouterLink>
       <button type="button" class="reset-btn" @click="handleReset">
-        Reset progress
+        Reset Progress
       </button>
     </div>
 
-     <div
-        v-if="isBugVisionActive && !isBugCaptured(5)"
-        class="interactive-bug hidden-bug"
-        @click="handleBugClick(5)"
-        title="Bug Spotted!"
+    <div
+        v-if="isBugVisionActive && (!isBugCaptured(5) || animatingBugs.has(5))"
+        class="bug-capture-anchor"
       >
-        <span class="badge-icon-mask icon-bug"></span>
+        <div
+          v-if="!isBugCaptured(5)"
+          class="hidden-bug"
+          style="--bug-size: 30px"
+          @click="handleBugClick(5)"
+          title="Bug Spotted!"
+        >
+          <span class="badge-icon-mask icon-bug"></span>
+        </div>
+
+        <span
+          v-if="animatingBugs.has(5)"
+          class="xp-popup"
+          @animationend="animatingBugs.delete(5)"
+        >
+          +25 XP
+        </span>
       </div>
+      <p v-if="captureError" role="alert">
+        {{ captureError }}
+      </p>
+
   </section>
 </template>
 
@@ -411,23 +441,18 @@ const progressPercentage = computed(() => {
 }
 
 /* -- HIDDEN BUG -- */
-.hidden-bug {
+.bug-capture-anchor {
   position: absolute;
-  top: 24rem;
+  top: 25rem;
   left: 10%;
-
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
   z-index: 10;
 }
 
-.hidden-bug:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
-  filter: drop-shadow(0 0 8px var(--glow-purple));
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
 }
 
 .hidden-bug .badge-icon-mask {

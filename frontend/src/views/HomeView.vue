@@ -1,42 +1,102 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 import Navbar from "@/components/Navbar.vue";
 
 import xpService from "@/services/xpService";
 
 import { useBugHunting } from "@/composables/useBugHunting";
-const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, } = useBugHunting();
+
+const animatingBugs = ref(new Set());
+const captureError = ref("");
+
+const handleBugClick = (bugId) => {
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
+
+  // Start animation
+  animatingBugs.value.add(bugId);
+};
 
 import { useTrophies } from "@/composables/useTrophies";
 const { trophies } = useTrophies();
 
+const selectedTrophy = ref(null);
+
+const openTrophyModal = (trophie) => {
+  selectedTrophy.value = trophie;
+};
+
+const closeTrophyModal = () => {
+  selectedTrophy.value = null;
+};
+
 const lessons = computed(() => {
-    let lessonCompleted = {};
+  let lessonCompleted = {};
   try {
-    const parsed = JSON.parse(localStorage.getItem("completed_lessons") || "{}");
+    const parsed = JSON.parse(
+      localStorage.getItem("completed_lessons") || "{}",
+    );
     if (parsed && typeof parsed === "object") {
       lessonCompleted = parsed;
     }
   } catch (error) {
-   console.warn("Could not read completed_lessons from localStorage", error);
- };
+    console.warn("Could not read completed_lessons from localStorage", error);
+  }
   return [
-    { id: 1, number: "01", title: "Variables", isCompleted: !!lessonCompleted["variables"] },
-    { id: 2, number: "02", title: "Operators", isCompleted: !!lessonCompleted["operators"] },
-    { id: 3, number: "03", title: "If / Else", isCompleted: !!lessonCompleted["ifelse"] },
-    { id: 4, number: "04", title: "Loops", isCompleted: !!lessonCompleted["loops"] },
-    { id: 5, number: "05", title: "Arrays", isCompleted: !!lessonCompleted["arrays"] },
-    { id: 6, number: "06", title: "Methods", isCompleted: !!lessonCompleted["methods"] },
-    { id: 7, number: "07", title: "Classes", isCompleted: !!lessonCompleted["classes"] },
+    {
+      id: 1,
+      number: "01",
+      title: "Variables",
+      isCompleted: !!lessonCompleted["variables"],
+    },
+    {
+      id: 2,
+      number: "02",
+      title: "Operators",
+      isCompleted: !!lessonCompleted["operators"],
+    },
+    {
+      id: 3,
+      number: "03",
+      title: "If / Else",
+      isCompleted: !!lessonCompleted["ifelse"],
+    },
+    {
+      id: 4,
+      number: "04",
+      title: "Loops",
+      isCompleted: !!lessonCompleted["loops"],
+    },
+    {
+      id: 5,
+      number: "05",
+      title: "Arrays",
+      isCompleted: !!lessonCompleted["arrays"],
+    },
+    {
+      id: 6,
+      number: "06",
+      title: "Methods",
+      isCompleted: !!lessonCompleted["methods"],
+    },
+    {
+      id: 7,
+      number: "07",
+      title: "Classes",
+      isCompleted: !!lessonCompleted["classes"],
+    },
   ];
 });
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
-
-const handleBugClick = (bugId) => {
-  captureBug(bugId);
-};
 </script>
 
 <template>
@@ -44,10 +104,12 @@ const handleBugClick = (bugId) => {
     <!-- HERO-SEKTION -->
     <section class="hero-section java-quest">
       <h1 class="logo-title"><span class="highlight">JAVA{}</span>QUEST</h1>
-      <p class="hero-subtitle">Level up your Java skills, one quest at a time.</p>
+      <p class="hero-subtitle">
+        Level up your Java skills, one quest at a time.
+      </p>
     </section>
 
-     <header class="app-header">
+    <header class="app-header">
       <Navbar />
     </header>
 
@@ -55,7 +117,7 @@ const handleBugClick = (bugId) => {
     <section class="stats-section">
       <div class="stats-container">
         <div class="stats-card glass-card">
-          <p class="card-title">QUEST MAP</p>
+          <p class="card-title">COMPLETED QUESTS</p>
           <div class="badges-wrapper">
             <RouterLink
               v-for="lesson in lessons"
@@ -65,7 +127,7 @@ const handleBugClick = (bugId) => {
               :class="{ completed: lesson.isCompleted }"
               :aria-label="lesson.title"
             >
-              {{ lesson.number}} 
+              {{ lesson.number }}
             </RouterLink>
           </div>
         </div>
@@ -80,12 +142,14 @@ const handleBugClick = (bugId) => {
               </div>
 
               <div class="xp-display">
-                <span class="xp-number">{{ currentLevelObj.level}}</span>
+                <span class="xp-number">{{ currentLevelObj.level }}</span>
                 <span class="xp-unit">LEVEL</span>
               </div>
             </div>
             <div class="bug-tracker-wrapper">
-              <p class="bug-tracker-title">CAPTURED BUGS ({{foundBugs}}/{{totalBugs}})</p>
+              <p class="bug-tracker-title">
+                CAPTURED BUGS ({{ foundBugs }}/{{ totalBugs }})
+              </p>
               <div class="bug-icons-row">
                 <span
                   v-for="index in totalBugs"
@@ -109,7 +173,7 @@ const handleBugClick = (bugId) => {
               :key="trophie.id"
               class="badge"
               :class="{ unlocked: trophie.isUnlocked }"
-              :title="trophie.description"
+              @click="openTrophyModal(trophie)"
             >
               {{ trophie.title }}
               <span
@@ -125,7 +189,10 @@ const handleBugClick = (bugId) => {
 
     <!-- ARENA-SEKTION -->
     <section class="arena-section">
-      <RouterLink to="/arenachoice" class="arena-container glass-card glass-card-interactive">
+      <RouterLink
+        to="/arenachoice"
+        class="arena-container glass-card glass-card-interactive"
+      >
         <span class="arena-top-icon badge-icon-mask icon-archery"></span>
         <h2>PRACTICE ARENAS</h2>
         <p>Feeling adventurous and ready to test your knowledge?</p>
@@ -133,30 +200,81 @@ const handleBugClick = (bugId) => {
       </RouterLink>
     </section>
 
-    <div 
-      v-if="isBugVisionActive && !isBugCaptured(1)" 
-      class="interactive-bug hidden-bug" 
-      @click="handleBugClick(1)"
-      title="Bug Spotted!"
+    <div
+      v-if="isBugVisionActive && (!isBugCaptured(1) || animatingBugs.has(1))"
+      class="bug-capture-anchor"
     >
-      <span class="badge-icon-mask icon-bug"></span>
+      <div
+        v-if="!isBugCaptured(1)"
+        class="hidden-bug"
+        style="--bug-size: 30px"
+        @click="handleBugClick(1)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
+
+      <span
+        v-if="animatingBugs.has(1)"
+        class="xp-popup"
+        @animationend="animatingBugs.delete(1)"
+      >
+        +25 XP
+      </span>
     </div>
 
+    <p v-if="captureError" role="alert">
+      {{ captureError }}
+    </p>
+
+    <!-- TROPHY MODAL -->
+    <div
+      v-if="selectedTrophy"
+      class="trophy-modal-overlay"
+      @click="closeTrophyModal"
+    >
+      <div class="trophy-modal-card" @click.stop>
+        <button class="modal-close-btn" @click="closeTrophyModal">
+          &times;
+        </button>
+        <div class="modal-header">
+          <span> {{ selectedTrophy.title }} </span>
+        </div>
+        <div class="modal-body">
+          <p class="modal-desc">{{ selectedTrophy.description }}</p>
+
+          <span
+            class="modal-status-badge"
+            :class="
+              selectedTrophy.isUnlocked ? 'unlocked-status' : 'locked-status'
+            "
+          >
+            <template v-if="!selectedTrophy.isUnlocked">
+              <span class="badge-icon-mask icon-lock"></span>
+            </template>
+            <template v-else>
+              <span>Unlocked</span>
+              <span class="badge-icon-mask icon-check2"></span>
+            </template>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .home-container {
-  position: relative;       
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;    
+  align-items: center;
   width: 100%;
-  max-width: 1000px;        
-  margin: 0 auto;           
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-/* To reduce spacing below logo-/subtitle text */ 
+/* To reduce spacing below logo-/subtitle text */
 .java-quest {
   margin-bottom: 2rem;
 }
@@ -274,7 +392,7 @@ const handleBugClick = (bugId) => {
 }
 
 .bug-tracker-wrapper {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -367,28 +485,23 @@ const handleBugClick = (bugId) => {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* -- HIDDEN BUG -- */
-.hidden-bug {
+.bug-capture-anchor {
   position: absolute;
-  bottom: 6rem;
-  left: -1rem;             
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
+   bottom: 4rem;
+  left: 1rem;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
   z-index: 10;
 }
 
-.hidden-bug:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
-  filter: drop-shadow(0 0 8px var(--glow-purple));
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
 }
 
 .hidden-bug .badge-icon-mask {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .app-header {
@@ -397,6 +510,123 @@ const handleBugClick = (bugId) => {
   justify-content: center;
   position: relative;
   z-index: 100;
+}
+
+.trophy-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+}
+
+.trophy-modal-card {
+  position: relative;
+  width: 90%;
+  max-width: 360px;
+  padding: 28px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  margin: 3rem;
+  background: var(--bg-modal);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px;
+  border: 1px solid var(--border-subtle);
+  animation: modalScaleIn 0.2s ease-out;
+}
+
+.modal-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+  text-align: center;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.modal-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+  margin-top: 0.5rem;
+}
+
+.modal-status-badge .badge-icon-mask {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1.5px;
+}
+
+.unlocked-status {
+  background: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+  border: 1px solid #2ecc71;
+}
+
+.locked-status {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+@keyframes modalScaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* TABLET (Skärmar upp till 1024px) */

@@ -233,7 +233,8 @@ const closeMenu = () => {
     top: calc(100% + 0.5rem);
     right: 1.5rem;
     width: 220px;
-    background-color: var(--bg-main, #121315);
+
+    background-color: var(--bg-modal);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     flex-direction: column;
@@ -241,8 +242,7 @@ const closeMenu = () => {
     gap: 0.5rem;
     padding: 1.25rem 1rem;
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-radius: 18px;
     z-index: 102; 
   }
 

@@ -4,6 +4,22 @@ import { RouterLink } from "vue-router";
 import { useBugHunting } from "@/composables/useBugHunting";
 
 const { captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const animatingBugs = ref(new Set());
+const captureError = ref("");
+
+const handleBugClick = (bugId) => {
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
+
+  // Start animation
+  animatingBugs.value.add(bugId);
+};
 
 const arenas = ref([
   {
@@ -34,10 +50,6 @@ const arenas = ref([
     link: "/practice/hard",
   },
 ]);
-
-const handleBugClick = (bugId) => {
-  captureBug(bugId);
-};
 </script>
 
 <template>
@@ -45,17 +57,34 @@ const handleBugClick = (bugId) => {
     <section class="hero-section">
       <h1 class="logo-title">PRACTICE ARENAS</h1>
       <p class="hero-subtitle">
-        Select your level and earn XP for every correct answer.
+        Choose difficulty, prove your skills and collect the reward.
       </p>
 
       <div
-        v-if="isBugVisionActive && !isBugCaptured(2)"
-        class="interactive-bug hidden-bug"
-        @click="handleBugClick(2)"
-        title="Bug Spotted!"
+        v-if="isBugVisionActive && (!isBugCaptured(2) || animatingBugs.has(2))"
+        class="bug-capture-anchor"
       >
-        <span class="badge-icon-mask icon-bug"></span>
+        <div
+          v-if="!isBugCaptured(2)"
+          class="hidden-bug"
+          style="--bug-size: 30px"
+          @click="handleBugClick(2)"
+          title="Bug Spotted!"
+        >
+          <span class="badge-icon-mask icon-bug"></span>
+        </div>
+
+        <span
+          v-if="animatingBugs.has(2)"
+          class="xp-popup"
+          @animationend="animatingBugs.delete(2)"
+        >
+          +25 XP
+        </span>
       </div>
+      <p v-if="captureError" role="alert">
+        {{ captureError }}
+      </p>
     </section>
 
     <section class="choice-section">
@@ -246,24 +275,18 @@ const handleBugClick = (bugId) => {
 }
 
 /* -- HIDDEN BUG -- */
-.hidden-bug {
+.bug-capture-anchor {
   position: absolute;
   top: 70%;
   right: 5%;
   transform: translateY(-50%);
-
-  cursor: pointer;
-  color: var(--accent-purple);
-  opacity: 0.35;
-  transition: all 0.2s ease;
-  padding: 0.5rem;
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
   z-index: 10;
 }
 
-.hidden-bug:hover {
-  opacity: 1;
-  /* transform: scale(1.1); */
-  filter: drop-shadow(0 0 8px var(--glow-purple));
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
 }
 
 .hidden-bug .badge-icon-mask {
