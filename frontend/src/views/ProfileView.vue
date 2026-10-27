@@ -1,14 +1,24 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { RouterLink } from "vue-router";
 import xpService from "@/services/xpService";
 import { useBugHunting } from "@/composables/useBugHunting";
 import progressService from "@/services/progressService";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
+const animatingBugs = ref(new Set());
 
 const handleBugClick = (bugId) => {
-  captureBug(bugId);
+  if (animatingBugs.value.has(bugId)) return;
+
+  // Start animation
+  animatingBugs.value.add(bugId);
+
+  // Wait for animation to finish before bug is removed
+  setTimeout(() => {
+    captureBug(bugId);
+    animatingBugs.value.delete(bugId);
+  }, 700);
 };
 
 const levels = xpService.LEVELS;
@@ -100,7 +110,7 @@ const progressPercentage = computed(() => {
         <span class="arrow">←</span> Back to Dashboard
       </RouterLink>
       <button type="button" class="reset-btn" @click="handleReset">
-        Reset progress
+        Reset Progress
       </button>
     </div>
 
@@ -112,6 +122,7 @@ const progressPercentage = computed(() => {
         title="Bug Spotted!"
       >
         <span class="badge-icon-mask icon-bug"></span>
+        <span v-if="animatingBugs.has(5)" class="xp-popup">+25 XP</span>
       </div>
   </section>
 </template>

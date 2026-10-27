@@ -211,7 +211,6 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-check { mask-image: url("@/assets/icons/check.svg"); -webkit-mask-image: url("@/assets/icons/check.svg"); }
 .icon-lock { mask-image: url("@/assets/icons/lock.svg"); -webkit-mask-image: url("@/assets/icons/lock.svg"); }
 
-
 footer {
   text-align: center;
   font-family: var(--font-mono);
@@ -277,6 +276,35 @@ content: '';
     transform: rotate(360deg); 
   }
 }
+
+/* -- XP POPUP ANIMATION -- */
+@keyframes floatUpAndFade {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-35px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.xp-popup {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  text-shadow: 0 0 8px var(--glow-purple);
+  pointer-events: none;
+  animation: floatUpAndFade 1.2s ease-out forwards;
+  z-index: 20;
+  white-space: nowrap;
+}
+
 
 /* TABLET (Skärmar upp till 1024px) */
 @media (max-width: 1024px) {

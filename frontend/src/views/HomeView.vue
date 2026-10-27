@@ -6,14 +6,22 @@ import Navbar from "@/components/Navbar.vue";
 import xpService from "@/services/xpService";
 
 import { useBugHunting } from "@/composables/useBugHunting";
-const {
-  totalXP,
-  foundBugs,
-  totalBugs,
-  captureBug,
-  isBugVisionActive,
-  isBugCaptured,
-} = useBugHunting();
+const {totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured,} = useBugHunting();
+const animatingBugs = ref(new Set());
+
+const handleBugClick = (bugId) => {
+  if (animatingBugs.value.has(bugId)) return;
+
+  // Start animation
+  animatingBugs.value.add(bugId);
+
+  // Wait for animation to finish before bug is removed
+  setTimeout(() => {
+    captureBug(bugId);
+    animatingBugs.value.delete(bugId);
+  }, 700);
+};
+
 
 import { useTrophies } from "@/composables/useTrophies";
 const { trophies } = useTrophies();
@@ -88,9 +96,6 @@ const lessons = computed(() => {
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
-const handleBugClick = (bugId) => {
-  captureBug(bugId);
-};
 </script>
 
 <template>
@@ -202,6 +207,7 @@ const handleBugClick = (bugId) => {
       title="Bug Spotted!"
     >
       <span class="badge-icon-mask icon-bug"></span>
+      <span v-if="animatingBugs.has(1)" class="xp-popup">+25 XP</span>
     </div>
 
     <!-- TROPHY MODAL -->

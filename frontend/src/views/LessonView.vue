@@ -8,9 +8,19 @@ import MicroChallengeBlock from "../components/MicroChallengeBlock.vue";
 
 import { useBugHunting } from "@/composables/useBugHunting";
 const { isBugVisionActive, isBugCaptured, captureBug } = useBugHunting();
+const animatingBugs = ref(new Set());
 
 const handleBugClick = (bugId) => {
-  captureBug(bugId);
+  if (animatingBugs.value.has(bugId)) return;
+
+  // Start animation
+  animatingBugs.value.add(bugId);
+
+  // Wait for animation to finish before bug is removed
+  setTimeout(() => {
+    captureBug(bugId);
+    animatingBugs.value.delete(bugId);
+  }, 700);
 };
 
 const route = useRoute();
@@ -245,6 +255,7 @@ const goBack = () => {
         title="Bug Spotted!"
       >
         <span class="badge-icon-mask icon-bug"></span>
+        <span v-if="animatingBugs.has(3)" class="xp-popup">+25 XP</span>
       </div>
       <div
         v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)"
@@ -254,6 +265,7 @@ const goBack = () => {
         title="Bug Spotted!"
       >
         <span class="badge-icon-mask icon-bug"></span>
+        <span v-if="animatingBugs.has(4)" class="xp-popup">+25 XP</span>
       </div>
     </main>
   </div>
