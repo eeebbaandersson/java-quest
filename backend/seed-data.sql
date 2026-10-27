@@ -228,9 +228,9 @@ VALUES
     'fill_in_the_blanks', 
     'Fill in the loop condition to run the code as long as i is less than 5:', 
     'for (int i = 0; ___ ; i++) { }', 
-    '["i > 5", "i = 5", "i < 5", "i != 5"]', 
+    '["i > 5", "i = 5", "i < 5", "i <= 5"]', 
     2, 
-    'Hint: Think about the comparison operator used to check an upper boundary.', 
+    'Hint: Think about the comparison operator used to check an upper boundary strictly less than 5.', 
     25
 );
 
@@ -377,16 +377,6 @@ VALUES
     '["20", "30", "10", "Error"]', 
     1, 
     'Hint: Track how the accelerate method modifies the speed field starting from 20.', 
-    25
-),
-(
-    7, 
-    'multiple_choice', 
-    'What is the relationship between a class and an object in Java?', 
-    NULL, 
-    '["A class is an instance of an object", "An object is a blueprint for a class", "A class is a blueprint for creating objects", "There is no relationship"]', 
-    2, 
-    'Hint: Think of the class as the architectural blueprint and the object as the built house.', 
     25
 ),
 (

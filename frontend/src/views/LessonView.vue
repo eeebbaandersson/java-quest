@@ -122,8 +122,10 @@ const fetchLesson = async (id) => {
   currentQuestion.value = null;
   correctCount.value = 0;
   isFinishedSession.value = false;
+  seenQuestionIds.value.clear();
 
   checkLocalStorageCompletion(id);
+  
 
   try {
     const data = await api.getLesson(id);
