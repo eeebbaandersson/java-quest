@@ -13,6 +13,7 @@ const nextQuestionEvent = defineEmits(["next-question"]);
 const selectedAnswer = ref(null);
 const feedback = ref(null);
 const isSubmitting = ref(false);
+const showXpPopup = ref(false);
 
 const parsedOptions = computed(() => {
   const questionOptions = props.question.options;
@@ -28,9 +29,19 @@ const submitAnswer = async () => {
   try {
     const res = await api.checkAnswer(props.question.question_id, selectedAnswer.value);
     if (res.correct) {
-      xpService.addXp(props.question.question_id, props.question.xp_reward);
       feedback.value = null
-      goToNextQuestion();
+      const earnedXpIds = JSON.parse(localStorage.getItem("javaquest_answered_questions") || "[]");
+      const alreadyEarned = earnedXpIds.includes(props.question.question_id);
+
+      xpService.addXp(props.question.question_id, props.question.xp_reward);
+      
+      if (!alreadyEarned) {
+        showXpPopup.value = true;
+      }
+      else {
+        goToNextQuestion();
+      }
+      feedback.value = null
     } else {
       feedback.value = res;
     }
@@ -40,6 +51,10 @@ const submitAnswer = async () => {
     isSubmitting.value = false;
   }
 };
+const handleAnimationEnd = () => {
+  showXpPopup.value = false;
+  goToNextQuestion();
+};
 
 const goToNextQuestion = () => {
   nextQuestionEvent("next-question");
@@ -47,7 +62,14 @@ const goToNextQuestion = () => {
 </script>
 
 <template>
-  <div class="challenge-card glass-card">
+  <div class="challenge-card glass-card" style="position: relative;">
+    <div 
+      v-if="showXpPopup" 
+      class="xp-popup"
+      @animationend="handleAnimationEnd"
+    >
+      +{{ question.xp_reward }} XP
+    </div>
     
     <p class="question-text">{{ question.question_text }}</p>
 
