@@ -303,13 +303,23 @@ content: '';
   white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hidden-bug::after,
-  .xp-popup {
-    animation: none;
+@keyframes xpPopupStationary {
+  from,
+  to {
+    transform: translateX(-50%);
+    opacity: 1;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hidden-bug::after {
+    animation: none;
+  }
+
+  .xp-popup {
+    animation: xpPopupStationary 1.2s linear forwards;
+  }
+}
 
 /* TABLET (Skärmar upp till 1024px) */
 @media (max-width: 1024px) {
