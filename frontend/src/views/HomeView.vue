@@ -6,22 +6,24 @@ import Navbar from "@/components/Navbar.vue";
 import xpService from "@/services/xpService";
 
 import { useBugHunting } from "@/composables/useBugHunting";
-const {totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured,} = useBugHunting();
+const { totalXP, foundBugs, totalBugs, captureBug, isBugVisionActive, isBugCaptured, } = useBugHunting();
+
 const animatingBugs = ref(new Set());
+const captureError = ref("");
 
 const handleBugClick = (bugId) => {
-  if (animatingBugs.value.has(bugId)) return;
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
 
   // Start animation
   animatingBugs.value.add(bugId);
-
-  // Wait for animation to finish before bug is removed
-  setTimeout(() => {
-    captureBug(bugId);
-    animatingBugs.value.delete(bugId);
-  }, 700);
 };
-
 
 import { useTrophies } from "@/composables/useTrophies";
 const { trophies } = useTrophies();
@@ -95,7 +97,6 @@ const lessons = computed(() => {
 });
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
-
 </script>
 
 <template>
@@ -167,9 +168,19 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
         <div class="stats-card glass-card">
           <p class="card-title">TROPHIES</p>
           <div class="badges-wrapper">
-            <span v-for="trophie in trophies" :key="trophie.id" class="badge" :class="{ unlocked: trophie.isUnlocked }" @click="openTrophyModal(trophie)" >
+            <span
+              v-for="trophie in trophies"
+              :key="trophie.id"
+              class="badge"
+              :class="{ unlocked: trophie.isUnlocked }"
+              @click="openTrophyModal(trophie)"
+            >
               {{ trophie.title }}
-              <span v-if="trophie.icon" class="badge-icon-mask" :class="`icon-${trophie.icon}`"></span>
+              <span
+                v-if="trophie.icon"
+                class="badge-icon-mask"
+                :class="`icon-${trophie.icon}`"
+              ></span>
             </span>
           </div>
         </div>
@@ -190,18 +201,38 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
     </section>
 
     <div
-      v-if="isBugVisionActive && !isBugCaptured(1)"
-      class="hidden-bug home-bug"
-       style="--bug-size: 30px;"
-      @click="handleBugClick(1)"
-      title="Bug Spotted!"
+      v-if="isBugVisionActive && (!isBugCaptured(1) || animatingBugs.has(1))"
+      class="bug-capture-anchor"
     >
-      <span class="badge-icon-mask icon-bug"></span>
-      <span v-if="animatingBugs.has(1)" class="xp-popup">+25 XP</span>
+      <div
+        v-if="!isBugCaptured(1)"
+        class="hidden-bug"
+        style="--bug-size: 30px"
+        @click="handleBugClick(1)"
+        title="Bug Spotted!"
+      >
+        <span class="badge-icon-mask icon-bug"></span>
+      </div>
+
+      <span
+        v-if="animatingBugs.has(1)"
+        class="xp-popup"
+        @animationend="animatingBugs.delete(1)"
+      >
+        +25 XP
+      </span>
     </div>
 
+    <p v-if="captureError" role="alert">
+      {{ captureError }}
+    </p>
+
     <!-- TROPHY MODAL -->
-    <div v-if="selectedTrophy" class="trophy-modal-overlay" @click="closeTrophyModal">
+    <div
+      v-if="selectedTrophy"
+      class="trophy-modal-overlay"
+      @click="closeTrophyModal"
+    >
       <div class="trophy-modal-card" @click.stop>
         <button class="modal-close-btn" @click="closeTrophyModal">
           &times;
@@ -212,14 +243,18 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
         <div class="modal-body">
           <p class="modal-desc">{{ selectedTrophy.description }}</p>
 
-          <span class="modal-status-badge" :class="selectedTrophy.isUnlocked ? 'unlocked-status' : 'locked-status'">
+          <span
+            class="modal-status-badge"
+            :class="
+              selectedTrophy.isUnlocked ? 'unlocked-status' : 'locked-status'
+            "
+          >
             <template v-if="!selectedTrophy.isUnlocked">
-              <span class="badge-icon-mask icon-lock"></span> 
+              <span class="badge-icon-mask icon-lock"></span>
             </template>
             <template v-else>
-               <span>Unlocked</span>
+              <span>Unlocked</span>
               <span class="badge-icon-mask icon-check2"></span>
-             
             </template>
           </span>
         </div>
@@ -229,7 +264,6 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 </template>
 
 <style scoped>
-
 .home-container {
   position: relative;
   display: flex;
@@ -451,17 +485,24 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* -- HIDDEN BUG -- */
-.home-bug {
-  bottom: 4rem;
+.bug-capture-anchor {
+  position: absolute;
+   bottom: 4rem;
   left: 1rem;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
+  z-index: 10;
+}
+
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
 }
 
 .hidden-bug .badge-icon-mask {
   width: 30px;
   height: 30px;
 }
-
 
 .app-header {
   width: 100%;
@@ -511,7 +552,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   font-weight: 600;
   color: #ffffff;
   padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-subtle); 
+  border-bottom: 1px solid var(--border-subtle);
   text-align: center;
 }
 
@@ -568,7 +609,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 .unlocked-status {
   background: rgba(46, 204, 113, 0.2);
   color: #2ecc71;
-   border: 1px solid #2ecc71;
+  border: 1px solid #2ecc71;
 }
 
 .locked-status {

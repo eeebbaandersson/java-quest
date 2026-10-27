@@ -7,18 +7,20 @@ import progressService from "@/services/progressService";
 
 const { totalXP, captureBug, isBugVisionActive, isBugCaptured } = useBugHunting();
 const animatingBugs = ref(new Set());
+const captureError = ref("");
 
 const handleBugClick = (bugId) => {
-  if (animatingBugs.value.has(bugId)) return;
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
 
   // Start animation
   animatingBugs.value.add(bugId);
-
-  // Wait for animation to finish before bug is removed
-  setTimeout(() => {
-    captureBug(bugId);
-    animatingBugs.value.delete(bugId);
-  }, 700);
 };
 
 const levels = xpService.LEVELS;
@@ -114,16 +116,32 @@ const progressPercentage = computed(() => {
       </button>
     </div>
 
-     <div
-        v-if="isBugVisionActive && !isBugCaptured(5)"
-        class="hidden-bug"
-        style="--bug-size: 30px;"
-        @click="handleBugClick(5)"
-        title="Bug Spotted!"
+    <div
+        v-if="isBugVisionActive && (!isBugCaptured(5) || animatingBugs.has(5))"
+        class="bug-capture-anchor"
       >
-        <span class="badge-icon-mask icon-bug"></span>
-        <span v-if="animatingBugs.has(5)" class="xp-popup">+25 XP</span>
+        <div
+          v-if="!isBugCaptured(5)"
+          class="hidden-bug"
+          style="--bug-size: 30px"
+          @click="handleBugClick(5)"
+          title="Bug Spotted!"
+        >
+          <span class="badge-icon-mask icon-bug"></span>
+        </div>
+
+        <span
+          v-if="animatingBugs.has(5)"
+          class="xp-popup"
+          @animationend="animatingBugs.delete(5)"
+        >
+          +25 XP
+        </span>
       </div>
+      <p v-if="captureError" role="alert">
+        {{ captureError }}
+      </p>
+
   </section>
 </template>
 
@@ -423,10 +441,18 @@ const progressPercentage = computed(() => {
 }
 
 /* -- HIDDEN BUG -- */
-.hidden-bug {
+.bug-capture-anchor {
   position: absolute;
-  top: 24rem;
+  top: 25rem;
   left: 10%;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
+  z-index: 10;
+}
+
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
 }
 
 .hidden-bug .badge-icon-mask {

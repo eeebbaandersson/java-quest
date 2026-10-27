@@ -9,18 +9,20 @@ import MicroChallengeBlock from "../components/MicroChallengeBlock.vue";
 import { useBugHunting } from "@/composables/useBugHunting";
 const { isBugVisionActive, isBugCaptured, captureBug } = useBugHunting();
 const animatingBugs = ref(new Set());
+const captureError = ref("");
 
 const handleBugClick = (bugId) => {
-  if (animatingBugs.value.has(bugId)) return;
+  if (animatingBugs.value.has(bugId) || isBugCaptured(bugId)) return;
+
+  captureError.value = "";
+
+  if (!captureBug(bugId)) {
+    captureError.value = "Could not save the capture. Please try again.";
+    return;
+  }
 
   // Start animation
   animatingBugs.value.add(bugId);
-
-  // Wait for animation to finish before bug is removed
-  setTimeout(() => {
-    captureBug(bugId);
-    animatingBugs.value.delete(bugId);
-  }, 700);
 };
 
 const route = useRoute();
@@ -200,8 +202,7 @@ const goBack = () => {
           aria-label="Lesson Completed"
           title="Lesson Completed"
         >
-          <span class="badge-icon-mask icon-check"
-          aria-hidden="true"></span>
+          <span class="badge-icon-mask icon-check" aria-hidden="true"></span>
         </span>
       </h1>
       <p class="hero-subtitle">{{ currentLesson.subtitle }}</p>
@@ -246,27 +247,54 @@ const goBack = () => {
 
       <!-- Hidden Bugs -->
       <div
-        v-if="
-          lessonId === 'operators' && isBugVisionActive && !isBugCaptured(3)
-        "
-        class="hidden-bug lesson-bug-3"
-        style="--bug-size: 24px;"
-        @click="handleBugClick(3)"
-        title="Bug Spotted!"
+        v-if="lessonId === 'operators' && isBugVisionActive && (!isBugCaptured(3) || animatingBugs.has(3))"
+         class="bug-capture-anchor"
       >
-        <span class="badge-icon-mask icon-bug"></span>
-        <span v-if="animatingBugs.has(3)" class="xp-popup">+25 XP</span>
+        <div
+          v-if="!isBugCaptured(3)"
+          class="hidden-bug lesson-bug-3"
+          style="--bug-size: 24px"
+          @click="handleBugClick(3)"
+          title="Bug Spotted!"
+        >
+          <span class="badge-icon-mask icon-bug"></span>
+        </div>
+
+        <span
+          v-if="animatingBugs.has(3)"
+          class="xp-popup"
+          @animationend="animatingBugs.delete(3)"
+        >
+          +25 XP
+        </span>
       </div>
+
       <div
-        v-if="lessonId === 'arrays' && isBugVisionActive && !isBugCaptured(4)"
-        class="hidden-bug lesson-bug-4"
-        style="--bug-size: 28px;"
-        @click="handleBugClick(4)"
-        title="Bug Spotted!"
+        v-if="lessonId === 'arrays' && isBugVisionActive && (!isBugCaptured(4) || animatingBugs.has(4))"
+        class="bug-capture-anchor2"
       >
-        <span class="badge-icon-mask icon-bug"></span>
-        <span v-if="animatingBugs.has(4)" class="xp-popup">+25 XP</span>
+        <div
+          v-if="!isBugCaptured(4)"
+          class="hidden-bug lesson-bug-4"
+          style="--bug-size: 28px"
+          @click="handleBugClick(4)"
+          title="Bug Spotted!"
+        >
+          <span class="badge-icon-mask icon-bug"></span>
+        </div>
+
+        <span
+          v-if="animatingBugs.has(4)"
+          class="xp-popup"
+          @animationend="animatingBugs.delete(4)"
+        >
+          +25 XP
+        </span>
       </div>
+
+      <p v-if="captureError" role="alert">
+        {{ captureError }}
+      </p>
     </main>
   </div>
 </template>
@@ -464,19 +492,35 @@ const goBack = () => {
 }
 
 /* -- HIDDEN BUGS -- */
-.lesson-bug-3 {
+.bug-capture-anchor {
+  position: absolute;
   top: 1rem;
   right: 2rem;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
+  z-index: 10;
 }
+
+.bug-capture-anchor2 {
+  position: absolute;
+  bottom: 2rem;
+  left: 1rem;
+  transform: translateY(-50%);
+  width: calc(30px + 1rem);
+  height: calc(30px + 1rem);
+  z-index: 10;
+}
+
+.bug-capture-anchor .hidden-bug {
+  inset: 0;
+}
+
 .lesson-bug-3 .badge-icon-mask {
   width: 24px;
   height: 24px;
 }
 
-.lesson-bug-4 {
-  bottom: 2rem;
-  left: 1rem;
-}
 .lesson-bug-4 .badge-icon-mask {
   width: 28px;
   height: 28px;
@@ -497,5 +541,4 @@ const goBack = () => {
     margin-bottom: 1.5rem;
   }
 }
-
 </style>
