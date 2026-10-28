@@ -13,7 +13,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="shield-tracker-container" aria-label="Shields remaining">
+  <div class="shield-tracker-container">
     <div class="tracker-label">ARENA SHIELDS</div>
     <div class="shields-row">
       <div
