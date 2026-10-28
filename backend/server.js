@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const lessonRoutes = require('./routes/lessonRoutes');
+const arenaRoutes = require('./routes/arenaRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(express.static('public')); // To access public folder in Vue Vite fronte
 
 // Future routes will go here
 app.use('/api/lessons', lessonRoutes);
+app.use('/api/arenas', arenaRoutes);
 
 
 // Call to verify database connection using minimal SQL-query
