@@ -4,6 +4,9 @@ DROP TABLE IF EXISTS Questions;
 DROP TABLE IF EXISTS Lessons;
 DROP TABLE IF EXISTS User_progress;
 
+DROP TABLE IF EXISTS Arenas;
+DREOP TABLE IF EXISTS Arena_questions;
+
 CREATE TABLE IF NOT EXISTS Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
@@ -38,6 +41,24 @@ CREATE TABLE IF NOT EXISTS User_progress (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     lesson_id INT NOT NULL,
     completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS Arenas (
+    arena_id INT AUTO_INCREMENT PRIMARY KEY,
+    level TEXT NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Arena_questions (
+    arena_question_id INT AUTO_INCREMENT PRIMARY KEY,
+    arena_id INT NOT NULL,
+    question_text TEXT NOT NULL,
+    code_snippet TEXT NULL,
+    options JSON NOT NULL,
+    correct_answer INT NOT NULL,
+
+    FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
+
 );
 
 
