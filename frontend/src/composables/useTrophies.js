@@ -31,7 +31,7 @@ const defaultTrophies = [
   { id: 5, title: "Java Master", description: "Completed all quests.", isUnlocked: false, icon: "crown" },
   { id: 6, title: "Challenger", description: "Conquered the Medium Arena.", isUnlocked: false, icon: "helmet2" },
   { id: 7, title: "Hero", description: "Conquered the Hard Arena.", isUnlocked: false, icon: "helmet3" },
-  { id: 8, title: "Carrier", description: "Complete an arena with all shields remaining.", isUnlocked: false, icon: "shield" },
+  { id: 8, title: "Carrier", description: "Complete an arena with all shields remaining.", isUnlocked: false, icon: "shield2" },
 ];
 
 const trophies = ref(

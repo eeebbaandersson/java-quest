@@ -423,6 +423,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   width: 32px;
   height: 32px;
   transition: all 0.3s ease;
+
 }
 
 .bug-badge.found {
