@@ -16,7 +16,7 @@ app.use(express.static('public')); // To access public folder in Vue Vite fronte
 
 // Future routes will go here
 app.use('/api/lessons', lessonRoutes);
-app.use('/api/arenas', arenaRoutes);
+app.use('/api/arena', arenaRoutes);
 
 
 // Call to verify database connection using minimal SQL-query

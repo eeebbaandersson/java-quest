@@ -13,8 +13,8 @@ const arenaService = {
         return { ...arenas[0], questions };
     },
 
-    async checkArenaAnswer(arenaQuestionId, selectedAnswer) {
-        const [rows] = await db.query('SELECT correct_answer FROM Arena_questions WHERE arena_question_id = ?', [arenaQuestionId]);
+    async checkAnswer(questionId, selectedAnswer) {
+        const [rows] = await db.query('SELECT correct_answer FROM Arena_questions WHERE arena_question_id = ?', [questionId]);
         if (rows.length === 0) return null;
         const isCorrect = Number(selectedAnswer) === Number(rows[0].correct_answer);
 
