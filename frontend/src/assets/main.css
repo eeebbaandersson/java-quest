@@ -211,6 +211,8 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-check { mask-image: url("@/assets/icons/check.svg"); -webkit-mask-image: url("@/assets/icons/check.svg"); }
 .icon-lock { mask-image: url("@/assets/icons/lock.svg"); -webkit-mask-image: url("@/assets/icons/lock.svg"); }
 .icon-check2 { mask-image: url("@/assets/icons/check2.svg"); -webkit-mask-image: url("@/assets/icons/check2.svg"); }
+.icon-shield { mask-image: url("@/assets/icons/shield.svg"); -webkit-mask-image: url("@/assets/icons/shield.svg"); }
+.icon-crown { mask-image: url("@/assets/icons/crown.svg"); -webkit-mask-image: url("@/assets/icons/crown.svg"); }
 
 footer {
   text-align: center;

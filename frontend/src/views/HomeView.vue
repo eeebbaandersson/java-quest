@@ -194,7 +194,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
         class="arena-container glass-card glass-card-interactive"
       >
         <span class="arena-top-icon badge-icon-mask icon-archery"></span>
-        <h2>PRACTICE ARENAS</h2>
+        <h2>ARENA CHALLENGES</h2>
         <p>Feeling adventurous and ready to test your knowledge?</p>
         <div class="arena-btn">Choose Arena</div>
       </RouterLink>
@@ -423,6 +423,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   width: 32px;
   height: 32px;
   transition: all 0.3s ease;
+
 }
 
 .bug-badge.found {

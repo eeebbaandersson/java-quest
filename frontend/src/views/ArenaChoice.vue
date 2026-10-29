@@ -26,10 +26,11 @@ const arenas = ref([
     id: "easy",
     title: "NOVICE",
     levelText: "EASY",
-    description: "Warm up with basic logic and fundamentals.",
+    description: "Warm up with basic logic and core fundamentals.",
     icon: "tent",
     xpReward: 10,
     link: "/practice/easy",
+    isUnlocked: true,
   },
   {
     id: "medium",
@@ -39,6 +40,7 @@ const arenas = ref([
     icon: "tower",
     xpReward: 25,
     link: "/practice/medium",
+    isUnlocked: false,
   },
   {
     id: "hard",
@@ -48,6 +50,7 @@ const arenas = ref([
     icon: "coliseum",
     xpReward: 50,
     link: "/practice/hard",
+    isUnlocked: false,
   },
 ]);
 </script>
@@ -55,7 +58,7 @@ const arenas = ref([
 <template>
   <div class="arena-choice-container">
     <section class="hero-section">
-      <h1 class="logo-title">PRACTICE ARENAS</h1>
+      <h1 class="logo-title">ARENA CHALLENGES</h1>
       <p class="hero-subtitle">
         Choose difficulty, prove your skills and collect the reward.
       </p>
@@ -92,10 +95,20 @@ const arenas = ref([
         <RouterLink
           v-for="arena in arenas"
           :key="arena.id"
-          :to="arena.link"
-          class="arena-card glass-card glass-card-interactive"
+          :to="arena.isUnlocked ? arena.link : '#'"
+          class="arena-card glass-card"
+          :class="{
+            'is-locked': !arena.isUnlocked,
+            'glass-card-interactive': arena.isUnlocked,
+          }"
         >
+          
           <span class="xp-corner-badge">+{{ arena.xpReward }}xp</span>
+
+          <span v-if="!arena.isUnlocked" class="lock-corner-badge">
+            <span class="badge-icon-mask icon-lock"></span>
+          </span>
+
           <span
             class="arena-icon badge-icon-mask"
             :class="`icon-${arena.icon}`"
@@ -105,7 +118,9 @@ const arenas = ref([
           <h2>{{ arena.title }}</h2>
           <p>{{ arena.description }}</p>
 
-          <div class="arena-btn">Enter Arena</div>
+          <div class="arena-btn">
+            {{ arena.isUnlocked ? "Enter Arena" : "Locked" }}
+          </div>
         </RouterLink>
       </div>
 
@@ -152,6 +167,7 @@ const arenas = ref([
   flex-direction: column;
   align-items: center;
   text-align: center;
+  text-decoration: none;
 }
 
 .xp-corner-badge {
@@ -177,6 +193,79 @@ const arenas = ref([
   color: var(--accent-color);
 }
 
+.lock-corner-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 0.75rem; 
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.lock-corner-badge .badge-icon-mask {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+
+
+.arena-card.is-locked {
+  text-decoration: none;
+}
+
+.arena-card.is-locked .arena-icon {
+  color: var(--text-muted);
+  opacity: 0.4;
+  filter: none !important;
+}
+
+.arena-card.is-locked .arena-subtitle {
+  color: var(--text-muted) !important;
+  opacity: 0.5;
+}
+
+.arena-card.is-locked h2 {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+}
+
+.arena-card.is-locked p {
+  color: var(--text-muted) !important;
+  opacity: 0.6;
+}
+
+.arena-card.is-locked .arena-btn {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: var(--border-subtle);
+  color: var(--text-muted);
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+
+.arena-card.is-locked:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: none;
+}
+
+.arena-card.is-locked:hover h2,
+.arena-card.is-locked:hover p,
+.arena-card.is-locked:hover .arena-subtitle,
+.arena-card.is-locked:hover .arena-icon {
+  color: var(--text-muted) !important;
+  opacity: 0.7;
+  filter: none;
+  text-decoration: none;
+}
+
+/* --- UPPLÅSTA KORT (Standard-färger) --- */
 .arena-icon {
   width: 46px;
   height: 46px;
@@ -186,7 +275,7 @@ const arenas = ref([
   transition: all 0.3s ease;
 }
 
-.arena-card:hover .arena-icon {
+.arena-card:not(.is-locked):hover .arena-icon {
   opacity: 1;
   filter: drop-shadow(0 0 8px var(--glow-purple));
 }
@@ -202,7 +291,7 @@ const arenas = ref([
   transition: opacity 0.3s ease;
 }
 
-.arena-card:hover .arena-subtitle {
+.arena-card:not(.is-locked):hover .arena-subtitle {
   opacity: 1;
 }
 
@@ -215,7 +304,7 @@ const arenas = ref([
   transition: color 0.3s ease;
 }
 
-.arena-card:hover h2 {
+.arena-card:not(.is-locked):hover h2 {
   color: var(--accent-color);
   opacity: 1;
 }
@@ -229,7 +318,7 @@ const arenas = ref([
   transition: color 0.3s ease;
 }
 
-.arena-card:hover p {
+.arena-card:not(.is-locked):hover p {
   color: rgba(255, 255, 255, 0.9);
 }
 
