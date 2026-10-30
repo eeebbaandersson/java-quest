@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { useBugHunting } from "@/composables/useBugHunting";
 
@@ -29,7 +29,7 @@ const arenas = ref([
     description: "Warm up with basic logic and core fundamentals.",
     icon: "tent",
     xpReward: 10,
-    link: "/practice/easy",
+    link: "/arena/1",
     isUnlocked: true,
   },
   {
@@ -39,7 +39,7 @@ const arenas = ref([
     description: "Test your problem-solving skills with trickier algorithms.",
     icon: "tower",
     xpReward: 25,
-    link: "/practice/medium",
+    link: "/arena/2",
     isUnlocked: false,
   },
   {
@@ -49,10 +49,30 @@ const arenas = ref([
     description: "For true Java heroes. Complex scenarios and edge cases.",
     icon: "coliseum",
     xpReward: 50,
-    link: "/practice/hard",
+    link: "/arena/3",
     isUnlocked: false,
   },
 ]);
+
+onMounted(() => {
+  const noviceCompleted = 
+    localStorage.getItem("arena-stage-1-completed") === "true";
+
+  const challengerCompleted = 
+    localStorage.getItem("arena-stage-2-completed") === "true";
+
+  if (noviceCompleted) {
+    const ChallengerArena = arenas.value.find(arena => arena.id === "medium");
+    if (ChallengerArena) ChallengerArena.isUnlocked = true;
+  }
+
+  if (challengerCompleted) {
+    const HeroArena = arenas.value.find(arena => arena.id === "hard");
+    if (HeroArena) HeroArena.isUnlocked = true;
+  }
+});
+
+
 </script>
 
 <template>

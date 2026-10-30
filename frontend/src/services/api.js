@@ -30,5 +30,21 @@ export default {
     });
     if (!response.ok) throw new Error("Failed to check answer");
     return await response.json();
+  },
+
+  async getArenaById(arenaId) {
+    const response = await fetch(`${BASE_URL}/arena/${arenaId}`);
+    if (!response.ok) throw new Error("Failed to fetch arena");
+    return await response.json();
+  },
+
+  async checkArenaAnswer(questionId, selectedAnswer) {
+    const response = await fetch(`${BASE_URL}/arena/check`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ questionId, selectedAnswer })
+    });
+    if (!response.ok) throw new Error("Failed to check arena answer");
+    return await response.json();
   }
 };
