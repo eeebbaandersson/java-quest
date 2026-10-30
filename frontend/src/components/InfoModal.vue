@@ -106,5 +106,4 @@ const closeModal = () => {
   font-size: 0.95rem;
   margin: 0;
 }
-
 </style>

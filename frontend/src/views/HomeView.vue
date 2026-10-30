@@ -641,9 +641,20 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 }
 
 /* TABLET (Skärmar upp till 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
+  .app-header {
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-section {
+    order: 0;
+  }
+
   .stats-section {
-    max-width: 90%;
+    max-width: 100%;
+   
   }
 
   .stats-container {
