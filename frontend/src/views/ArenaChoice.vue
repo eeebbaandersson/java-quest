@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import { useBugHunting } from "@/composables/useBugHunting";
 
@@ -53,6 +53,26 @@ const arenas = ref([
     isUnlocked: false,
   },
 ]);
+
+onMounted(() => {
+  const noviceCompleted = 
+    localStorage.getItem("arena-stage-1-completed") === "true";
+
+  const challengerCompleted = 
+    localStorage.getItem("arena-stage-2-completed") === "true";
+
+  if (noviceCompleted) {
+    const ChallengerArena = arenas.value.find(arena => arena.id === "medium");
+    if (ChallengerArena) ChallengerArena.isUnlocked = true;
+  }
+
+  if (challengerCompleted) {
+    const HeroArena = arenas.value.find(arena => arena.id === "hard");
+    if (HeroArena) HeroArena.isUnlocked = true;
+  }
+});
+
+
 </script>
 
 <template>
