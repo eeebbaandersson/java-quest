@@ -22,13 +22,29 @@ const failedArena = ref(false);
 
 onMounted(async () => {
   try {
-    const data = await api.getArenaById(arenaId);
+    const stage = Number(arenaId);
+
+if (![1, 2, 3].includes(stage)) {
+  await router.replace("/arenachoice");
+  return;
+}
+
+if (
+  stage > 1 &&
+  localStorage.getItem(`arena-stage-${stage - 1}-completed`) !== "true"
+) {
+  await router.replace("/arenachoice");
+  return;
+}
+
+const data = await api.getArenaById(arenaId);
     arena.value = data;
     questions.value = data.questions || [];
   } catch (err) {
     console.error("Failed to load arena:", err);
   } finally {
     loading.value = false;
+    throw new Error("Failed to load arena data.");
   }
 });
 
