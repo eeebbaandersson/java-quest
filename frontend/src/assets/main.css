@@ -213,6 +213,7 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-check2 { mask-image: url("@/assets/icons/check2.svg"); -webkit-mask-image: url("@/assets/icons/check2.svg"); }
 .icon-shield { mask-image: url("@/assets/icons/shield.svg"); -webkit-mask-image: url("@/assets/icons/shield.svg"); }
 .icon-crown { mask-image: url("@/assets/icons/crown.svg"); -webkit-mask-image: url("@/assets/icons/crown.svg"); }
+.icon-question { mask-image: url("@/assets/icons/question.svg"); -webkit-mask-image: url("@/assets/icons/question.svg"); }
 
 footer {
   text-align: center;
