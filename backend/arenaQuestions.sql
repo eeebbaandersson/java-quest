@@ -161,7 +161,7 @@ INSERT INTO Arena_questions (arena_id, question_text, code_snippet, options, cor
   3, 
   'What will be the output or behavior of executing this code involving class initialization order?', 
   'class Parent {\n    static { System.out.print(\"A\"); }\n    { System.out.print(\"B\"); }\n    public Parent() { System.out.print(\"C\"); }\n}\nclass Child extends Parent {\n    static { System.out.print(\"D\"); }\n    { System.out.print(\"E\"); }\n    public Child() { System.out.print(\"F\"); }\n}\npublic class Main {\n    public static void main(String[] args) {\n        new Child();\n    }\n}', 
-  '["ABCDEF", "ADBEFC", "DAEBCF", "BCEADF"]', 
+  '["ABCDEF", "ADBCEF", "DAEBCF", "BCEADF"]', 
   1
 ),
 (
