@@ -1,10 +1,21 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRoute, RouterView, RouterLink } from "vue-router";
 import Navbar from "./components/Navbar.vue";
 import BugvisionToggle from "./components/BugvisionToggle.vue";
+import InfoModal from "./components/InfoModal.vue";
 
 const route = useRoute();
+
+const isInfoModalOpen = ref(false);
+
+const openInfoModal = () => {
+  isInfoModalOpen.value = true;
+}
+
+const closeInfoModal = () => {
+  isInfoModalOpen.value = false;
+}
 
 const showNavbar = computed(() => {
   return ["lesson", "arenachoice", "profile" ].includes(route.name);
@@ -13,6 +24,11 @@ const showNavbar = computed(() => {
 const showProfileLink = computed(() => {
   return ["home", "lesson", "arenachoice", "profile"].includes(route.name);
 });
+
+const showHelpLink = computed(() => {
+   return ["home", "lesson", "arenachoice", "profile"].includes(route.name);
+
+})
 </script>
 
 <template>
@@ -25,6 +41,7 @@ const showProfileLink = computed(() => {
       </RouterLink>
     </div>
 
+  
     <header class="app-header">
       <Navbar v-if="showNavbar" />
     </header>
@@ -34,10 +51,27 @@ const showProfileLink = computed(() => {
       <RouterView />
     </main>
 
+     <!-- Info knapp -->
+    <button 
+      v-if="showHelpLink" 
+      class="global-icon-btn glass-card floating-help-btn" 
+      title="Help"
+      aria-label="Help"
+      @click="openInfoModal"
+    >
+       <span class="badge-icon-mask icon-question"></span>
+    </button>
+
+    <InfoModal 
+      :isOpen="isInfoModalOpen" 
+      @close="closeInfoModal" 
+    />
+
     <!-- Footer -->
     <footer>
       <p>&copy; 2026 Java{}Quest. <br> All rights reserved.</p>
     </footer>
+    
   </div>
 </template>
 
@@ -61,7 +95,7 @@ position: absolute;
 
 
 .global-icon-btn {
-display: inline-flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 38px;  
@@ -75,6 +109,7 @@ display: inline-flex;
   -webkit-backdrop-filter: blur(12px);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .global-icon-btn:hover{
@@ -99,6 +134,13 @@ display: inline-flex;
 
 .main-content {
   flex: 1;
+}
+
+.floating-help-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999; 
 }
 
 @media (max-width: 1199px) {

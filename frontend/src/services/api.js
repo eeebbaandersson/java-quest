@@ -1,7 +1,5 @@
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
-// const BASE_URL = 'http://localhost:3000/api';
-
 //Code to map lesson slugs to their corresponding numeric IDs in the database
 const lessonIdMap = {
   variables: 1,

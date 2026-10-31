@@ -76,31 +76,36 @@ const submitAnswer = async () => {
 
 <style scoped>
 .challenge-card {
-  max-width: 650px;
+max-width: 650px;
+  width: 100%; 
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
   backdrop-filter: blur(10px);
   padding: 28px;
+  box-sizing: border-box; 
 }
 
 .question-text {
   color: #e2e8f0;
   font-size: 1.05rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: left;
+  word-break: break-word;
 }
 
 .challenge-code {
-  background: rgba(0, 0, 0, 0.3);
+ background: rgba(0, 0, 0, 0.3);
   padding: 12px;
   border-radius: 8px;
   color: #e6edf3;
   font-family: monospace;
   margin-bottom: 1rem;
-  overflow-x: auto;
-  text-align: left;
+  overflow-x: auto; 
+  max-width: 100%; 
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .options-list {
@@ -119,9 +124,10 @@ const submitAnswer = async () => {
   padding: 12px 16px;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
   color: #e2e8f0;
-  text-align: left;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .option-item:hover {
@@ -132,23 +138,51 @@ const submitAnswer = async () => {
 .option-item.active {
   border: 1px solid var(--accent-purple);
   background: var(--glow-purple);
+  box-shadow: var(--glow-shadow);
 }
 
 .submit-btn {
-  background: var(--accent-purple);
+background: var(--accent-purple);
   color: white;
-  border: none;
+  border: 1px solid var(--accent-purple);
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 600;
   font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
   cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  width: auto;
+  min-width: 180px;
   display: block;
   margin: 1.5rem auto 0 auto;
+  box-shadow: 0 0 12px var(--glow-purple);
+}
+
+.submit-btn:hover:not(:disabled) {
+  background: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
+  box-shadow: var(--glow-shadow);
+  color: #ffffff;
+
 }
 
 .submit-btn:disabled {
-  opacity: 0.3;
+   background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+
+  .submit-btn {
+    width: 100%; 
+  }
 }
 </style>

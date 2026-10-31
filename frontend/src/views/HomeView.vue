@@ -118,7 +118,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
       <div class="stats-container">
         <div class="stats-card glass-card">
           <p class="card-title">COMPLETED QUESTS</p>
-          <div class="badges-wrapper">
+          <div class="quests-badges-wrapper">
             <RouterLink
               v-for="lesson in lessons"
               :key="lesson.id"
@@ -289,7 +289,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 .stats-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: stretch;
+  align-items: start;
   gap: 1.35rem;
   margin-top: 1rem;
 }
@@ -310,6 +310,16 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
   text-align: center;
+}
+
+.quests-badges-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 240px;
+  margin: 1.2rem auto 0 auto; 
 }
 
 .badges-wrapper {
@@ -552,7 +562,7 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
   font-size: 1.1rem;
   font-weight: 600;
   color: #ffffff;
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
   text-align: center;
 }
@@ -631,9 +641,20 @@ const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 }
 
 /* TABLET (Skärmar upp till 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 1199px) {
+  .app-header {
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-section {
+    order: 0;
+  }
+
   .stats-section {
-    max-width: 90%;
+    max-width: 100%;
+   
   }
 
   .stats-container {

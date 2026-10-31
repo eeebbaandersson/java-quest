@@ -285,7 +285,6 @@ onMounted(() => {
   text-decoration: none;
 }
 
-/* --- UPPLÅSTA KORT (Standard-färger) --- */
 .arena-icon {
   width: 46px;
   height: 46px;
