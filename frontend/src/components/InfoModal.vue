@@ -1,57 +1,103 @@
 <script setup>
-defineProps({
-    isOpen: {
-        type: Boolean,
-        required: true,
-    },
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
+  },
 });
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
+const dialog = ref(null);
 
-const closeModal = () => {
-    emit('close');
+const closeModal = () => emit("close");
+
+const syncDialog = () => {
+  const element = dialog.value;
+  if (!element) return;
+
+  if (props.isOpen && !element.open) {
+    element.showModal();
+  } else if (!props.isOpen && element.open) {
+    element.close();
+  }
 };
+
+onMounted(syncDialog);
+watch(() => props.isOpen, syncDialog, { flush: "post" });
+
+onBeforeUnmount(() => {
+  if (dialog.value?.open) {
+    dialog.value.close();
+  }
+});
 </script>
 
 <template>
-    <!-- INFO MODAL -->
-    <div
-    v-if="isOpen"
-      class="info-modal-overlay"
-      @click="closeModal"
-    >
-      <div class="info-modal-card" @click.stop>
-        <button class="modal-close-btn" @click="closeModal">
-          &times;
-        </button>
-        <div class="modal-header">
-          <span> JAVAQUEST </span>
-        </div>
-        <div class="modal-body">
-          <p class="modal-desc">A decription of the concepts in the app is coming here shortly...</p>
-          <p class="modal-desc">Quests/lessons</p>
-          <p class="modal-desc">Arena Challenges</p>
-          <p class="modal-desc">BUG-VISION</p>
-        </div>
+  <dialog
+    ref="dialog"
+    class="info-modal-overlay"
+    aria-labelledby="info-modal-title"
+    @cancel.prevent="closeModal"
+    @click.self="closeModal"
+  >
+    <div class="info-modal-card" @click.stop>
+      <button
+        type="button"
+        class="modal-close-btn"
+        aria-label="Close information"
+        autofocus
+        @click="closeModal"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <div class="modal-header">
+        <span id="info-modal-title">JAVAQUEST</span>
+      </div>
+
+      <div class="modal-body">
+       <p class="modal-desc">
+          A decription of the concepts in the app is coming here shortly...
+        </p>
+        <p class="modal-desc">Quests/lessons</p>
+        <p class="modal-desc">Arena Challenges</p>
+        <p class="modal-desc">BUG-VISION</p>
       </div>
     </div>
+  </dialog>
 </template>
+
+
+        
 
 <style scoped>
 .info-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+   position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+.info-modal-overlay[open] {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
-  transition: all 0.3s ease-in-out;
+}
+
+.info-modal-overlay::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .info-modal-card {
@@ -71,6 +117,11 @@ const closeModal = () => {
   border-radius: 18px;
   border: 1px solid var(--border-subtle);
   animation: modalScaleIn 0.2s ease-out;
+
+  box-sizing: border-box;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
 }
 
 .modal-header {

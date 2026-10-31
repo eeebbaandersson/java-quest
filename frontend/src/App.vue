@@ -56,6 +56,7 @@ const showHelpLink = computed(() => {
       v-if="showHelpLink" 
       class="global-icon-btn glass-card floating-help-btn" 
       title="Help"
+      aria-label="Help"
       @click="openInfoModal"
     >
        <span class="badge-icon-mask icon-question"></span>
