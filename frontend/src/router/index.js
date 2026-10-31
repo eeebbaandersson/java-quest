@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue';
 import LessonView from '@/views/LessonView.vue';
 import ArenaChoice from '@/views/ArenaChoice.vue';
 import ProfileView from '@/views/ProfileView.vue';
+import ArenaView from '@/views/ArenaView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,8 +29,12 @@ const router = createRouter({
       name: 'profile',
       component: ProfileView,
     },
+       {
+      path: '/arena/:id',
+      name: 'ArenaView',
+      component: ArenaView
+   },
 
-    
   ],
 })
 
