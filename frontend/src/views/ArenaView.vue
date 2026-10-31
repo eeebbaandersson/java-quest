@@ -24,20 +24,20 @@ onMounted(async () => {
   try {
     const stage = Number(arenaId);
 
-if (![1, 2, 3].includes(stage)) {
-  await router.replace("/arenachoice");
-  return;
-}
+    if (![1, 2, 3].includes(stage)) {
+      await router.replace("/arenachoice");
+      return;
+    }
 
-if (
-  stage > 1 &&
-  localStorage.getItem(`arena-stage-${stage - 1}-completed`) !== "true"
-) {
-  await router.replace("/arenachoice");
-  return;
-}
+    if (
+      stage > 1 &&
+      localStorage.getItem(`arena-stage-${stage - 1}-completed`) !== "true"
+    ) {
+      await router.replace("/arenachoice");
+      return;
+    }
 
-const data = await api.getArenaById(arenaId);
+    const data = await api.getArenaById(arenaId);
     arena.value = data;
     questions.value = data.questions || [];
   } catch (err) {
@@ -48,7 +48,9 @@ const data = await api.getArenaById(arenaId);
   }
 });
 
-const currentQuestion = computed(() => questions.value[currentIndex.value] || null);
+const currentQuestion = computed(
+  () => questions.value[currentIndex.value] || null,
+);
 
 const handleNextQuestion = ({ correct }) => {
   if (correct) {
@@ -79,146 +81,171 @@ const restartArena = () => {
 
 const confirmAndGoHome = () => {
   if (!isCompleted.value && !failedArena.value) {
-    const leave = window.confirm("Are you sure? You will lose all your current challenge progress.");
+    const leave = window.confirm(
+      "Are you sure? You will lose all your current challenge progress.",
+    );
     if (!leave) return;
   }
-  router.push('/arenachoice'); 
+  router.push("/arenachoice");
 };
 </script>
 
 <template>
   <div class="arena-container">
-    <button @click="confirmAndGoHome" class="back-home-btn">
-      ← Leave Arena
-    </button>
-
     <!-- Loading State -->
     <div v-if="loading" class="loading-state">
       <p>Entering the Arena...</p>
     </div>
 
     <div v-else-if="currentQuestion" class="challenge-wrapper">
-      <div class="arena-header">
-        <h2>{{ arena?.level }} Arena</h2>
-        
-        <div class="header-info-row">
-          <div class="side-spacer"></div>
-          <span class="question-counter">
-            Question {{ currentIndex + 1 }} of {{ questions.length }}
-          </span>
-          <div class="tracker-wrapper">
-            <ShieldTracker :shields="shields" :maxShields="maxShields" />
-          </div>
-        </div>
-      </div>
 
-      <ArenaChallenge 
+ <div class="arena-header">
+  <h2>{{ arena?.level }}</h2>
+  <p class="arena-subtitle">{{ arena?.description }}</p>
+  
+  <div class="header-info-row">
+    <span class="question-counter">
+      Question {{ currentIndex + 1 }} / {{ questions.length }}
+    </span>
+
+    <div class="tracker-wrapper">
+      <span class="tracker-label">Shields</span>
+      <ShieldTracker :shields="shields" :maxShields="maxShields" />
+    </div>
+  </div>
+</div>
+
+      <ArenaChallenge
         v-if="!failedArena && !isCompleted"
         :key="currentQuestion.arena_question_id"
-        :question="currentQuestion" 
-        @next-question="handleNextQuestion" 
+        :question="currentQuestion"
+        @next-question="handleNextQuestion"
       />
 
-      <div v-else-if="failedArena" class="completion-card glass-card result-card">
+      <div
+        v-else-if="failedArena"
+        class="completion-card glass-card result-card"
+      >
         <h2>Defeated!</h2>
-        <p class="summary-subtitle">You lost all your shields. Please try again.</p>
-        
+        <p class="summary-subtitle">
+          You run out of shields. What would you like to to?
+        </p>
+
         <div class="action-buttons">
+           <button @click="router.push('/arenachoice')" class="secondary-btn">
+            Return to Arenas
+          </button>
           <button @click="restartArena" class="submit-btn">Try Again</button>
-          <button @click="router.push('/arenachoice')" class="secondary-btn">Return to Hub</button>
         </div>
       </div>
 
-      <div v-else-if="isCompleted" class="completion-card glass-card result-card">
-        <h2>🎉 Arena Completed!</h2>
-        <p class="summary-subtitle">You conquered the {{ arena?.level }} tier.</p>
-        
+      <div
+        v-else-if="isCompleted"
+        class="completion-card glass-card result-card"
+      >
+        <h2>Congratulations!</h2>
+        <p class="summary-subtitle">
+          You have successfully conquered the {{ arena?.level }} arena.
+        </p>
+
         <div class="stats-grid">
           <div class="stat-box">
             <span class="stat-label">Score</span>
-            <span class="stat-value">{{ correctCount }} / {{ questions.length }}</span>
+            <span class="stat-value"
+              >{{ correctCount }}/{{ questions.length }}</span
+            >
           </div>
           <div class="stat-box">
-            <span class="stat-label">Stage XP Earned</span>
-            <span class="stat-value">+250 XP</span>
+            <span class="stat-label">Reward</span>
+            <span class="stat-value">+250XP</span>
           </div>
         </div>
 
-        <button @click="router.push('/arenachoice')" class="submit-btn">Return to Arenas</button>
+        <button @click="router.push('/arenachoice')" class="submit-btn">
+          Return to Arenas
+        </button>
       </div>
+    </div>
+
+    <div class="back-navigation">
+      <button @click="confirmAndGoHome" class="back-home-btn">
+        <span class="arrow">←</span> Leave Arena
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.arena-container { 
+.arena-container {
   position: relative;
-  max-width: 700px; 
-  margin: 40px auto; 
-  padding: 0 20px; 
+  width: 100%;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 20px;
 }
 
-.back-home-btn {
-  position: absolute;
-  top: 0;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.back-home-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.arena-header { 
+.arena-header {
+  position: relative; 
   display: flex; 
   flex-direction: column; 
   align-items: center; 
   text-align: center; 
-  margin-bottom: 20px; 
-  color: #fff; 
+  margin-bottom: 1rem;
+  color: #ffffff;
   width: 100%;
 }
 
-.arena-header h2 { 
+.arena-header h2 {
   font-size: 2.5rem; 
-  font-weight: 700;
-  margin-bottom: 12px; 
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  border-bottom: none; 
+  padding-bottom: 0;
+  text-transform: uppercase;
+}
+
+.arena-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  text-align: center;
+  opacity: 0.8;
 }
 
 .header-info-row {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  justify-content: center; 
   align-items: center;
+  gap: 2.5rem;
   width: 100%;
   max-width: 650px;
-  margin-bottom: 5px;
+  margin: 1rem auto 0.75rem auto;
+  font-family: var(--font-mono);
 }
 
-.side-spacer {
-  justify-self: start;
-}
-
-.question-counter { 
-  grid-column: 2;
-  font-family: var(--font-mono); 
-  font-size: 0.95rem; 
-  color: rgba(255, 255, 255, 0.7); 
-  text-align: center;
+.question-counter {
+  font-size: 0.85rem; 
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .tracker-wrapper {
-  grid-column: 3;
-  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tracker-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .challenge-wrapper {
@@ -234,81 +261,155 @@ const confirmAndGoHome = () => {
   margin-top: 10px;
 }
 
-.completion-card { 
-  background: rgba(255, 255, 255, 0.03); 
-  border: 1px solid rgba(255, 255, 255, 0.1); 
-  border-radius: 18px; 
-  padding: 32px; 
-  text-align: center; 
+.completion-card {
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--accent-color); 
+  box-shadow: 0 0 20px var(--glow-purple); 
+  border-radius: 18px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 655px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.completion-card h2 { 
-  color: #fff; 
-  margin-bottom: 8px; 
+.completion-card h2 {
+  color: var(--accent-color); 
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
 }
 
-.summary-subtitle { 
-  color: rgba(255, 255, 255, 0.6); 
-  margin-bottom: 24px; 
+.summary-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
-.stats-grid { 
+.stats-grid {
   display: flex; 
   gap: 16px; 
   justify-content: center; 
-  margin-bottom: 30px; 
+  margin-bottom: 30px;
 }
 
-.stat-box { 
-  background: rgba(255, 255, 255, 0.05); 
+.stat-box {
+  background: rgba(255, 255, 255, 0.04); 
   border: 1px solid rgba(255, 255, 255, 0.08); 
   padding: 16px 24px; 
   border-radius: 12px; 
   display: flex; 
   flex-direction: column; 
-  min-width: 120px; 
+  min-width: 120px;
 }
 
-.stat-label { 
+.stat-label {
   font-size: 0.85rem; 
   color: rgba(255, 255, 255, 0.5); 
-  margin-bottom: 4px; 
+  margin-bottom: 4px;
 }
 
-.stat-value { 
-  font-size: 1.4rem; 
+.stat-value {
+ font-size: 1.5rem; 
   font-weight: 700; 
   color: #fff; 
-  font-family: var(--font-mono); 
+  font-family: var(--font-mono);
 }
 
 .action-buttons {
   display: flex;
-  gap: 12px;
+  gap: 1rem;
   justify-content: center;
 }
 
-.submit-btn { 
-  background: var(--accent-purple, #805ad5); 
-  color: white; 
-  border: none; 
-  padding: 12px 28px; 
-  border-radius: 10px; 
-  font-weight: 600; 
-  font-family: var(--font-mono); 
-  cursor: pointer; 
-  display: block; 
-  margin: 0 auto; 
+.submit-btn {
+ display: inline-flex; 
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-subtle);
+
+  background: var(--glow-purple);
+  color: #ffffff;
+  border-color: var(--accent-purple);
+  box-shadow: var(--glow-shadow);
+}
+
+.submit-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: var(--btn-hover-glow);
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
   padding: 12px 28px;
   border-radius: 10px;
   font-weight: 600;
   font-family: var(--font-mono);
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: var(--text-secondary);
+}
+
+.back-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  margin-bottom: -2rem;
+}
+
+.back-home-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.back-home-btn .arrow {
+  transition: transform 0.3s ease;
+}
+
+.back-home-btn:hover .arrow {
+  transform: translateX(-3px);
+}
+
+@media (max-width: 1200px) {
+  .floating-tracker {
+    position: static;
+    margin-top: 1rem;
+  }
 }
 </style>

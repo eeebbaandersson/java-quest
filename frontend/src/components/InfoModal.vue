@@ -25,10 +25,13 @@ const closeModal = () => {
           &times;
         </button>
         <div class="modal-header">
-          <span> JAVAQUEST? </span>
+          <span> JAVAQUEST </span>
         </div>
         <div class="modal-body">
           <p class="modal-desc">A decription of the concepts in the app is coming here shortly...</p>
+          <p class="modal-desc">Quests/lessons</p>
+          <p class="modal-desc">Arena Challenges</p>
+          <p class="modal-desc">BUG-VISION</p>
         </div>
       </div>
     </div>

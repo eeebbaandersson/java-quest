@@ -131,7 +131,7 @@ const goToNextQuestion = () => {
 .question-text {
   color: #e2e8f0;
   font-size: 1.05rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .challenge-code {
@@ -202,11 +202,10 @@ const goToNextQuestion = () => {
   border: 1px solid var(--accent-purple);
   box-shadow: var(--glow-shadow);
   color: #ffffff;
-
 }
 
 .submit-btn:disabled {
- background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;

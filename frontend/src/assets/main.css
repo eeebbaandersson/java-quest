@@ -12,6 +12,7 @@
   --glow-purple: rgba(168, 85, 247, 0.10);
   --accent-color: #c084fc; 
   --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  --btn-hover-glow: 0 0 20px rgba(168, 85, 247, 0.5);
 
   --bg-modal: rgba(42, 32, 60, 0.96); 
   --border-modal: rgba(168, 85, 247, 0.3);
@@ -35,6 +36,7 @@ html[data-theme="bug-vision"] {
   --accent-color: #4ade80;
   --glow-purple: rgba(74, 222, 128, 0.10);
   --glow-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+  --btn-hover-glow: 0 0 20px rgba(74, 222, 128, 0.5);
 
   --bg-modal: rgba(15, 15, 18, 0.95); 
   --border-modal: rgba(74, 222, 128, 0.25);
