@@ -260,4 +260,11 @@ const goToNextQuestion = () => {
 .feedback-title {
   margin-bottom: 4px;
 }
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .submit-btn {
+    width: 100%; 
+  }
+}
 </style>

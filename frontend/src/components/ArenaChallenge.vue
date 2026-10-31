@@ -76,13 +76,15 @@ const submitAnswer = async () => {
 
 <style scoped>
 .challenge-card {
-  max-width: 650px;
+max-width: 650px;
+  width: 100%; 
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
   backdrop-filter: blur(10px);
   padding: 28px;
+  box-sizing: border-box; 
 }
 
 .question-text {
@@ -90,16 +92,19 @@ const submitAnswer = async () => {
   font-size: 1.05rem;
   margin-bottom: 1.5rem;
   text-align: left;
+  word-break: break-word;
 }
 
 .challenge-code {
-  background: rgba(0, 0, 0, 0.3);
+ background: rgba(0, 0, 0, 0.3);
   padding: 12px;
   border-radius: 8px;
   color: #e6edf3;
   font-family: monospace;
   margin-bottom: 1rem;
-  overflow-x: auto;
+  overflow-x: auto; 
+  max-width: 100%; 
+  box-sizing: border-box;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -111,7 +116,7 @@ const submitAnswer = async () => {
 }
 
 .option-item {
-    display: flex;
+  display: flex;
   align-items: center;
   gap: 12px;
   background: rgba(255, 255, 255, 0.04);
@@ -122,6 +127,7 @@ const submitAnswer = async () => {
   transition: all 0.2s ease;
   color: #e2e8f0;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .option-item:hover {
@@ -170,5 +176,13 @@ background: var(--accent-purple);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+}
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+
+  .submit-btn {
+    width: 100%; 
+  }
 }
 </style>

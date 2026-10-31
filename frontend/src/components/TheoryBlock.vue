@@ -18,4 +18,10 @@ defineProps({
   padding: 0 1rem;
   color: var(--text-secondary);
 }
+
+@media (max-width: 640px) {
+  .theory-box {
+    text-align: center;
+  }
+}
 </style>

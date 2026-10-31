@@ -419,4 +419,56 @@ const confirmAndGoHome = () => {
     margin-top: 1rem;
   }
 }
+
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
+  .arena-container {
+    padding: 0 12px;
+    margin: 2rem auto;
+  }
+
+  .header-info-row {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.25rem;
+  }
+  
+  .arena-header h2 {
+    font-size: 2rem; 
+  }
+
+  .arena-subtitle {
+    font-size: 0.85rem;
+    padding: 0 10px;
+  }
+
+  .completion-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .stats-grid {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat-box {
+    padding: 12px 16px;
+    min-width: unset;
+    width: 100%;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
 </style>
