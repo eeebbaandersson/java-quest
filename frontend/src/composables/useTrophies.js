@@ -86,6 +86,24 @@ export function useTrophies() {
   const masterTrophy = trophies.value.find(t => t.id === 5);
   if (masterTrophy) masterTrophy.isUnlocked = completedCount >= 7;
 
+  // Kontrollerar Arenor (Stage 1, 2, 3) via localStorage
+  const noviceTrophy = trophies.value.find(t => t.id=== 4);
+  if (noviceTrophy) {
+    noviceTrophy.isUnlocked = localStorage.getItem("arena-stage-1-completed") === "true";
+  }
+
+  const challengerTrophy = trophies.value.find(t => t.id === 6);
+  if (challengerTrophy) {
+    challengerTrophy.isUnlocked = localStorage.getItem("arena-stage-2-completed") === "true";
+  }
+
+  const heroTrophy = trophies.value.find(t => t.id === 7);
+  if (heroTrophy) {
+    heroTrophy.isUnlocked = localStorage.getItem("arena-stage-3-completed") === "true";
+  }
+
+  writeStored("trophies", trophies.value);
+
   // Function to trigger the Bug Hunter trophy
   const checkBugHunter = (foundBugs, totalBugs) => {
     const bugTrophy = trophies.value.find(t => t.id === 2);
@@ -95,8 +113,18 @@ export function useTrophies() {
     }
   };
 
+  // Function to check Carrier trophy, complete an arena without losing any shields
+  const checkCarrierTrophy = (shieldsRemaining, maxShields) => {
+    const carrierTrophy = trophies.value.find(t => t.id === 8);
+    if (carrierTrophy && shieldsRemaining === maxShields && !carrierTrophy.isUnlocked) {
+      carrierTrophy.isUnlocked = true;
+      writeStored("trophies", trophies.value);
+    }
+  };
+
   return {
     trophies,
     checkBugHunter,
+    checkCarrierTrophy,
   };
 }

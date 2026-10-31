@@ -6,6 +6,9 @@ import xpService from "../services/xpService";
 import ArenaChallenge from "../components/ArenaChallenge.vue";
 import ShieldTracker from "../components/ShieldTracker.vue";
 
+import { useTrophies } from "@/composables/useTrophies";
+const { checkCarrierTrophy } = useTrophies();
+
 const route = useRoute();
 const router = useRouter();
 const arenaId = route.params.id;
@@ -68,6 +71,10 @@ const handleNextQuestion = ({ correct }) => {
   } else {
     xpService.addXp(`arena-stage-${arenaId}`, 250);
     localStorage.setItem(`arena-stage-${arenaId}-completed`, "true");
+
+    // Check to see if a player finished an arena with all shields remaining
+    checkCarrierTrophy(shields.value, maxShields);
+
     isCompleted.value = true;
   }
 };
