@@ -151,9 +151,8 @@ const progressPercentage = computed(() => {
   width: 100%;
   max-width: 1000px;
   text-align: center;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  min-height: calc(100vh - 120px); 
+  margin: 6rem auto 0 auto; 
+  padding: 0 1rem 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

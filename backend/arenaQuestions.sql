@@ -1,7 +1,7 @@
 INSERT INTO Arenas (level, description) VALUES 
-('Novice', 'Basic syntax, variables, and fundamental programming concepts.'),
-('Challenger', 'Control flow, loops, arrays, and standard functions.'),
-('Hero', 'Advanced scope rules, hoisting, memory management, and algorithmic logic.');
+('Novice', 'Core syntax, primitive data types, methods, and basic classes.'),
+('Challenger', 'Collections, exception handling, multi-threading, and Java streams.'),
+('Hero', 'Advanced memory management, concurrency, class initialization, and bytecode.');
 
 -- ==========================================
 -- 1. NOVICE JAVA QUESTIONS (arena_id = 1) - 10 Questions

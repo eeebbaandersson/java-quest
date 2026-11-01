@@ -4,6 +4,9 @@ const PROGRESS_KEYS = [
   'capturedBugIds',
   'trophies',
   'completed_lessons',
+  'arena-stage-1-completed',
+  'arena-stage-2-completed',
+  'arena-stage-3-completed',
 ];
 
 function resetProgress() {

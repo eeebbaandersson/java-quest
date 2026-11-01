@@ -12,6 +12,7 @@
   --glow-purple: rgba(168, 85, 247, 0.10);
   --accent-color: #c084fc; 
   --glow-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  --btn-hover-glow: 0 0 20px rgba(168, 85, 247, 0.5);
 
   --bg-modal: rgba(42, 32, 60, 0.96); 
   --border-modal: rgba(168, 85, 247, 0.3);
@@ -35,6 +36,7 @@ html[data-theme="bug-vision"] {
   --accent-color: #4ade80;
   --glow-purple: rgba(74, 222, 128, 0.10);
   --glow-shadow: 0 0 12px rgba(74, 222, 128, 0.4);
+  --btn-hover-glow: 0 0 20px rgba(74, 222, 128, 0.5);
 
   --bg-modal: rgba(15, 15, 18, 0.95); 
   --border-modal: rgba(74, 222, 128, 0.25);
@@ -213,6 +215,7 @@ html[data-theme="bug-vision"] .badge.unlocked:hover {
 .icon-check2 { mask-image: url("@/assets/icons/check2.svg"); -webkit-mask-image: url("@/assets/icons/check2.svg"); }
 .icon-shield { mask-image: url("@/assets/icons/shield.svg"); -webkit-mask-image: url("@/assets/icons/shield.svg"); }
 .icon-crown { mask-image: url("@/assets/icons/crown.svg"); -webkit-mask-image: url("@/assets/icons/crown.svg"); }
+.icon-question { mask-image: url("@/assets/icons/question.svg"); -webkit-mask-image: url("@/assets/icons/question.svg"); }
 
 footer {
   text-align: center;
@@ -344,6 +347,7 @@ content: '';
   .hero-subtitle,
   .hero-section p {
     font-size: 0.88rem;
+    margin-top: 0.5rem;
   }
 
   .hero-section {
@@ -353,7 +357,7 @@ content: '';
   }
 
   .glass-card {
-    margin: 0 0.5rem;
+    margin: 0 0.5rem 0.5rem 0.5rem;
   }
 
   footer {

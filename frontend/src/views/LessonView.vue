@@ -529,7 +529,8 @@ const goBack = () => {
   height: 28px;
 }
 
-@media (max-width: 768px) {
+/* MOBILE (Skärmar upp till 640px) */
+@media (max-width: 640px) {
   .lesson-container {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -537,11 +538,22 @@ const goBack = () => {
 
   .logo-title {
     font-size: 2.2rem;
+    padding-right: 2rem; 
   }
 
   .hero-section {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
+  }
+
+  .bug-capture-anchor {
+    top: 2rem;
+    right: 1rem;
+  }
+
+  .bug-capture-anchor2 {
+    bottom: 1rem;
+    left: 0.5rem;
   }
 }
 </style>
