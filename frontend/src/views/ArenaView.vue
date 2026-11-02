@@ -22,6 +22,7 @@ const loading = ref(true);
 const shields = ref(3);
 const maxShields = 3;
 const failedArena = ref(false);
+const ArenaXpReward = computed(() => arena.value ? arena.value.xp_reward : 0);
 
 onMounted(async () => {
   try {
@@ -69,7 +70,7 @@ const handleNextQuestion = ({ correct }) => {
   if (currentIndex.value < questions.value.length - 1) {
     currentIndex.value++;
   } else {
-    xpService.addXp(`arena-stage-${arenaId}`, 250);
+    xpService.addXp(`arena-stage-${arenaId}`, ArenaXpReward.value);
     localStorage.setItem(`arena-stage-${arenaId}-completed`, "true");
 
     // Check to see if a player finished an arena with all shields remaining
@@ -164,7 +165,7 @@ const confirmAndGoHome = () => {
           </div>
           <div class="stat-box">
             <span class="stat-label">Reward</span>
-            <span class="stat-value">+250XP</span>
+            <span class="stat-value">+{{ ArenaXpReward }}XP</span>
           </div>
         </div>
 
