@@ -402,25 +402,5 @@
         }
       ]
     }
-  },
-  "arenas": {
-    "1": {
-      "arena_id": 1,
-      "level": "NOVICE",
-      "description": "Core syntax, primitive data types, methods, and basic classes.",
-      "questions": []
-    },
-    "2": {
-      "arena_id": 2,
-      "level": "ADEPT",
-      "description": "Control flow, loops, arrays, and intermediate logic.",
-      "questions": []
-    },
-    "3": {
-      "arena_id": 3,
-      "level": "MASTER",
-      "description": "Collections, exception handling, multi-threading, and Java streams.",
-      "questions": []
-    }
   }
 }
