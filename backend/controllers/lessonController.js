@@ -35,7 +35,10 @@ const lessonController = {
 
     async completeLesson(req, res) {
         try {
-            const { lessonId, userId } = req.body;
+            const { lessonId, userId } = req.body ?? {};
+            if (lessonId == null || userId == null) {
+                return res.status(400).json({ error: 'lessonId and userId are required' });
+            }
             await lessonService.completeLesson(lessonId, userId);
             res.json({ message: 'Lesson completed successfully' });
         } catch (err) {

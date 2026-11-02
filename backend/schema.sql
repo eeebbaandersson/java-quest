@@ -5,7 +5,17 @@ DROP TABLE IF EXISTS Lessons;
 DROP TABLE IF EXISTS User_progress;
 DROP TABLE IF EXISTS Arena_questions;
 DROP TABLE IF EXISTS Arenas;
+DROP TABLE IF EXISTS UserArenas;
 
+CREATE TABLE IF NOT EXISTS UserArenas (
+    user_arena_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    arena_id INT NOT NULL,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Questions (
     options JSON NOT NULL,
     correct_answer INT NOT NULL,
     explanation TEXT NOT NULL,
-    xp_reward INT DEFAULT 25,
+    xp_reward INT NOT NULL DEFAULT 25,
 
     FOREIGN KEY (lesson_id) REFERENCES Lessons(lesson_id) ON DELETE CASCADE
 );
