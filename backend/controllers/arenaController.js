@@ -31,6 +31,17 @@ const arenaController = {
             console.error(err);
             res.status(500).json({ error: 'Server error' });
         }
+    },
+
+    async completeArena(req, res) {
+        try {
+            const { arenaId, userId } = req.body;   
+            await arenaService.completeArena(arenaId, userId);
+            res.json({ message: 'Arena completed successfully' });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Server error' });
+        }
     }
 };
 

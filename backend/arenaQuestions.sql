@@ -1,7 +1,7 @@
-INSERT INTO Arenas (level, description) VALUES 
-('Novice', 'Core syntax, primitive data types, methods, and basic classes.'),
-('Challenger', 'Collections, exception handling, multi-threading, and Java streams.'),
-('Hero', 'Advanced memory management, concurrency, class initialization, and bytecode.');
+INSERT INTO Arenas (level, description, xp_reward) VALUES 
+('Novice', 'Core syntax, primitive data types, methods, and basic classes.', 100),
+('Challenger', 'Collections, exception handling, multi-threading, and Java streams.', 250),
+('Hero', 'Advanced memory management, concurrency, class initialization, and bytecode.', 400);
 
 -- ==========================================
 -- 1. NOVICE JAVA QUESTIONS (arena_id = 1) - 10 Questions

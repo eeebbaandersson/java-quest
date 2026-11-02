@@ -7,4 +7,6 @@ router.post('/check', arenaController.submitAnswer);
 
 router.get('/:id', arenaController.getArenaById);
 
+router.post('/complete', arenaController.completeArena);
+
 module.exports = router;

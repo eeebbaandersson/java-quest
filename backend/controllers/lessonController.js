@@ -31,6 +31,17 @@ const lessonController = {
             console.error(err);
             res.status(500).json({ error: 'Server error' });
         }
+    },
+
+    async completeLesson(req, res) {
+        try {
+            const { lessonId, userId } = req.body;
+            await lessonService.completeLesson(lessonId, userId);
+            res.json({ message: 'Lesson completed successfully' });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Server error' });
+        }
     }
 };
 

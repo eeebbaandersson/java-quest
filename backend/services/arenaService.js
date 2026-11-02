@@ -21,6 +21,10 @@ const arenaService = {
         return {
             correct: isCorrect
         };
+    },
+
+    async completeArena(arenaId, userId) {
+        await db.query('INSERT INTO UserArenas (user_id, arena_id, completed_at) VALUES (?, ?, NOW())', [userId, arenaId]);
     }
 };
 

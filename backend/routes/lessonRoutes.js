@@ -8,6 +8,8 @@ router.post('/check', lessonController.submitAnswer);
 //GET /api/lessons/:id
 router.get('/:id', lessonController.getLesson);
 
+router.post('/complete', lessonController.completeLesson);
+
 
 
 module.exports = router;

@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS User_progress (
 CREATE TABLE IF NOT EXISTS Arenas (
     arena_id INT AUTO_INCREMENT PRIMARY KEY,
     level TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    xp_reward INT DEFAULT 100
 );
 
 CREATE TABLE IF NOT EXISTS Arena_questions (
