@@ -38,8 +38,31 @@ export default {
     if (!response.ok) throw new Error("Failed to check answer");
     return await response.json();
     } catch (error) {
-      console.warn("[Fallback] Backend unreachable for checkAnswer. (Note: Offline answer validation can be mocked here if needed)");
-      throw error; 
+      console.warn("[Fallback] Backend unreachable for checkAnswer. Validating answer locally against mock data.");
+
+      // Looks for question with correct ID in mockLessons
+      let foundQuestion = null;
+      for (const lessonKey of Object.keys(mockLessons.lessons)) {
+        const questions = mockLessons.lessons[lessonKey].questions || [];
+        const match = questions.find(q => q.question_id === questionId);
+        if (match) {
+          foundQuestion = match;
+          break;
+        }
+      }
+
+      if (!foundQuestion) {
+        throw new Error(`Question with ID ${questionId} not found in mock data.`);
+      }
+
+      // Validate answer against correct_answer 
+      const isCorrect = foundQuestion.correct_answer === selectedAnswer;
+
+      return {
+        correct: isCorrect,
+        explanation: foundQuestion.explanation,
+        xp_reward: foundQuestion.xp_reward || 25
+      };
     }
   },
 
