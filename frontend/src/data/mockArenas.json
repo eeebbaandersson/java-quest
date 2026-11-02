@@ -1,0 +1,348 @@
+{
+  "1": {
+    "arena_id": 1,
+    "level": "Novice",
+    "description": "Core syntax, primitive data types, methods, and basic classes.",
+    "questions": [
+      {
+        "arena_question_id": 1,
+        "arena_id": 1,
+        "question_text": "What is the correct way to declare a main method in a Java application?",
+        "code_snippet": null,
+        "options": [
+          "public static void main(String[] args)",
+          "void main(String args)",
+          "static public main(String[] arg)",
+          "public void main()"
+        ],
+        "correct_answer": 0
+      },
+      {
+        "arena_question_id": 2,
+        "arena_id": 1,
+        "question_text": "Which of the following data types is used to store a single character in Java?",
+        "code_snippet": null,
+        "options": ["String", "char", "character", "text"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 3,
+        "arena_id": 1,
+        "question_text": "What is the default value of an uninitialized int instance variable in a Java class?",
+        "code_snippet": null,
+        "options": ["null", "1", "0", "undefined"],
+        "correct_answer": 2
+      },
+      {
+        "arena_question_id": 4,
+        "arena_id": 1,
+        "question_text": "Which keyword is used to inherit a class in Java?",
+        "code_snippet": null,
+        "options": ["implements", "extends", "inherits", "superclass"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 5,
+        "arena_id": 1,
+        "question_text": "What will be the output of this code snippet?",
+        "code_snippet": "String s = \"Hello\";\ns.concat(\" World\");\nSystem.out.println(s);",
+        "options": ["Hello World", "Hello", "World", "NullPointerException"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 6,
+        "arena_id": 1,
+        "question_text": "Which package is automatically imported in every Java program by default?",
+        "code_snippet": null,
+        "options": ["java.util", "java.io", "java.lang", "java.net"],
+        "correct_answer": 2
+      },
+      {
+        "arena_question_id": 7,
+        "arena_id": 1,
+        "question_text": "What is the extension of a compiled Java bytecode file?",
+        "code_snippet": null,
+        "options": [".java", ".class", ".jar", ".js"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 8,
+        "arena_id": 1,
+        "question_text": "Which access modifier makes a variable or method accessible only within its own class?",
+        "code_snippet": null,
+        "options": ["public", "protected", "default", "private"],
+        "correct_answer": 3
+      },
+      {
+        "arena_question_id": 9,
+        "arena_id": 1,
+        "question_text": "How do you properly check if two string variables `str1` and `str2` have the exact same text content in Java?",
+        "code_snippet": null,
+        "options": [
+          "str1 == str2",
+          "str1.equals(str2)",
+          "str1.isSame(str2)",
+          "str1.compareTo(str2) == 1"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 10,
+        "arena_id": 1,
+        "question_text": "Which of these is NOT a primitive data type in Java?",
+        "code_snippet": null,
+        "options": ["boolean", "int", "double", "String"],
+        "correct_answer": 3
+      }
+    ]
+  },
+  "2": {
+    "arena_id": 2,
+    "level": "Challenger",
+    "description": "Collections, exception handling, multi-threading, and Java streams.",
+    "questions": [
+      {
+        "arena_question_id": 11,
+        "arena_id": 2,
+        "question_text": "What will be the output of this code snippet utilizing wrapper caching?",
+        "code_snippet": "Integer a = 127;\nInteger b = 127;\nInteger c = 1000;\nInteger d = 1000;\nSystem.out.println((a == b) + \" \" + (c == d));",
+        "options": ["true true", "true false", "false false", "false true"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 12,
+        "arena_id": 2,
+        "question_text": "Which interface must a class implement to allow its objects to be sorted using `Collections.sort()` without a custom Comparator?",
+        "code_snippet": null,
+        "options": ["Iterable", "Serializable", "Comparable", "Comparator"],
+        "correct_answer": 2
+      },
+      {
+        "arena_question_id": 13,
+        "arena_id": 2,
+        "question_text": "What happens when an exception is thrown inside a `try` block that has both a `catch` block and a `finally` block?",
+        "code_snippet": null,
+        "options": [
+          "Only the catch block runs",
+          "The finally block runs before the catch block",
+          "The catch block runs first, then the finally block runs",
+          "The finally block is skipped if catch handles the exception"
+        ],
+        "correct_answer": 2
+      },
+      {
+        "arena_question_id": 14,
+        "arena_id": 2,
+        "question_text": "What is the key difference between an `ArrayList` and a `LinkedList` in Java?",
+        "code_snippet": null,
+        "options": [
+          "ArrayList uses a doubly-linked list; LinkedList uses a dynamic array",
+          "ArrayList provides O(1) random access; LinkedList provides O(1) insertions/deletions when node reference is known",
+          "LinkedList is synchronized by default; ArrayList is not",
+          "There is no performance difference"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 15,
+        "arena_id": 2,
+        "question_text": "What is the purpose of the `volatile` keyword in Java multi-threading?",
+        "code_snippet": null,
+        "options": [
+          "It locks methods to prevent race conditions like synchronized",
+          "It guarantees that changes to a variable are immediately visible to other threads (prevents CPU caching)",
+          "It makes a variable immutable",
+          "It deletes objects from memory automatically"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 16,
+        "arena_id": 2,
+        "question_text": "Which collection type does NOT allow duplicate elements and guarantees unique entries based on `equals()` and `hashCode()`?",
+        "code_snippet": null,
+        "options": ["List", "Set", "Queue", "Map"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 17,
+        "arena_id": 2,
+        "question_text": "What will this stream operation output?",
+        "code_snippet": "List<Integer> list = Arrays.asList(1, 2, 3, 4);\nint sum = list.stream().filter(n -> n % 2 == 0).mapToInt(n -> n).sum();\nSystem.out.println(sum);",
+        "options": ["10", "6", "4", "3"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 18,
+        "arena_id": 2,
+        "question_text": "Can an interface in Java have method bodies?",
+        "code_snippet": null,
+        "options": [
+          "No, all methods in an interface must be strictly abstract",
+          "Yes, using the `default` or `static` keywords introduced in Java 8",
+          "Yes, using the `body` keyword",
+          "Only if the interface is marked as abstract"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 19,
+        "arena_id": 2,
+        "question_text": "What is the primary behavior of a `HashMap` when a key collision occurs (two keys hash to the same bucket)?",
+        "code_snippet": null,
+        "options": [
+          "The old value is instantly deleted",
+          "An exception is thrown crashing the map",
+          "Entries are stored in a linked list or balanced tree (Java 8+) at that bucket index",
+          "The map automatically increases its bucket capacity to infinity"
+        ],
+        "correct_answer": 2
+      },
+      {
+        "arena_question_id": 20,
+        "arena_id": 2,
+        "question_text": "What is a functional interface in Java?",
+        "code_snippet": null,
+        "options": [
+          "An interface with zero methods",
+          "An interface containing exactly one abstract method",
+          "An interface used exclusively for math operations",
+          "An interface that cannot be implemented"
+        ],
+        "correct_answer": 1
+      }
+    ]
+  },
+  "3": {
+    "arena_id": 3,
+    "level": "Hero",
+    "description": "Advanced memory management, concurrency, class initialization, and bytecode.",
+    "questions": [
+      {
+        "arena_question_id": 21,
+        "arena_id": 3,
+        "question_text": "What will be the output or behavior of executing this code involving class initialization order?",
+        "code_snippet": "class Parent {\n    static { System.out.print(\"A\"); }\n    { System.out.print(\"B\"); }\n    public Parent() { System.out.print(\"C\"); }\n}\nclass Child extends Parent {\n    static { System.out.print(\"D\"); }\n    { System.out.print(\"E\"); }\n    public Child() { System.out.print(\"F\"); }\n}\npublic class Main {\n    public static void main(String[] args) {\n        new Child();\n    }\n}",
+        "options": ["ABCDEF", "ADBCEF", "DAEBCF", "BCEADF"],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 22,
+        "arena_id": 3,
+        "question_text": "How does Java’s Garbage Collector handle objects referenced only by a `WeakReference`?",
+        "code_snippet": null,
+        "options": [
+          "They are never collected until the application shuts down",
+          "They are collected during the next garbage collection cycle regardless of available heap memory",
+          "They are collected only when the JVM runs critically low on memory",
+          "They are promoted to the old generation pool"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 23,
+        "arena_id": 3,
+        "question_text": "What is the purpose of the `happens-before` relationship in the Java Memory Model (JMM)?",
+        "code_snippet": null,
+        "options": [
+          "It enforces that code execution order matches written line numbers strictly",
+          "It guarantees that memory writes by one statement are visible to another statement, preventing instruction reordering issues in concurrent execution",
+          "It dictates which thread starts first",
+          "It optimizes compiler byte size"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 24,
+        "arena_id": 3,
+        "question_text": "What is the structural difference between a `ThreadLocal` variable and a standard shared variable in multi-threaded environments?",
+        "code_snippet": null,
+        "options": [
+          "ThreadLocal provides a separate, isolated copy of the variable for each individual thread accessing it",
+          "ThreadLocal automatically synchronizes writes across all CPU cores",
+          "ThreadLocal stores variables directly in CPU registers",
+          "There is no difference; it is an alias for synchronized"
+        ],
+        "correct_answer": 0
+      },
+      {
+        "arena_question_id": 25,
+        "arena_id": 3,
+        "question_text": "What is bytecode weaving in the context of Java frameworks like AspectJ or Spring AOP?",
+        "code_snippet": null,
+        "options": [
+          "Compiling Java source code into machine code via JIT",
+          "Modifying existing class bytecode bytes (either at compile-time, load-time, or runtime) to inject cross-cutting behavior like logging or transactions",
+          "Encrypting jar files to prevent decompilation",
+          "A memory optimization technique for garbage collection"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 26,
+        "arena_id": 3,
+        "question_text": "What happens when you call `intern()` on a dynamically created `String` object in Java?",
+        "code_snippet": null,
+        "options": [
+          "It creates a deep copy of the string on the heap",
+          "It checks if the string exists in the JVM String Pool; if so, it returns a reference to that pooled instance, otherwise it adds it to the pool",
+          "It converts the string to lowercase UTF-8 format",
+          "It forces the string to be garbage collected"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 27,
+        "arena_id": 3,
+        "question_text": "What is the main advantage of using Java NIO (Non-blocking I/O) Channels and Buffers over traditional IO Streams?",
+        "code_snippet": null,
+        "options": [
+          "NIO automatically encrypts all network packets",
+          "NIO allows multiplexed, non-blocking asynchronous operations where a single thread can manage multiple active network connections",
+          "NIO uses zero memory allocation",
+          "NIO bypasses the operating system kernel entirely"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 28,
+        "arena_id": 3,
+        "question_text": "In the Java Concurrency package, what does a `CountDownLatch` do?",
+        "code_snippet": null,
+        "options": [
+          "It acts as a mutual exclusion lock like a semaphore with a count of 1",
+          "It allows one or more threads to wait until a set of operations being performed in other threads completes",
+          "It counts how many threads have deadlocked",
+          "It automatically terminates background worker threads"
+        ],
+        "correct_answer": 1
+      },
+      {
+        "arena_question_id": 29,
+        "arena_id": 3,
+        "question_text": "What is the core difference between `ClassNotFoundException` and `NoClassDefFoundError` in Java?",
+        "code_snippet": null,
+        "options": [
+          "ClassNotFoundException is a checked exception thrown when an application tries to load a class by name at runtime but it cannot be found; NoClassDefFoundError is an unchecked error thrown when a class was present at compile-time but missing at runtime",
+          "ClassNotFoundException only occurs in multithreaded environments",
+          "NoClassDefFoundError can be caught using a standard catch block safely",
+          "They are exact synonyms"
+        ],
+        "correct_answer": 0
+      },
+      {
+        "arena_question_id": 30,
+        "arena_id": 3,
+        "question_text": "What is a `Spliterator` introduced in Java 8 primarily designed to achieve?",
+        "code_snippet": null,
+        "options": [
+          "Splitting text strings into regex arrays",
+          "Traversing and partitioning elements of a source (especially for parallel stream processing and data splitting)",
+          "Splitting database transactions into smaller threads",
+          "Replacing standard iterators in legacy codebases"
+        ],
+        "correct_answer": 1
+      }
+    ]
+  }
+}

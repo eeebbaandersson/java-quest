@@ -1,4 +1,5 @@
 import mockLessons from "@/data/mockLessons.json";
+import mockArenas from "@/data/mockArenas.json";
 
 const BASE_URL =  'http://localhost:3000/api';
 
@@ -73,10 +74,11 @@ export default {
     return await response.json();
     } catch (error) {
       console.warn(`[Fallback] Backend unreachable. Using mock data for arena: ${arenaId}`);
-      // return mockArenas[arenaId] || null;
+      return mockArenas[arenaId] || null;
     }
   },
 
+  // This needs to be updated later when each arena has it´s own xp_reward instead om the same current +25XP per question
   async checkArenaAnswer(questionId, selectedAnswer) {
     try {
        const response = await fetch(`${BASE_URL}/arena/check`, {
@@ -88,7 +90,24 @@ export default {
     return await response.json();
     } catch (error) {
       console.warn("[Fallback] Backend unreachable for checkArenaAnswer.")
-      throw error;
+
+      let foundQuestion = null;
+        for (const arenaKey of Object.keys(mockArenas)) {
+        const questions = mockArenas[arenaKey].questions || [];
+        const match = questions.find(q => q.arena_question_id === questionId);
+        if (match) {
+          foundQuestion = match;
+          break;
+        }
+      }
+      if (!foundQuestion) {
+        throw new Error(`Question ${questionId} not found.`);
+      }
+        return {
+          correct: foundQuestion.correct_answer === selectedAnswer,
+          explanation: foundQuestion.explanation,
+          xp_reward: foundQuestion.xp_reward || 25
+        };
     }
   }
 };
