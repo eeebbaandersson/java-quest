@@ -48,9 +48,10 @@ CREATE TABLE IF NOT EXISTS Questions (
 );
 
 CREATE TABLE IF NOT EXISTS User_progress (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     lesson_id INT NOT NULL,
     completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    PRIMARY KEY (user_id, lesson_id)
 );
 
 CREATE TABLE IF NOT EXISTS Arenas (
