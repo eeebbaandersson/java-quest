@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS User_progress (
     completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (lesson_id) REFERENCES Lessons(lesson_id) ON DELETE CASCADE
+    UNIQUE KEY unique_user_lesson (user_id, lesson_id)
 );
 
 CREATE TABLE IF NOT EXISTS Arenas (
@@ -72,6 +73,7 @@ CREATE TABLE IF NOT EXISTS UserArenas (
 
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
+    UNIQUE KEY unique_user_arena (user_id, arena_id)
 );
 
 
