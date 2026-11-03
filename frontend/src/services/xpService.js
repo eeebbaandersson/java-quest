@@ -81,7 +81,8 @@ function getLevel(xp) {
 }
 
 function getNextLevel(xp) {
-  return LEVELS.find((l) => xp < l.minXP) || null;
+  const current = getLevel(xp);
+  return LEVELS.find((l) => l.level > current.level) || null;
 }
 
 export default { getTotalXp, addXp, addPoints, getLevel, getNextLevel, LEVELS, totalXP };
