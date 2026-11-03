@@ -298,19 +298,22 @@ const confirmAndGoHome = () => {
 
 .stats-grid {
   display: flex; 
-  gap: 16px; 
+  gap: 12px; 
   justify-content: center; 
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .stat-box {
   background: rgba(255, 255, 255, 0.04); 
   border: 1px solid rgba(255, 255, 255, 0.08); 
-  padding: 16px 24px; 
+  padding: 12px 16px; 
   border-radius: 12px; 
   display: flex; 
   flex-direction: column; 
-  min-width: 120px;
+  flex: 1;
+  max-width: 130px;
+  align-items: center;
 }
 
 .stat-label {
@@ -392,7 +395,7 @@ const confirmAndGoHome = () => {
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  padding: 0.6rem 1.25rem;
+  padding: 0.8rem 1.25rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -447,17 +450,6 @@ const confirmAndGoHome = () => {
     padding: 1.5rem 1rem;
   }
 
-  .stats-grid {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .stat-box {
-    padding: 12px 16px;
-    min-width: unset;
-    width: 100%;
-  }
-
   .action-buttons {
     flex-direction: column;
     width: 100%;
@@ -465,11 +457,6 @@ const confirmAndGoHome = () => {
 
   .action-buttons button {
     width: 100%;
-  }
-  
-  .submit-btn {
-    width: 100%;
-    justify-content: center;
   }
 }
 </style>
