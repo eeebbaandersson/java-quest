@@ -5,8 +5,8 @@ const arenaController = require('../controllers/arenaController');
 
 router.post('/check', arenaController.submitAnswer);
 
-router.get('/:id', arenaController.getArenaById);
-
 router.post('/complete', arenaController.completeArena);
+
+router.get('/:id', arenaController.getArenaById);
 
 module.exports = router;
