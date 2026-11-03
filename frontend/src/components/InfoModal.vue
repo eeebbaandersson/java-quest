@@ -54,27 +54,40 @@ onBeforeUnmount(() => {
       </button>
 
       <div class="modal-header">
-        <span id="info-modal-title">JAVAQUEST</span>
+        <span><span class="highlight">JAVA{}</span>QUEST</span>
       </div>
 
-      <div class="modal-body">
-       <p class="modal-desc">
-          A decription of the concepts in the app is coming here shortly...
-        </p>
-        <p class="modal-desc">Quests/lessons</p>
-        <p class="modal-desc">Arena Challenges</p>
-        <p class="modal-desc">BUG-VISION</p>
+    <div class="modal-body">
+        <div class="concept-item">
+          <h4 class="concept-title">Quests</h4>
+          <p class="modal-desc">
+            Embark on a learning journey, mastering core Java concepts step-by-step through interactive lessons, micro-challenges and prestigious trophies.
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h4 class="concept-title">Arena Challenges</h4>
+          <p class="modal-desc">
+            Put your knowledge to the test in one of the arenas. Tackle rigorous programming questions, make it to the end and receive your reward.
+            P.S. Just make sure to keep your shields up...
+          </p>
+        </div>
+
+        <div class="concept-item">
+          <h4 class="concept-title">Bug-Vision</h4>
+          <p class="modal-desc">
+            An interactive challenge where you step into the role of a real-time debugger. Can you spot all hidden bugs across the interface?
+          </p>
+        </div>
       </div>
+
     </div>
   </dialog>
 </template>
 
-
-        
-
 <style scoped>
 .info-modal-overlay {
-   position: fixed;
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -104,33 +117,68 @@ onBeforeUnmount(() => {
   position: relative;
   width: 90%;
   max-width: 600px;
-  padding: 36px 32px;
+  max-height: calc(100dvh - 3rem); 
+  padding: 36px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 16px;
-  margin: 3rem;
+  margin: auto;
   background: var(--bg-modal);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-radius: 18px;
   border: 1px solid var(--border-subtle);
   animation: modalScaleIn 0.2s ease-out;
-
   box-sizing: border-box;
-  max-height: calc(100vh - 2rem);
-  max-height: calc(100dvh - 2rem);
-  overflow-y: auto;
+  overflow-y: auto; 
 }
 
 .modal-header {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #ffffff;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-subtle);
   text-align: center;
+  margin-bottom: 0.5rem;
+
+}
+
+.highlight {
+  color: var(--accent-color);
+}
+
+.concept-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  text-align: left; 
+}
+
+.concept-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--accent-color, #a855f7);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.modal-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .modal-close-btn {
@@ -145,19 +193,5 @@ onBeforeUnmount(() => {
   padding: 4px;
   line-height: 1;
   transition: color 0.2s ease;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-  width: 100%;
-}
-
-.modal-desc {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin: 0;
 }
 </style>

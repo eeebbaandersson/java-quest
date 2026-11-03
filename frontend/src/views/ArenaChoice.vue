@@ -31,6 +31,7 @@ const arenas = ref([
     xpReward: 100,
     link: "/arena/1",
     isUnlocked: true,
+    isCompleted: false,
   },
   {
     id: "medium",
@@ -41,6 +42,7 @@ const arenas = ref([
     xpReward: 250,
     link: "/arena/2",
     isUnlocked: false,
+    isCompleted: false,
   },
   {
     id: "hard",
@@ -51,6 +53,7 @@ const arenas = ref([
     xpReward: 400,
     link: "/arena/3",
     isUnlocked: false,
+    isCompleted: false,
   },
 ]);
 
@@ -61,14 +64,23 @@ onMounted(() => {
   const challengerCompleted = 
     localStorage.getItem("arena-stage-2-completed") === "true";
 
+  const heroCompleted = 
+    localStorage.getItem("arena-stage-3-completed") === "true";
+
   if (noviceCompleted) {
+    arenas.value[0].isCompleted = true;
     const ChallengerArena = arenas.value.find(arena => arena.id === "medium");
     if (ChallengerArena) ChallengerArena.isUnlocked = true;
   }
 
   if (challengerCompleted) {
+    arenas.value[1].isCompleted = true;
     const HeroArena = arenas.value.find(arena => arena.id === "hard");
     if (HeroArena) HeroArena.isUnlocked = true;
+  }
+
+  if (heroCompleted) {
+    arenas.value[2].isCompleted = true;
   }
 });
 
@@ -124,6 +136,10 @@ onMounted(() => {
         >
           
           <span class="xp-corner-badge">+{{ arena.xpReward }}xp</span>
+
+         <span v-if="arena.isCompleted" class="completed-icon-badge" title="Completed">
+          <span class="badge-icon-mask icon-check"></span>
+        </span>
 
           <span v-if="!arena.isUnlocked" class="lock-corner-badge">
             <span class="badge-icon-mask icon-lock"></span>
@@ -211,6 +227,33 @@ onMounted(() => {
   background: var(--glow-purple);
   border-color: var(--accent-color);
   color: var(--accent-color);
+}
+
+.completed-icon-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  filter: drop-shadow(0 0 8px var(--glow-purple));
+  vertical-align: middle;
+  opacity: 0; 
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.completed-icon-badge .badge-icon-mask {
+  width: 28px;
+  height: 28px;
+}
+
+
+.arena-card:hover .completed-icon-badge {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .lock-corner-badge {
@@ -356,7 +399,7 @@ onMounted(() => {
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  padding: 0.6rem 1.25rem;
+  padding: 0.8rem 1.25rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);

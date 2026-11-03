@@ -428,7 +428,7 @@ const progressPercentage = computed(() => {
   font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  padding: 0.6rem 1.25rem;
+  padding: 0.8rem 1.25rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -457,7 +457,7 @@ const progressPercentage = computed(() => {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-muted);
-  padding: 0.6rem 1.25rem;
+  padding: 0.8rem 1.25rem;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -521,7 +521,7 @@ const progressPercentage = computed(() => {
   .info-container {
     grid-template-columns: 1fr; 
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: -3rem;
   }
 
   .info-card {
