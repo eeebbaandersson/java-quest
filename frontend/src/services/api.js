@@ -78,7 +78,7 @@ export default {
     }
   },
 
-  // This needs to be updated later when each arena has it´s own xp_reward instead om the same current +25XP per question
+
   async checkArenaAnswer(questionId, selectedAnswer) {
     try {
        const response = await fetch(`${BASE_URL}/arena/check`, {
@@ -106,7 +106,7 @@ export default {
         return {
           correct: foundQuestion.correct_answer === selectedAnswer,
           explanation: foundQuestion.explanation,
-          xp_reward: foundQuestion.xp_reward || 25
+          xp_reward: foundQuestion.xp_reward
         };
     }
   }

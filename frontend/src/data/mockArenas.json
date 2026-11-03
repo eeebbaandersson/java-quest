@@ -3,6 +3,7 @@
     "arena_id": 1,
     "level": "Novice",
     "description": "Core syntax, primitive data types, methods, and basic classes.",
+    "xp_reward": 100,
     "questions": [
       {
         "arena_question_id": 1,
@@ -100,6 +101,7 @@
     "arena_id": 2,
     "level": "Challenger",
     "description": "Collections, exception handling, multi-threading, and Java streams.",
+     "xp_reward": 250,
     "questions": [
       {
         "arena_question_id": 11,
@@ -217,6 +219,7 @@
     "arena_id": 3,
     "level": "Hero",
     "description": "Advanced memory management, concurrency, class initialization, and bytecode.",
+     "xp_reward": 400,
     "questions": [
       {
         "arena_question_id": 21,
