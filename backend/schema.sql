@@ -1,21 +1,10 @@
-
-DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS UserArenas;
+DROP TABLE IF EXISTS User_progress;
 DROP TABLE IF EXISTS Questions;
 DROP TABLE IF EXISTS Lessons;
-DROP TABLE IF EXISTS User_progress;
 DROP TABLE IF EXISTS Arena_questions;
 DROP TABLE IF EXISTS Arenas;
-DROP TABLE IF EXISTS UserArenas;
-
-CREATE TABLE IF NOT EXISTS UserArenas (
-    user_arena_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    arena_id INT NOT NULL,
-    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
-);
+DROP TABLE IF EXISTS Users;
 
 CREATE TABLE IF NOT EXISTS Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,10 +37,12 @@ CREATE TABLE IF NOT EXISTS Questions (
 );
 
 CREATE TABLE IF NOT EXISTS User_progress (
+    user_lesson_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     lesson_id INT NOT NULL,
-    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    PRIMARY KEY (user_id, lesson_id)
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (lesson_id) REFERENCES Lessons(lesson_id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS Arenas (
@@ -71,6 +62,16 @@ CREATE TABLE IF NOT EXISTS Arena_questions (
 
     FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
 
+);
+
+CREATE TABLE IF NOT EXISTS UserArenas (
+    user_arena_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    arena_id INT NOT NULL,
+    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (arena_id) REFERENCES Arenas(arena_id) ON DELETE CASCADE
 );
 
 
