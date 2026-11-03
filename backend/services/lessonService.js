@@ -26,6 +26,10 @@ const lessonService = {
             correct: isCorrect,
             explanation: rows[0].explanation
         };
+    },
+    
+    async completeLesson(lessonId, userId) {
+        await db.query('INSERT INTO User_progress (user_id, lesson_id, completed_at) VALUES (?, ?, NOW())', [userId, lessonId]);
     }
 };
 
