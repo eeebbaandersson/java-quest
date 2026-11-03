@@ -108,12 +108,16 @@ const progressPercentage = computed(() => {
                 </div>
               </div>
             </div>
-            <p v-if="nextLevel" class="xp-to-next">
-              {{ xpToNextLevel }} XP to Level {{ nextLevel.level }}
-            </p>
-            <p v-else class="xp-to-next">
-              Max level reached!
-            </p>
+            <div class="xp-to-next">
+              <template v-if="nextLevel">
+                <span class="xp-to-next-number">{{ xpToNextLevel }}</span>
+                <span class="xp-to-next-unit">XP TO LEVEL {{ nextLevel.level }}</span>
+              </template>
+              <template v-else>
+                <span class="xp-to-next-number">MAX</span>
+                <span class="xp-to-next-unit">LEVEL REACHED</span>
+              </template>
+            </div>
           </div>
         </div>
       </div>
@@ -373,11 +377,38 @@ const progressPercentage = computed(() => {
 }
 
 .milestone-label {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
+     font-size: 0.72rem;
+     color: var(--text-muted);
+     letter-spacing: 0.5px;
+     white-space: nowrap;
+     margin-top: 10px;
+   }
+
+.xp-to-next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 180px;
+  margin: 1.5rem auto 0;
+  padding: 0.9rem 0.5rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.xp-to-next-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f3e8ff;
+  line-height: 1;
+}
+
+.xp-to-next-unit {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+  margin-top: 0.35rem;
   white-space: nowrap;
-  margin-top: 10px;
 }
 
 .back-navigation {
