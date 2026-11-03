@@ -1,0 +1,406 @@
+{
+  "lessons": {
+    "variables": {
+      "lesson": {
+        "lesson_id": 1,
+        "title": "Variables & Data Types",
+        "subtitle": "Learn how to store and manage data in Java.",
+        "theory_text": "In Java, a variable is a container for storing data values. To create a variable, you must specify its type and assign a value to it using the equals sign (=). Common types include int for whole numbers and String for text.",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n        int age = 25;\n        String name = \"Alice\";\n        System.out.println(name + \" is \" + age);\n    }\n}",
+        "order_index": 1
+      },
+      "questions": [
+        {
+          "question_id": 1,
+          "lesson_id": 1,
+          "question_type": "multiple_choice",
+          "question_text": "Which data type is best suited for storing a whole number like 67?",
+          "code_snippet": null,
+          "options": ["String", "int", "boolean", "double"],
+          "correct_answer": 1,
+          "explanation": "Hint: Think about which type handles whole numbers versus decimals or text.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 2,
+          "lesson_id": 1,
+          "question_type": "multiple_choice",
+          "question_text": "What role does this line of code play?",
+          "code_snippet": "int score = 100;",
+          "options": ["Creates a text variable named score", "Stores the whole number 100 in a variable named score", "Deletes the score variable", "Creates a decimal number"],
+          "correct_answer": 1,
+          "explanation": "Hint: Consider what keyword declares the type and what value is assigned to the variable.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 3,
+          "lesson_id": 1,
+          "question_type": "multiple_choice",
+          "question_text": "What is the correct way to declare a String variable in Java?",
+          "code_snippet": null,
+          "options": ["String name = \"John\";", "int name = \"John\";", "String name = John;", "String name = 'John';"],
+          "correct_answer": 0,
+          "explanation": "Hint: Remember that text values require double quotes and the proper type name.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 4,
+          "lesson_id": 1,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Complete the code snippet by filling in the correct data type for text:",
+          "code_snippet": "___ name = \"Alice\";",
+          "options": ["int", "String", "boolean", "char"],
+          "correct_answer": 1,
+          "explanation": "Hint: This type begins with a capital letter and represents a sequence of characters.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "operators": {
+      "lesson": {
+        "lesson_id": 2,
+        "title": "Operators & Expressions",
+        "subtitle": "Perform arithmetic and logical operations.",
+        "theory_text": "Operators are special symbols used to perform operations on variables and values. In Java, arithmetic operators handle math (+, -, *, /, %), relational operators compare values (==, >, <), and logical operators evaluate boolean conditions (&&, ||, !).",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n        int a = 10;\n        int b = 3;\n        int remainder = a % b;\n        System.out.println(\"Remainder: \" + remainder); // 1\n    }\n}",
+        "order_index": 2
+      },
+      "questions": [
+        {
+          "question_id": 5,
+          "lesson_id": 2,
+          "question_type": "multiple_choice",
+          "question_text": "What is the output of the modulus operator in this expression?",
+          "code_snippet": "int result = 10 % 3;",
+          "options": ["3", "1", "0", "3.33"],
+          "correct_answer": 1,
+          "explanation": "Hint: Remember that this symbol stands for division remainder, not regular division.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 6,
+          "lesson_id": 2,
+          "question_type": "multiple_choice",
+          "question_text": "Which operator represents the logical AND operation in Java?",
+          "code_snippet": null,
+          "options": ["||", "&&", "!", "&"],
+          "correct_answer": 1,
+          "explanation": "Hint: Think of the symbol that requires both conditions to be evaluated together using doubled characters.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 7,
+          "lesson_id": 2,
+          "question_type": "multiple_choice",
+          "question_text": "What is the result of the following expression: 5 > 3 && 2 < 4?",
+          "code_snippet": null,
+          "options": ["true", "false", "null", "error"],
+          "correct_answer": 0,
+          "explanation": "Hint: Evaluate both sides of the logical AND operator separately.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 8,
+          "lesson_id": 2,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Complete the conditional expression with the correct logical operator for \"AND\":",
+          "code_snippet": "if (x > 0 ___ y < 10) { /* code */ }",
+          "options": ["||", "&&", "!", "+"],
+          "correct_answer": 1,
+          "explanation": "Hint: This operator uses a doubled symbol to evaluate if both sides are true.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "ifelse": {
+      "lesson": {
+        "lesson_id": 3,
+        "title": "Control Flow - If / Else",
+        "subtitle": "Control the program flow based on states.",
+        "theory_text": "Control flow statements allow you to dictate the order in which code executes based on conditions. Common control flow statements include if-else statements, switch statements, and loops (for, while).",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n        int number = 10;\n        if (number > 0) {\n            System.out.println(\"Positive number\");\n        } else {\n            System.out.println(\"Non-positive number\");\n        }\n    }\n}",
+        "order_index": 3
+      },
+      "questions": [
+        {
+          "question_id": 9,
+          "lesson_id": 3,
+          "question_type": "multiple_choice",
+          "question_text": "What will be printed if the variable \"number\" is set to -5 in the provided code snippet?",
+          "code_snippet": "int number = -5;\nif (number > 0) {\n    System.out.println(\"Positive number\");\n} else {\n    System.out.println(\"Non-positive number\");\n}",
+          "options": ["Positive number", "Non-positive number", "Error", "Nothing"],
+          "correct_answer": 1,
+          "explanation": "Hint: Since -5 is not greater than 0, check which branch of the if-else statement runs.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 10,
+          "lesson_id": 3,
+          "question_type": "multiple_choice",
+          "question_text": "Which control flow statement is used to execute a block of code multiple times based on a condition?",
+          "code_snippet": null,
+          "options": ["if-else", "switch", "loop", "try-catch"],
+          "correct_answer": 2,
+          "explanation": "Hint: Think about constructs that repeat actions based on conditions.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 11,
+          "lesson_id": 3,
+          "question_type": "multiple_choice",
+          "question_text": "What is the purpose of an if-else statement in Java?",
+          "code_snippet": null,
+          "options": ["To declare variables", "To handle exceptions", "To make decisions based on conditions", "To define methods"],
+          "correct_answer": 2,
+          "explanation": "Hint: It helps the program make choices based on true or false conditions.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 12,
+          "lesson_id": 3,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Fill in the alternative keyword used when an \"if\" condition evaluates to false:",
+          "code_snippet": "if (score >= 50) { /* pass */ } ___ { /* fail */ }",
+          "options": ["else", "then", "switch", "loop"],
+          "correct_answer": 0,
+          "explanation": "Hint: It catches everything that falls outside the initial if condition.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "loops": {
+      "lesson": {
+        "lesson_id": 4,
+        "title": "Loops - For & While",
+        "subtitle": "Repeat code execution efficiently.",
+        "theory_text": "Loops are used to execute a block of code repeatedly as long as a specified condition is true. Common types of loops in Java include for loops, while loops, and do-while loops.",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 0; i < 5; i++) {\n            System.out.println(\"Iteration: \" + i);\n        }\n    }\n}",
+        "order_index": 4
+      },
+      "questions": [
+        {
+          "question_id": 13,
+          "lesson_id": 4,
+          "question_type": "multiple_choice",
+          "question_text": "What will be the output of the provided for loop code snippet?",
+          "code_snippet": "for (int i = 0; i < 5; i++) {\n    System.out.println(\"Iteration: \" + i);\n}",
+          "options": [
+            "Iteration: 0\nIteration: 1\nIteration: 2\nIteration: 3\nIteration: 4",
+            "Iteration: 1\nIteration: 2\nIteration: 3\nIteration: 4\nIteration: 5",
+            "Error",
+            "No output"
+          ],
+          "correct_answer": 0,
+          "explanation": "Hint: Trace the variable i starting from its initial value and check the stop condition.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 14,
+          "lesson_id": 4,
+          "question_type": "multiple_choice",
+          "question_text": "Which type of loop guarantees that the block of code will execute at least once?",
+          "code_snippet": null,
+          "options": ["for loop", "while loop", "do-while loop", "if statement"],
+          "correct_answer": 2,
+          "explanation": "Hint: Look for the loop variant that checks its condition at the end of the block.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 15,
+          "lesson_id": 4,
+          "question_type": "multiple_choice",
+          "question_text": "What is the main difference between a while loop and a do-while loop?",
+          "code_snippet": null,
+          "options": [
+            "A while loop checks the condition before executing the block of code, while a do-while loop checks after.",
+            "A while loop can only run once, while a do-while can run multiple times.",
+            "A while loop is faster than a do-while loop.",
+            "There is no difference."
+          ],
+          "correct_answer": 0,
+          "explanation": "Hint: Pay attention to whether the condition is checked before or after execution.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 16,
+          "lesson_id": 4,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Fill in the loop condition to run the code as long as i is less than 5:",
+          "code_snippet": "for (int i = 0; ___ ; i++) { }",
+          "options": ["i > 5", "i = 5", "i < 5", "i <= 5"],
+          "correct_answer": 2,
+          "explanation": "Hint: Think about the comparison operator used to check an upper boundary strictly less than 5.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "arrays": {
+      "lesson": {
+        "lesson_id": 5,
+        "title": "Arrays",
+        "subtitle": "Manage ordered lists of elements.",
+        "theory_text": "An array is a data structure that can hold multiple values of the same type. In Java, arrays are declared with a specific size and can be accessed using an index, starting from 0.",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n    int[] numbers = {1, 2, 3, 4, 5};\n        System.out.println(\"First number: \" + numbers[0]); // Outputs 1\n    }\n}",
+        "order_index": 5
+      },
+      "questions": [
+        {
+          "question_id": 17,
+          "lesson_id": 5,
+          "question_type": "multiple_choice",
+          "question_text": "What is the index of the first element in an array in Java?",
+          "code_snippet": null,
+          "options": ["0", "1", "-1", "Depends on the array size"],
+          "correct_answer": 0,
+          "explanation": "Hint: Java uses zero-based indexing for arrays and collections.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 18,
+          "lesson_id": 5,
+          "question_type": "multiple_choice",
+          "question_text": "How do you declare an array of integers with a size of 10 in Java?",
+          "code_snippet": null,
+          "options": ["int[] arr = new int[10];", "int arr = new int[10];", "int arr[] = new int(10);", "int arr = new int[];"],
+          "correct_answer": 0,
+          "explanation": "Hint: Look for the brackets [] paired with the new keyword and size specification.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 19,
+          "lesson_id": 5,
+          "question_type": "multiple_choice",
+          "question_text": "What will be the output of the following code snippet?",
+          "code_snippet": "int[] numbers = {10, 20, 30};\nSystem.out.println(numbers[2]);",
+          "options": ["10", "20", "30", "Error"],
+          "correct_answer": 2,
+          "explanation": "Hint: Remember that indexing starts at 0, so index 2 is the third element.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 20,
+          "lesson_id": 5,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Fill in the keyword used to allocate memory when instantiating an array:",
+          "code_snippet": "int[] numbers = ___ int[5];",
+          "options": ["alloc", "new", "create", "init"],
+          "correct_answer": 1,
+          "explanation": "Hint: This keyword is used across Java to create objects and arrays in heap memory.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "methods": {
+      "lesson": {
+        "lesson_id": 6,
+        "title": "Methods",
+        "subtitle": "Structure your application with functions and scope.",
+        "theory_text": "A method is a block of code that performs a specific task and can be called upon when needed. Methods can take parameters, return values, and help organize code into reusable sections.",
+        "code_example": "public class Main {\n    public static void main(String[] args) {\n        int result = add(5, 10);\n        System.out.println(\"Sum: \" + result); // Outputs 15\n    }\n\n    public static int add(int a, int b) {\n        return a + b;\n    }\n}",
+        "order_index": 6
+      },
+      "questions": [
+        {
+          "question_id": 21,
+          "lesson_id": 6,
+          "question_type": "multiple_choice",
+          "question_text": "What is the purpose of a method in Java?",
+          "code_snippet": null,
+          "options": ["To store data", "To perform a specific task and can be reused", "To create variables", "To handle exceptions"],
+          "correct_answer": 1,
+          "explanation": "Hint: Methods help structure modular code so you do not have to rewrite the same logic.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 22,
+          "lesson_id": 6,
+          "question_type": "multiple_choice",
+          "question_text": "How do you call the add method with parameters 5 and 10 in the provided code snippet?",
+          "code_snippet": null,
+          "options": ["add(5, 10);", "add(10, 5);", "add();", "add(5);"],
+          "correct_answer": 0,
+          "explanation": "Hint: Pass the argument values inside parentheses directly after the method name.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 23,
+          "lesson_id": 6,
+          "question_type": "multiple_choice",
+          "question_text": "What will be the output of the following code snippet?",
+          "code_snippet": "int result = add(3, 7);\nSystem.out.println(result);",
+          "options": ["3", "7", "10", "Error"],
+          "correct_answer": 2,
+          "explanation": "Hint: Substitute the arguments into the addition logic of the method.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 24,
+          "lesson_id": 6,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Complete the method definition by providing the keyword used to send a value back to the caller:",
+          "code_snippet": "public int add(int a, int b) {\n    ___ a + b;\n}",
+          "options": ["give", "output", "return", "send"],
+          "correct_answer": 2,
+          "explanation": "Hint: This keyword exits the method and passes the computed result back.",
+          "xp_reward": 25
+        }
+      ]
+    },
+    "classes": {
+      "lesson": {
+        "lesson_id": 7,
+        "title": "Classes & Objects",
+        "subtitle": "Build object-oriented structures in Java.",
+        "theory_text": "In Java, a class is a blueprint for creating objects. An object is an instance of a class that can have attributes (fields) and behaviors (methods). Classes encapsulate data and functionality, promoting modularity and reusability.",
+        "code_example": "public class Car {\n    String color;\n    int speed;\n\n    public void accelerate() {\n        speed += 10;\n    }\n\n    public static void main(String[] args) {\n        Car myCar = new Car();\n        myCar.color = \"Red\";\n        myCar.speed = 0;\n        myCar.accelerate();\n        System.out.println(\"Car color: \" + myCar.color + \", Speed: \" + myCar.speed); // Outputs Red, Speed: 10\n    }\n}",
+        "order_index": 7
+      },
+      "questions": [
+        {
+          "question_id": 25,
+          "lesson_id": 7,
+          "question_type": "multiple_choice",
+          "question_text": "What is the relationship between a class and an object in Java?",
+          "code_snippet": null,
+          "options": ["A class is an instance of an object", "An object is a blueprint for a class", "A class is a blueprint for creating objects", "There is no relationship"],
+          "correct_answer": 2,
+          "explanation": "Hint: Think of the class as the architectural blueprint and the object as the built house.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 26,
+          "lesson_id": 7,
+          "question_type": "multiple_choice",
+          "question_text": "How do you create an instance of the Car class in the provided code snippet?",
+          "code_snippet": null,
+          "options": ["Car myCar = new Car();", "Car myCar = Car();", "myCar = new Car();", "Car myCar;"],
+          "correct_answer": 0,
+          "explanation": "Hint: Use the class name followed by the variable name, new keyword, and constructor.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 27,
+          "lesson_id": 7,
+          "question_type": "multiple_choice",
+          "question_text": "What will be the output of the following code snippet?",
+          "code_snippet": "Car myCar = new Car();\nmyCar.color = \"Blue\";\nmyCar.speed = 20;\nmyCar.accelerate();\nSystem.out.println(myCar.speed);",
+          "options": ["20", "30", "10", "Error"],
+          "correct_answer": 1,
+          "explanation": "Hint: Track how the accelerate method modifies the speed field starting from 20.",
+          "xp_reward": 25
+        },
+        {
+          "question_id": 28,
+          "lesson_id": 7,
+          "question_type": "fill_in_the_blanks",
+          "question_text": "Complete the missing keyword to instantiate an object of the Car class:",
+          "code_snippet": "Car myCar = ___ Car();",
+          "options": ["null", "this", "new", "class"],
+          "correct_answer": 2,
+          "explanation": "Hint: Used alongside constructor calls to allocate a brand new object instance.",
+          "xp_reward": 25
+        }
+      ]
+    }
+  }
+}
