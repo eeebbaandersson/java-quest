@@ -80,4 +80,8 @@ function getLevel(xp) {
   return current;
 }
 
-export default { getTotalXp, addXp, addPoints, getLevel, LEVELS, totalXP };
+function getNextLevel(xp) {
+  return LEVELS.find((l) => xp < l.minXP) || null;
+}
+
+export default { getTotalXp, addXp, addPoints, getLevel, getNextLevel, LEVELS, totalXP };

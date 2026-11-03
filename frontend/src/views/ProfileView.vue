@@ -40,6 +40,12 @@ const handleReset = () => {
 
 const currentLevelObj = computed(() => xpService.getLevel(totalXP.value));
 
+const nextLevel = computed(() => xpService.getNextLevel(totalXP.value));
+
+const xpToNextLevel = computed(() =>
+  nextLevel.value ? nextLevel.value.minXP - totalXP.value : 0
+);
+
 const progressPercentage = computed(() => {
   const maxXP = levels[levels.length - 1].minXP; // 600
   if (totalXP.value < maxXP) {
@@ -102,6 +108,12 @@ const progressPercentage = computed(() => {
                 </div>
               </div>
             </div>
+            <p v-if="nextLevel" class="xp-to-next">
+              {{ xpToNextLevel }} XP to Level {{ nextLevel.level }}
+            </p>
+            <p v-else class="xp-to-next">
+              Max level reached!
+            </p>
           </div>
         </div>
       </div>
