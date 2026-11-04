@@ -24,7 +24,7 @@ const arenaService = {
     },
 
     async completeArena(arenaId, userId) {
-        await db.query('INSERT INTO UserArenas (user_id, arena_id, completed_at) VALUES (?, ?, NOW())', [userId, arenaId]);
+        await db.query('INSERT INTO UserArenas (user_id, arena_id, completed_at) VALUES (?, ?, NOW()) ON DUPLICATE KEY UPDATE completed_at = NOW()', [userId, arenaId]);
     }
 };
 
