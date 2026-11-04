@@ -1,5 +1,9 @@
 # JAVA{}QUEST
 
+<p>
+<img src="assets/preview.png" alt="Java Quest preview" width="1000">
+</p>
+
 **JAVA{}QUEST** is an interactive, gamified web application designed to help learners master core Java concepts step-by-step through interactive lessons, micro-challenges, arena battles, and bug-hunting gameplay.
 
 🌐 **Live Frontend Demo:** [https://eeebbaandersson.github.io/java-quest/](https://eeebbaandersson.github.io/java-quest/)
@@ -41,6 +45,8 @@ javaQuest/
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml            # CI/CD deployment workflow for GitHub Pages
+├── assets/
+│   └── preview.png               # Application preview screenshot for README
 ├── backend/
 │   ├── controllers/              # Express route controllers (Arena & Lessons)
 │   ├── routes/                   # API endpoint definitions
