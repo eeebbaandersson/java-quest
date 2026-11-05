@@ -27,7 +27,7 @@ const levels = xpService.LEVELS;
 
 const handleReset = () => {
   const confirmed = window.confirm(
-    "Are you sure? All XP, captured bugs, trophies and completed lessons will be reset."
+    "Are you sure? All XP, captured bugs, trophies, completed lessons and arena progression will be reset."
   );
   if (!confirmed) return;
 
